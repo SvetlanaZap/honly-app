@@ -114,6 +114,38 @@ export default function Onboarding() {
                 <ChipGroup options={VALUES} selected={values} onToggle={v => toggle(values, setValues, v)} max={4} />
               </div>
             )}
+
+            {step === 5 && (
+              <div className="flex flex-col gap-8">
+                <div><span className="text-4xl mb-3 block">📱</span><h2 className="text-3xl mb-1 font-heading text-navy">Chat rhythm</h2><p className="text-slate-muted">How and how often do you like to connect?</p></div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Texting frequency</p>
+                  <ChipGroup options={TEXT_FREQUENCY} selected={textFreq} onToggle={v => toggle(textFreq, setTextFreq, v)} max={1} color="hsl(var(--teal))" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Response time</p>
+                  <ChipGroup options={RESPONSE_TIME} selected={responseTime} onToggle={v => toggle(responseTime, setResponseTime, v)} max={1} color="hsl(var(--teal))" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Voice & video</p>
+                  <ChipGroup options={CALL_PREFS} selected={callPrefs} onToggle={v => toggle(callPrefs, setCallPrefs, v)} />
+                </div>
+              </div>
+            )}
+
+            {step === 6 && (
+              <div className="flex flex-col gap-8">
+                <div><span className="text-4xl mb-3 block">💞</span><h2 className="text-3xl mb-1 font-heading text-navy">Vibe & boundaries</h2><p className="text-slate-muted">Set the tone for your conversations.</p></div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Flirting</p>
+                  <ChipGroup options={FLIRTING} selected={flirting} onToggle={v => toggle(flirting, setFlirting, v)} max={1} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Boundaries (optional)</p>
+                  <ChipGroup options={BOUNDARIES} selected={boundaries} onToggle={v => toggle(boundaries, setBoundaries, v)} color="hsl(var(--teal))" />
+                </div>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
 
