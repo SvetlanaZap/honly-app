@@ -30,48 +30,136 @@ function ChipGroup({ options, selected, onToggle, max, color = "hsl(var(--coral)
   );
 }
 
-const INTERESTS = ["Music", "Art", "Photography", "Travel", "Cooking", "Reading", "Gaming", "Fitness", "Nature", "Tech", "Movies", "Writing", "Yoga", "Dancing", "Coffee", "Philosophy"];
-const CONVO_STYLES = ["Playful & witty", "Thoughtful & reflective", "Intellectual & analytical", "Warm & nurturing", "Direct & honest", "Curious & questioning"];
-const VALUES = ["Honesty", "Kindness", "Growth", "Freedom", "Authenticity", "Compassion", "Curiosity", "Courage"];
+function Single({ options, value, onChange, color = "hsl(var(--coral))" }: {
+  options: string[]; value: string; onChange: (v: string) => void; color?: string;
+}) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {options.map(opt => {
+        const active = value === opt;
+        return (
+          <button key={opt} type="button" onClick={() => onChange(active ? "" : opt)}
+            className="honly-tag transition-all"
+            style={{
+              backgroundColor: active ? color : undefined,
+              color: active ? "white" : undefined,
+              borderColor: active ? color : undefined,
+              fontWeight: active ? 600 : 400,
+            }}>{opt}</button>
+        );
+      })}
+    </div>
+  );
+}
 
-const TEXT_FREQUENCY = ["A few times a day", "Once a day", "Every few days", "Whenever it flows"];
-const RESPONSE_TIME = ["Within minutes", "Within a few hours", "Same day", "No expectations"];
-const FLIRTING = ["Love it", "Light & playful only", "Prefer to keep it friendly", "Not into it"];
-const CALL_PREFS = ["Open to voice notes", "Open to voice calls", "Open to video calls", "Text only for now"];
-const BOUNDARIES = ["No late-night texts", "No explicit content", "No pet names early on", "Please ask before calling", "Slow build-up preferred"];
+// Step 1
+const GENDERS = ["Man", "Woman", "Non-binary", "Other", "Prefer not to say"];
+
+// Step 2
+const SPIRITUAL_PATHS = ["Spiritual but not religious", "Buddhist", "Christian", "Hindu", "Muslim", "Jewish", "Mystical / esoteric", "Energy work", "Atheist but curious", "Agnostic", "Pagan / nature-based", "Secular / no label", "Still exploring"];
+const SPIRIT_IMPORTANCE = ["🌱 Low", "🌿 Medium", "🌳 High", "🌟 Central"];
+const PRACTICES = ["Meditation", "Prayer", "Tarot / oracle cards", "Astrology", "Yoga", "Journaling", "Breathwork", "Church / temple / mosque", "Rituals", "Nature walks", "Fasting", "Sound healing", "Dream work", "Somatic practices"];
+const BELIEFS = ["Intuition", "Karma", "God / higher power", "The Universe", "Manifestation", "Reincarnation", "Healing energy", "Science first", "Synchronicity", "Ancestral wisdom", "Free will", "Fate / destiny"];
+const SPIRIT_TOPICS = ["Meaning of life", "Relationships & attachment", "Shadow work", "Dreams & the subconscious", "Consciousness", "Purpose & calling", "Healing & trauma", "Death & afterlife", "Mystical experiences", "Religion & culture", "Psychedelics & expansion", "Awakening"];
+
+// Step 3
+const CONNECTION_TYPES = ["Deep, meaningful talks", "Light daily chat", "Emotional support", "Philosophical exchange", "Spiritual connection", "Intellectual sparring", "Playful banter", "Slow and intentional", "Flirty energy"];
+const CONVO_STYLES = ["Playful & witty", "Thoughtful & reflective", "Intellectual & analytical", "Warm & nurturing", "Direct & honest", "Slow and deep", "Poetic & expressive", "Curious & questioning"];
+const TEXT_FREQUENCY = ["A lot — I love long conversations", "A few times a day", "Sometimes, when inspired", "Only when there's real connection"];
+const REPLY_STYLE = ["Short, punchy messages", "Long, thoughtful messages", "Voice-note style (but text)", "Fast replies — I'm always around", "Slow, deliberate replies"];
+const CONVO_STARTERS = ["Big philosophical questions", "Everyday life & feelings", "Emotions & inner world", "Books & ideas", "Spirituality & beliefs", "Weird thoughts & dreams", "Humor & absurdity", "Creativity & art"];
+
+// Step 4
+const VALUES = ["Honesty", "Kindness", "Growth", "Ambition", "Loyalty", "Freedom", "Faith", "Mindfulness", "Authenticity", "Compassion", "Courage", "Simplicity", "Curiosity", "Service to others"];
+const PEACE = ["Silence", "Prayer / meditation", "Ocean / water", "Music", "Nature", "Movement / exercise", "Deep conversation", "Solitude", "Creative work", "Animals", "Reading", "Cooking"];
+const APPRECIATED = ["Calm energy", "Humor", "Empathy", "Curiosity", "Wisdom", "Honesty", "Warmth", "Depth", "Creativity", "Reliability", "Playfulness"];
+const WORKING_ON = ["Healing old wounds", "Personal growth", "Career & purpose", "Self-love", "Discipline", "Opening up emotionally", "Finding my path", "Letting go", "Building something meaningful", "Spiritual deepening"];
+
+// Step 5
+const DAY_TYPE = ["☀️ Morning person", "🌙 Night owl", "🌤️ Depends on the day"];
+const SOCIAL = ["Introvert", "Extrovert", "Ambivert"];
+const LOVE_LANG = ["Words of affirmation", "Quality time", "Acts of service", "Physical touch", "Gifts"];
+const RELATIONSHIP = ["Single & not looking", "Single & open", "In a relationship", "It's complicated", "Prefer not to say"];
+const SUBSTANCES = ["I don't drink or smoke", "Occasionally social", "Regularly", "Prefer not to say"];
+
+// Step 6
+const OPEN_TOPICS = ["Mental health", "Relationships & love", "Spirituality", "Politics", "Sex & intimacy", "Trauma & healing", "Death & grief", "Money & ambition", "Family dynamics", "Controversial ideas", "Psychedelics", "Religion"];
+const AVOID_TOPICS = ["Politics", "Sex & intimacy", "Trauma details", "Religion debates", "Conspiracy theories", "Negative gossip", "Graphic content", "Relationship drama"];
+const FLIRTING = ["Yes, if it's respectful", "Light flirting is fine", "No, please keep it platonic", "Depends on the person"];
+const DEEP_CONVOS = ["Yes — that's why I'm here", "Sometimes, when I'm ready", "I prefer lighter topics", "Depends on the connection"];
+const VISIBILITY = ["👤 Real profile", "🎭 Anonymous"];
 
 const TOTAL_STEPS = 6;
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+
+  // Step 1
   const [name, setName] = useState("");
-  const [bio, setBio] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
-  const [interests, setInterests] = useState<string[]>([]);
+  const [timezone, setTimezone] = useState("");
+  const [bio, setBio] = useState("");
+
+  // Step 2
+  const [spiritualPath, setSpiritualPath] = useState("");
+  const [spiritImportance, setSpiritImportance] = useState("");
+  const [practices, setPractices] = useState<string[]>([]);
+  const [beliefs, setBeliefs] = useState<string[]>([]);
+  const [spiritTopics, setSpiritTopics] = useState<string[]>([]);
+  const [spiritMeaning, setSpiritMeaning] = useState("");
+
+  // Step 3
+  const [connectionType, setConnectionType] = useState<string[]>([]);
   const [convoStyle, setConvoStyle] = useState<string[]>([]);
+  const [textFreq, setTextFreq] = useState("");
+  const [replyStyle, setReplyStyle] = useState("");
+  const [convoStarters, setConvoStarters] = useState<string[]>([]);
+
+  // Step 4
   const [values, setValues] = useState<string[]>([]);
-  const [textFreq, setTextFreq] = useState<string[]>([]);
-  const [responseTime, setResponseTime] = useState<string[]>([]);
-  const [flirting, setFlirting] = useState<string[]>([]);
-  const [callPrefs, setCallPrefs] = useState<string[]>([]);
-  const [boundaries, setBoundaries] = useState<string[]>([]);
+  const [peace, setPeace] = useState<string[]>([]);
+  const [appreciated, setAppreciated] = useState<string[]>([]);
+  const [workingOn, setWorkingOn] = useState<string[]>([]);
+
+  // Step 5
+  const [dayType, setDayType] = useState("");
+  const [social, setSocial] = useState("");
+  const [loveLang, setLoveLang] = useState("");
+  const [relationship, setRelationship] = useState("");
+  const [substances, setSubstances] = useState("");
+
+  // Step 6
+  const [openTopics, setOpenTopics] = useState<string[]>([]);
+  const [avoidTopics, setAvoidTopics] = useState<string[]>([]);
+  const [flirting, setFlirting] = useState("");
+  const [deepConvos, setDeepConvos] = useState("");
+  const [visibility, setVisibility] = useState("");
 
   const toggle = (arr: string[], set: React.Dispatch<React.SetStateAction<string[]>>, v: string) => {
     set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
   };
 
   const next = () => {
-    if (step === 1 && !name.trim()) { toast.error("Please enter your name"); return; }
+    if (step === 1) {
+      if (!name.trim()) { toast.error("Please enter your name"); return; }
+      const n = parseInt(age, 10);
+      if (!n || n < 18 || n > 99) { toast.error("Please enter a valid age (18–99)"); return; }
+    }
     if (step < TOTAL_STEPS) setStep(step + 1);
     else { toast.success("Profile created!"); navigate("/discover"); }
   };
 
+  const teal = "hsl(var(--teal))";
+  const coral = "hsl(var(--coral))";
+
   return (
-    <div className="min-h-screen bg-background font-body flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-background font-body flex flex-col items-center p-6 py-10">
       <div className="w-full max-w-lg">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8">
+        <div className="flex items-center justify-center gap-2 mb-6">
           <img src={logoImg} alt="HOnly" className="w-8 h-8 object-contain" />
           <span className="text-xl font-bold font-heading text-navy">H<span className="text-coral">Only</span></span>
         </div>
@@ -79,70 +167,196 @@ export default function Onboarding() {
         {/* Progress */}
         <div className="flex gap-2 mb-8">
           {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-            <div key={i} className="flex-1 h-1.5 rounded-full transition-all" style={{ backgroundColor: i < step ? "hsl(var(--coral))" : "hsl(var(--cream-dark))" }} />
+            <div key={i} className="flex-1 h-1.5 rounded-full transition-all" style={{ backgroundColor: i < step ? coral : "hsl(var(--cream-dark))" }} />
           ))}
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+          <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
             {step === 1 && (
               <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">👤</span><h2 className="text-3xl mb-1 font-heading text-navy">About you</h2><p className="text-slate-muted">Let's start with the basics.</p></div>
-                <div><label className="block text-sm font-medium mb-1.5 text-navy">Display name</label><input className="honly-input" placeholder="What should people call you?" value={name} onChange={e => setName(e.target.value)} /></div>
-                <div><label className="block text-sm font-medium mb-1.5 text-navy">City</label><input className="honly-input" placeholder="Where are you based?" value={city} onChange={e => setCity(e.target.value)} /></div>
-                <div><label className="block text-sm font-medium mb-1.5 text-navy">Short bio</label><textarea className="honly-input min-h-[100px] resize-none" placeholder="Tell people something about yourself..." value={bio} onChange={e => setBio(e.target.value)} /></div>
+                <div>
+                  <span className="text-4xl mb-3 block">👤</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Basics</h2>
+                  <p className="text-slate-muted">This is what people will see on your profile. Be real — that's the whole point.</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5 text-navy">Display name</label>
+                  <input className="honly-input" placeholder="How should people call you?" value={name} onChange={e => setName(e.target.value)} />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-1.5 text-navy">Age</label>
+                    <input type="number" min={18} max={99} className="honly-input" placeholder="18–99" value={age} onChange={e => setAge(e.target.value)} />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1.5 text-navy">Time zone</label>
+                    <input className="honly-input" placeholder="e.g. UTC+3, EST" value={timezone} onChange={e => setTimezone(e.target.value)} />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-navy">I am…</label>
+                  <Single options={GENDERS} value={gender} onChange={setGender} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5 text-navy">City / Country</label>
+                  <input className="honly-input" placeholder='e.g. "Berlin, Germany"' value={city} onChange={e => setCity(e.target.value)} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5 text-navy">Short bio</label>
+                  <textarea maxLength={200} className="honly-input min-h-[100px] resize-none" placeholder="What's your vibe?" value={bio} onChange={e => setBio(e.target.value)} />
+                  <p className="text-xs text-slate-muted mt-1">{bio.length}/200</p>
+                </div>
               </div>
             )}
 
             {step === 2 && (
-              <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">✨</span><h2 className="text-3xl mb-1 font-heading text-navy">Your interests</h2><p className="text-slate-muted">Pick up to 6 things you love.</p></div>
-                <ChipGroup options={INTERESTS} selected={interests} onToggle={v => toggle(interests, setInterests, v)} max={6} />
+              <div className="flex flex-col gap-8">
+                <div>
+                  <span className="text-4xl mb-3 block">✨</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Spirituality</h2>
+                  <p className="text-slate-muted">Not about religion — about how you relate to the deeper parts of life.</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">My spiritual path or tradition</p>
+                  <Single options={SPIRITUAL_PATHS} value={spiritualPath} onChange={setSpiritualPath} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">How important is spirituality?</p>
+                  <Single options={SPIRIT_IMPORTANCE} value={spiritImportance} onChange={setSpiritImportance} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Practices I do</p>
+                  <ChipGroup options={PRACTICES} selected={practices} onToggle={v => toggle(practices, setPractices, v)} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">What I believe in</p>
+                  <ChipGroup options={BELIEFS} selected={beliefs} onToggle={v => toggle(beliefs, setBeliefs, v)} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Topics I love discussing (up to 5)</p>
+                  <ChipGroup options={SPIRIT_TOPICS} selected={spiritTopics} onToggle={v => toggle(spiritTopics, setSpiritTopics, v)} max={5} color={teal} />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5 text-navy">What does spirituality mean to you?</label>
+                  <textarea maxLength={240} className="honly-input min-h-[90px] resize-none" placeholder="One honest sentence…" value={spiritMeaning} onChange={e => setSpiritMeaning(e.target.value)} />
+                  <p className="text-xs text-slate-muted mt-1">{spiritMeaning.length}/240</p>
+                </div>
               </div>
             )}
 
             {step === 3 && (
-              <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">💬</span><h2 className="text-3xl mb-1 font-heading text-navy">Conversation style</h2><p className="text-slate-muted">How do you like to talk?</p></div>
-                <ChipGroup options={CONVO_STYLES} selected={convoStyle} onToggle={v => toggle(convoStyle, setConvoStyle, v)} max={3} color="hsl(var(--teal))" />
+              <div className="flex flex-col gap-8">
+                <div>
+                  <span className="text-4xl mb-3 block">💬</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Conversation</h2>
+                  <p className="text-slate-muted">How you connect — before anyone even says hello.</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Connection I'm looking for (up to 3)</p>
+                  <ChipGroup options={CONNECTION_TYPES} selected={connectionType} onToggle={v => toggle(connectionType, setConnectionType, v)} max={3} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">My conversation style (up to 3)</p>
+                  <ChipGroup options={CONVO_STYLES} selected={convoStyle} onToggle={v => toggle(convoStyle, setConvoStyle, v)} max={3} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">How often do you like texting?</p>
+                  <Single options={TEXT_FREQUENCY} value={textFreq} onChange={setTextFreq} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">My reply style</p>
+                  <Single options={REPLY_STYLE} value={replyStyle} onChange={setReplyStyle} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Best conversation starters for me</p>
+                  <ChipGroup options={CONVO_STARTERS} selected={convoStarters} onToggle={v => toggle(convoStarters, setConvoStarters, v)} color={teal} />
+                </div>
               </div>
             )}
 
             {step === 4 && (
-              <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">🌿</span><h2 className="text-3xl mb-1 font-heading text-navy">Your values</h2><p className="text-slate-muted">What matters most to you?</p></div>
-                <ChipGroup options={VALUES} selected={values} onToggle={v => toggle(values, setValues, v)} max={4} />
+              <div className="flex flex-col gap-8">
+                <div>
+                  <span className="text-4xl mb-3 block">🌿</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Inner World</h2>
+                  <p className="text-slate-muted">The things that make you, you. Where real compatibility lives.</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Values that matter most (up to 5)</p>
+                  <ChipGroup options={VALUES} selected={values} onToggle={v => toggle(values, setValues, v)} max={5} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">What gives me peace</p>
+                  <ChipGroup options={PEACE} selected={peace} onToggle={v => toggle(peace, setPeace, v)} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">What people appreciate in me (up to 3)</p>
+                  <ChipGroup options={APPRECIATED} selected={appreciated} onToggle={v => toggle(appreciated, setAppreciated, v)} max={3} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">What I'm working on (up to 3)</p>
+                  <ChipGroup options={WORKING_ON} selected={workingOn} onToggle={v => toggle(workingOn, setWorkingOn, v)} max={3} color={teal} />
+                </div>
               </div>
             )}
 
             {step === 5 && (
               <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">📱</span><h2 className="text-3xl mb-1 font-heading text-navy">Chat rhythm</h2><p className="text-slate-muted">How and how often do you like to connect?</p></div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Texting frequency</p>
-                  <ChipGroup options={TEXT_FREQUENCY} selected={textFreq} onToggle={v => toggle(textFreq, setTextFreq, v)} max={1} color="hsl(var(--teal))" />
+                  <span className="text-4xl mb-3 block">🌙</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Lifestyle</h2>
+                  <p className="text-slate-muted">Small details that matter for real connection.</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Response time</p>
-                  <ChipGroup options={RESPONSE_TIME} selected={responseTime} onToggle={v => toggle(responseTime, setResponseTime, v)} max={1} color="hsl(var(--teal))" />
+                  <p className="text-sm font-medium mb-2 text-navy">I am a…</p>
+                  <Single options={DAY_TYPE} value={dayType} onChange={setDayType} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Voice & video</p>
-                  <ChipGroup options={CALL_PREFS} selected={callPrefs} onToggle={v => toggle(callPrefs, setCallPrefs, v)} />
+                  <p className="text-sm font-medium mb-2 text-navy">Socially, I'm…</p>
+                  <Single options={SOCIAL} value={social} onChange={setSocial} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">My love language</p>
+                  <Single options={LOVE_LANG} value={loveLang} onChange={setLoveLang} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Relationship status</p>
+                  <Single options={RELATIONSHIP} value={relationship} onChange={setRelationship} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Alcohol, smoking, substances</p>
+                  <Single options={SUBSTANCES} value={substances} onChange={setSubstances} />
                 </div>
               </div>
             )}
 
             {step === 6 && (
               <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">💞</span><h2 className="text-3xl mb-1 font-heading text-navy">Vibe & boundaries</h2><p className="text-slate-muted">Set the tone for your conversations.</p></div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Flirting</p>
-                  <ChipGroup options={FLIRTING} selected={flirting} onToggle={v => toggle(flirting, setFlirting, v)} max={1} />
+                  <span className="text-4xl mb-3 block">🛡️</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Boundaries</h2>
+                  <p className="text-slate-muted">Knowing your limits upfront makes things safer and more honest.</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Boundaries (optional)</p>
-                  <ChipGroup options={BOUNDARIES} selected={boundaries} onToggle={v => toggle(boundaries, setBoundaries, v)} color="hsl(var(--teal))" />
+                  <p className="text-sm font-medium mb-2 text-navy">Topics I'm open to discussing</p>
+                  <ChipGroup options={OPEN_TOPICS} selected={openTopics} onToggle={v => toggle(openTopics, setOpenTopics, v)} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Topics I'd rather not discuss</p>
+                  <ChipGroup options={AVOID_TOPICS} selected={avoidTopics} onToggle={v => toggle(avoidTopics, setAvoidTopics, v)} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Am I okay with flirting?</p>
+                  <Single options={FLIRTING} value={flirting} onChange={setFlirting} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Am I okay with deep conversations?</p>
+                  <Single options={DEEP_CONVOS} value={deepConvos} onChange={setDeepConvos} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Profile visibility</p>
+                  <Single options={VISIBILITY} value={visibility} onChange={setVisibility} />
                 </div>
               </div>
             )}
