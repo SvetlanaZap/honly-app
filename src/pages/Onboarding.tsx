@@ -34,7 +34,13 @@ const INTERESTS = ["Music", "Art", "Photography", "Travel", "Cooking", "Reading"
 const CONVO_STYLES = ["Playful & witty", "Thoughtful & reflective", "Intellectual & analytical", "Warm & nurturing", "Direct & honest", "Curious & questioning"];
 const VALUES = ["Honesty", "Kindness", "Growth", "Freedom", "Authenticity", "Compassion", "Curiosity", "Courage"];
 
-const TOTAL_STEPS = 4;
+const TEXT_FREQUENCY = ["A few times a day", "Once a day", "Every few days", "Whenever it flows"];
+const RESPONSE_TIME = ["Within minutes", "Within a few hours", "Same day", "No expectations"];
+const FLIRTING = ["Love it", "Light & playful only", "Prefer to keep it friendly", "Not into it"];
+const CALL_PREFS = ["Open to voice notes", "Open to voice calls", "Open to video calls", "Text only for now"];
+const BOUNDARIES = ["No late-night texts", "No explicit content", "No pet names early on", "Please ask before calling", "Slow build-up preferred"];
+
+const TOTAL_STEPS = 6;
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
@@ -45,6 +51,11 @@ export default function Onboarding() {
   const [interests, setInterests] = useState<string[]>([]);
   const [convoStyle, setConvoStyle] = useState<string[]>([]);
   const [values, setValues] = useState<string[]>([]);
+  const [textFreq, setTextFreq] = useState<string[]>([]);
+  const [responseTime, setResponseTime] = useState<string[]>([]);
+  const [flirting, setFlirting] = useState<string[]>([]);
+  const [callPrefs, setCallPrefs] = useState<string[]>([]);
+  const [boundaries, setBoundaries] = useState<string[]>([]);
 
   const toggle = (arr: string[], set: React.Dispatch<React.SetStateAction<string[]>>, v: string) => {
     set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
