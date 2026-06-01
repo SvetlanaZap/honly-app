@@ -34,7 +34,13 @@ const INTERESTS = ["Music", "Art", "Photography", "Travel", "Cooking", "Reading"
 const CONVO_STYLES = ["Playful & witty", "Thoughtful & reflective", "Intellectual & analytical", "Warm & nurturing", "Direct & honest", "Curious & questioning"];
 const VALUES = ["Honesty", "Kindness", "Growth", "Freedom", "Authenticity", "Compassion", "Curiosity", "Courage"];
 
-const TOTAL_STEPS = 4;
+const TEXT_FREQUENCY = ["A few times a day", "Once a day", "Every few days", "Whenever it flows"];
+const RESPONSE_TIME = ["Within minutes", "Within a few hours", "Same day", "No expectations"];
+const FLIRTING = ["Love it", "Light & playful only", "Prefer to keep it friendly", "Not into it"];
+const CALL_PREFS = ["Open to voice notes", "Open to voice calls", "Open to video calls", "Text only for now"];
+const BOUNDARIES = ["No late-night texts", "No explicit content", "No pet names early on", "Please ask before calling", "Slow build-up preferred"];
+
+const TOTAL_STEPS = 6;
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
@@ -45,6 +51,11 @@ export default function Onboarding() {
   const [interests, setInterests] = useState<string[]>([]);
   const [convoStyle, setConvoStyle] = useState<string[]>([]);
   const [values, setValues] = useState<string[]>([]);
+  const [textFreq, setTextFreq] = useState<string[]>([]);
+  const [responseTime, setResponseTime] = useState<string[]>([]);
+  const [flirting, setFlirting] = useState<string[]>([]);
+  const [callPrefs, setCallPrefs] = useState<string[]>([]);
+  const [boundaries, setBoundaries] = useState<string[]>([]);
 
   const toggle = (arr: string[], set: React.Dispatch<React.SetStateAction<string[]>>, v: string) => {
     set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
@@ -101,6 +112,38 @@ export default function Onboarding() {
               <div className="flex flex-col gap-6">
                 <div><span className="text-4xl mb-3 block">🌿</span><h2 className="text-3xl mb-1 font-heading text-navy">Your values</h2><p className="text-slate-muted">What matters most to you?</p></div>
                 <ChipGroup options={VALUES} selected={values} onToggle={v => toggle(values, setValues, v)} max={4} />
+              </div>
+            )}
+
+            {step === 5 && (
+              <div className="flex flex-col gap-8">
+                <div><span className="text-4xl mb-3 block">📱</span><h2 className="text-3xl mb-1 font-heading text-navy">Chat rhythm</h2><p className="text-slate-muted">How and how often do you like to connect?</p></div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Texting frequency</p>
+                  <ChipGroup options={TEXT_FREQUENCY} selected={textFreq} onToggle={v => toggle(textFreq, setTextFreq, v)} max={1} color="hsl(var(--teal))" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Response time</p>
+                  <ChipGroup options={RESPONSE_TIME} selected={responseTime} onToggle={v => toggle(responseTime, setResponseTime, v)} max={1} color="hsl(var(--teal))" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Voice & video</p>
+                  <ChipGroup options={CALL_PREFS} selected={callPrefs} onToggle={v => toggle(callPrefs, setCallPrefs, v)} />
+                </div>
+              </div>
+            )}
+
+            {step === 6 && (
+              <div className="flex flex-col gap-8">
+                <div><span className="text-4xl mb-3 block">💞</span><h2 className="text-3xl mb-1 font-heading text-navy">Vibe & boundaries</h2><p className="text-slate-muted">Set the tone for your conversations.</p></div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Flirting</p>
+                  <ChipGroup options={FLIRTING} selected={flirting} onToggle={v => toggle(flirting, setFlirting, v)} max={1} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Boundaries (optional)</p>
+                  <ChipGroup options={BOUNDARIES} selected={boundaries} onToggle={v => toggle(boundaries, setBoundaries, v)} color="hsl(var(--teal))" />
+                </div>
               </div>
             )}
           </motion.div>
