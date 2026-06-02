@@ -1,4 +1,4 @@
-import { Edit3, MapPin, Sparkles, MessageCircle, Heart, Leaf, Moon, Shield } from "lucide-react";
+import { Edit3, MapPin, Sparkles, MessageCircle, Heart, Leaf, Moon, Shield, Clock, User, Globe2, Quote } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -13,48 +13,80 @@ type Profile = {
   openTopics: string[]; avoidTopics: string[]; flirting: string; deepConvos: string; visibility: string;
 };
 
-function Chip({ label, color = "hsl(var(--coral))" }: { label: string; color?: string }) {
+function Chip({ label, tone = "coral" }: { label: string; tone?: "coral" | "teal" | "navy" | "cream" }) {
+  const map = {
+    coral: "bg-coral/12 text-coral border-coral/40",
+    teal: "bg-teal/12 text-teal border-teal/40",
+    navy: "bg-navy/8 text-navy border-navy/30",
+    cream: "bg-cream-dark text-navy border-navy/20",
+  } as const;
   return (
-    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
-      style={{ backgroundColor: color + "18", color, border: `1.5px solid ${color}40` }}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border-[1.5px] ${map[tone]}`}>
       {label}
     </span>
   );
 }
 
-function Field({ label, value, color = "hsl(var(--coral))" }: { label: string; value?: string; color?: string }) {
+function Field({ label, value, tone = "coral" }: { label: string; value?: string; tone?: "coral" | "teal" | "navy" | "cream" }) {
   if (!value) return null;
   return (
-    <div className="flex flex-col gap-1">
-      <span className="text-xs uppercase tracking-wider text-slate-muted font-heading">{label}</span>
-      <Chip label={value} color={color} />
+    <div className="flex flex-col gap-1.5">
+      <span className="text-[11px] uppercase tracking-[0.12em] text-slate-muted font-heading font-semibold">{label}</span>
+      <div><Chip label={value} tone={tone} /></div>
     </div>
   );
 }
 
-function Group({ label, values, color = "hsl(var(--coral))" }: { label: string; values?: string[]; color?: string }) {
+function Group({ label, values, tone = "coral" }: { label: string; values?: string[]; tone?: "coral" | "teal" | "navy" | "cream" }) {
   if (!values || values.length === 0) return null;
   return (
     <div>
-      <p className="text-xs uppercase tracking-wider mb-2 text-slate-muted font-heading">{label}</p>
+      <p className="text-[11px] uppercase tracking-[0.12em] mb-2 text-slate-muted font-heading font-semibold">{label}</p>
       <div className="flex flex-wrap gap-2">
-        {values.map(v => <Chip key={v} label={v} color={color} />)}
+        {values.map(v => <Chip key={v} label={v} tone={tone} />)}
       </div>
     </div>
   );
 }
 
-function Section({ icon, title, accent, children }: { icon: React.ReactNode; title: string; accent: string; children: React.ReactNode }) {
+function Section({
+  icon, title, subtitle, accent, children, delay = 0,
+}: {
+  icon: React.ReactNode; title: string; subtitle?: string;
+  accent: "coral" | "teal"; children: React.ReactNode; delay?: number;
+}) {
+  const accentBg = accent === "coral" ? "bg-coral" : "bg-teal";
   return (
-    <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl p-6 bg-card border-2 border-navy">
-      <div className="flex items-center gap-3 mb-5">
-        <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: accent }}>
-          {icon}
+    <motion.section
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.4 }}
+      className="relative rounded-2xl bg-card border-2 border-navy overflow-hidden transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_hsl(var(--navy))]"
+    >
+      <div className={`absolute top-0 left-0 right-0 h-1 ${accentBg}`} />
+      <div className="p-6">
+        <div className="flex items-start gap-3 mb-5">
+          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${accentBg} border-2 border-navy`}>
+            {icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold font-heading text-navy leading-tight">{title}</h3>
+            {subtitle && <p className="text-xs text-slate-muted mt-0.5">{subtitle}</p>}
+          </div>
         </div>
-        <h3 className="text-lg font-bold font-heading text-navy">{title}</h3>
+        <div className="flex flex-col gap-5">{children}</div>
       </div>
-      <div className="flex flex-col gap-5">{children}</div>
-    </motion.div>
+    </motion.section>
+  );
+}
+
+function Stat({ label, value, tone }: { label: string; value: number | string; tone: "coral" | "teal" | "navy" }) {
+  const c = tone === "coral" ? "text-coral" : tone === "teal" ? "text-teal" : "text-navy";
+  return (
+    <div className="flex-1 min-w-0 rounded-xl border-2 border-navy bg-card px-4 py-3">
+      <div className={`text-2xl font-bold font-heading leading-none ${c}`}>{value}</div>
+      <div className="text-[11px] uppercase tracking-wider text-slate-muted mt-1 font-heading font-semibold truncate">{label}</div>
+    </div>
   );
 }
 
@@ -68,9 +100,6 @@ export default function MyProfile() {
     }
   }, []);
 
-  const coral = "hsl(var(--coral))";
-  const teal = "hsl(var(--teal))";
-
   const name = profile?.name || "You";
   const age = profile?.age ? `, ${profile.age}` : "";
   const showLoc = profile?.showLocation !== "No, keep it hidden";
@@ -78,104 +107,231 @@ export default function MyProfile() {
   const bio = profile?.bio || "Complete the onboarding to fill in your profile with all your interests, values, and conversation style.";
   const initial = (profile?.name?.[0] || "Y").toUpperCase();
 
+  // Stats
+  const valuesCount = profile?.values?.length || 0;
+  const practicesCount = profile?.practices?.length || 0;
+  const topicsCount = (profile?.openTopics?.length || 0) + (profile?.spiritTopics?.length || 0);
+
+  // Completion %
+  const completion = (() => {
+    if (!profile) return 0;
+    const fields = [
+      profile.name, profile.age, profile.bio, profile.spiritualPath, profile.textFreq,
+      profile.dayType, profile.flirting, profile.visibility,
+    ];
+    const arrs = [profile.values, profile.practices, profile.connectionType, profile.openTopics];
+    const filled = fields.filter(Boolean).length + arrs.filter(a => a && a.length).length;
+    return Math.round((filled / (fields.length + arrs.length)) * 100);
+  })();
+
   return (
     <div className="min-h-screen bg-background font-body">
       <Navbar variant="app" />
-      <div className="container max-w-2xl mx-auto py-8 px-4 flex flex-col gap-6">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl overflow-hidden border-2 border-navy">
-          <div className="h-28 relative bg-coral">
-            <div className="absolute -bottom-11 left-6">
-              <div className="w-[88px] h-[88px] rounded-full flex items-center justify-center font-bold text-primary-foreground font-heading text-3xl bg-coral border-[3px] border-card" style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
-                {initial}
-              </div>
-            </div>
-            <div className="absolute top-4 right-4">
+
+      <div className="container max-w-3xl mx-auto py-8 px-4 flex flex-col gap-6">
+        {/* HERO CARD */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative rounded-3xl overflow-hidden border-2 border-navy bg-card"
+        >
+          {/* Decorative banner */}
+          <div className="h-36 relative bg-gradient-to-br from-coral via-coral to-[hsl(var(--coral)/0.7)] overflow-hidden">
+            {/* Brutalist pattern */}
+            <div
+              className="absolute inset-0 opacity-25"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 1px 1px, white 1.5px, transparent 0)",
+                backgroundSize: "18px 18px",
+              }}
+            />
+            <div className="absolute -top-8 -right-8 w-40 h-40 rounded-full bg-teal/40 border-2 border-navy" />
+            <div className="absolute top-10 right-28 w-14 h-14 rounded-2xl bg-cream border-2 border-navy rotate-12" />
+
+            <div className="absolute top-4 right-4 z-10">
               <Link to="/onboarding">
-                <button className="text-sm font-medium px-4 py-2 rounded-full flex items-center gap-2 font-heading" style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white", border: "1.5px solid rgba(255,255,255,0.5)" }}>
-                  <Edit3 size={14} /> Edit profile
+                <button className="text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2 font-heading bg-card text-navy border-2 border-navy transition-all hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_hsl(var(--navy))]">
+                  <Edit3 size={14} /> Edit
                 </button>
               </Link>
             </div>
           </div>
 
-          <div className="pt-14 pb-6 px-6 bg-card">
-            <h1 className="text-2xl font-bold font-heading text-navy">{name}{age}</h1>
-            <div className="flex items-center gap-1.5 mt-1 mb-4 flex-wrap">
-              {showLoc ? (
-                <>
-                  <MapPin size={14} className="text-slate-muted" />
-                  <span className="text-slate-muted">{city}</span>
-                </>
-              ) : (
-                <span className="text-slate-muted italic">{city}</span>
-              )}
-              {profile?.gender && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.gender}</span></>}
-              {profile?.timezone && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.timezone}</span></>}
+          {/* Avatar */}
+          <div className="px-6 -mt-12 relative">
+            <div className="w-24 h-24 rounded-2xl flex items-center justify-center font-bold text-primary-foreground font-heading text-4xl bg-coral border-[3px] border-navy shadow-[4px_4px_0_hsl(var(--navy))]">
+              {initial}
             </div>
-            <p className="text-navy/75 leading-relaxed">{bio}</p>
+          </div>
+
+          {/* Identity */}
+          <div className="pt-4 pb-6 px-6">
+            <h1 className="text-3xl font-bold font-heading text-navy">{name}{age}</h1>
+
+            <div className="flex items-center gap-3 mt-2 mb-4 flex-wrap text-sm">
+              <span className="inline-flex items-center gap-1.5 text-slate-muted">
+                {showLoc ? <MapPin size={14} /> : <Shield size={14} />}
+                <span className={showLoc ? "" : "italic"}>{city}</span>
+              </span>
+              {profile?.gender && (
+                <span className="inline-flex items-center gap-1.5 text-slate-muted">
+                  <User size={14} /> {profile.gender}
+                </span>
+              )}
+              {profile?.timezone && (
+                <span className="inline-flex items-center gap-1.5 text-slate-muted">
+                  <Globe2 size={14} /> {profile.timezone}
+                </span>
+              )}
+            </div>
+
+            {profile?.bio ? (
+              <div className="relative rounded-xl bg-cream border-l-4 border-coral px-4 py-3">
+                <Quote size={14} className="text-coral mb-1" />
+                <p className="text-navy/80 leading-relaxed italic">{bio}</p>
+              </div>
+            ) : (
+              <p className="text-navy/70 leading-relaxed">{bio}</p>
+            )}
+
+            {/* Completion bar */}
+            {profile && (
+              <div className="mt-5">
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] uppercase tracking-wider text-slate-muted font-heading font-semibold">
+                    Profile completion
+                  </span>
+                  <span className="text-sm font-bold font-heading text-navy">{completion}%</span>
+                </div>
+                <div className="h-2.5 rounded-full bg-cream-dark border border-navy/20 overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${completion}%` }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="h-full bg-gradient-to-r from-coral to-teal"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </motion.div>
 
+        {/* STATS */}
+        {profile && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="flex gap-3"
+          >
+            <Stat label="Core values" value={valuesCount} tone="coral" />
+            <Stat label="Practices" value={practicesCount} tone="teal" />
+            <Stat label="Open topics" value={topicsCount} tone="navy" />
+          </motion.div>
+        )}
+
+        {/* Empty state */}
         {!profile && (
-          <div className="rounded-2xl p-6 bg-cream border-2 border-navy text-center">
-            <p className="text-navy mb-3">You haven't completed onboarding yet.</p>
+          <div className="rounded-2xl p-8 bg-cream border-2 border-navy text-center">
+            <Sparkles className="mx-auto mb-3 text-coral" size={32} />
+            <h2 className="text-lg font-bold font-heading text-navy mb-1">Your profile is empty</h2>
+            <p className="text-navy/70 mb-4">Complete the onboarding to bring it to life.</p>
             <Link to="/onboarding">
               <button className="honly-btn-primary">Start onboarding</button>
             </Link>
           </div>
         )}
 
+        {/* SECTIONS */}
         {profile && (
-          <>
-            <Section icon={<Sparkles size={16} color="white" />} title="Spirituality" accent={coral}>
-              <Field label="Spiritual path" value={profile.spiritualPath} color={coral} />
-              <Field label="Importance" value={profile.spiritImportance} color={teal} />
-              <Group label="Practices" values={profile.practices} color={teal} />
-              <Group label="Beliefs" values={profile.beliefs} color={coral} />
-              <Group label="Topics I love" values={profile.spiritTopics} color={teal} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <Section
+              icon={<Sparkles size={18} className="text-primary-foreground" strokeWidth={2.5} />}
+              title="Spirituality"
+              subtitle="Path, practice & meaning"
+              accent="coral"
+              delay={0.15}
+            >
+              <Field label="Spiritual path" value={profile.spiritualPath} tone="coral" />
+              <Field label="Importance" value={profile.spiritImportance} tone="teal" />
+              <Group label="Practices" values={profile.practices} tone="teal" />
+              <Group label="Beliefs" values={profile.beliefs} tone="coral" />
+              <Group label="Topics I love" values={profile.spiritTopics} tone="teal" />
               {profile.spiritMeaning && (
                 <div>
-                  <p className="text-xs uppercase tracking-wider mb-2 text-slate-muted font-heading">What spirituality means to me</p>
-                  <p className="text-navy/80 leading-relaxed">{profile.spiritMeaning}</p>
+                  <p className="text-[11px] uppercase tracking-[0.12em] mb-2 text-slate-muted font-heading font-semibold">What it means to me</p>
+                  <p className="text-navy/80 leading-relaxed text-sm">{profile.spiritMeaning}</p>
                 </div>
               )}
             </Section>
 
-            <Section icon={<MessageCircle size={16} color="white" />} title="Conversation" accent={teal}>
-              <Group label="Connection I want" values={profile.connectionType} color={coral} />
-              <Group label="My style" values={profile.convoStyle} color={teal} />
-              <Field label="Texting frequency" value={profile.textFreq} color={teal} />
-              <Field label="Reply style" value={profile.replyStyle} color={coral} />
-              <Group label="Conversation starters" values={profile.convoStarters} color={teal} />
+            <Section
+              icon={<MessageCircle size={18} className="text-primary-foreground" strokeWidth={2.5} />}
+              title="Conversation"
+              subtitle="How I connect & chat"
+              accent="teal"
+              delay={0.2}
+            >
+              <Group label="Connection I want" values={profile.connectionType} tone="coral" />
+              <Group label="My style" values={profile.convoStyle} tone="teal" />
+              <Field label="Texting frequency" value={profile.textFreq} tone="teal" />
+              <Field label="Reply style" value={profile.replyStyle} tone="coral" />
+              <Group label="Conversation starters" values={profile.convoStarters} tone="teal" />
             </Section>
 
-            <Section icon={<Leaf size={16} color="white" />} title="Inner world" accent={coral}>
-              <Group label="Values" values={profile.values} color={coral} />
-              <Group label="What gives me peace" values={profile.peace} color={teal} />
-              <Group label="People appreciate" values={profile.appreciated} color={coral} />
-              <Group label="Working on" values={profile.workingOn} color={teal} />
+            <Section
+              icon={<Leaf size={18} className="text-primary-foreground" strokeWidth={2.5} />}
+              title="Inner world"
+              subtitle="Values & growth"
+              accent="coral"
+              delay={0.25}
+            >
+              <Group label="Values" values={profile.values} tone="coral" />
+              <Group label="What gives me peace" values={profile.peace} tone="teal" />
+              <Group label="People appreciate" values={profile.appreciated} tone="coral" />
+              <Group label="Working on" values={profile.workingOn} tone="teal" />
             </Section>
 
-            <Section icon={<Moon size={16} color="white" />} title="Lifestyle" accent={teal}>
-              <Field label="Day type" value={profile.dayType} color={coral} />
-              <Field label="Socially" value={profile.social} color={teal} />
-              <Field label="Love language" value={profile.loveLang} color={coral} />
-              <Field label="Relationship" value={profile.relationship} color={teal} />
-              <Field label="Alcohol / substances" value={profile.substances} color={coral} />
+            <Section
+              icon={<Moon size={18} className="text-primary-foreground" strokeWidth={2.5} />}
+              title="Lifestyle"
+              subtitle="Day-to-day & love"
+              accent="teal"
+              delay={0.3}
+            >
+              <Field label="Day type" value={profile.dayType} tone="coral" />
+              <Field label="Socially" value={profile.social} tone="teal" />
+              <Field label="Love language" value={profile.loveLang} tone="coral" />
+              <Field label="Relationship" value={profile.relationship} tone="teal" />
+              <Field label="Alcohol / substances" value={profile.substances} tone="coral" />
             </Section>
 
-            <Section icon={<Shield size={16} color="white" />} title="Boundaries" accent={coral}>
-              <Group label="Open to discussing" values={profile.openTopics} color={coral} />
-              <Group label="Rather not discuss" values={profile.avoidTopics} color={teal} />
-              <Field label="Flirting" value={profile.flirting} color={coral} />
-              <Field label="Deep conversations" value={profile.deepConvos} color={teal} />
-              <Field label="Visibility" value={profile.visibility} color={coral} />
-            </Section>
-
-            <div className="flex items-center justify-center gap-2 text-slate-muted text-sm">
-              <Heart size={14} /> Your answers are saved on this device.
+            <div className="md:col-span-2">
+              <Section
+                icon={<Shield size={18} className="text-primary-foreground" strokeWidth={2.5} />}
+                title="Boundaries"
+                subtitle="What I'm open to and what I'm not"
+                accent="coral"
+                delay={0.35}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <Group label="Open to discussing" values={profile.openTopics} tone="coral" />
+                  <Group label="Rather not discuss" values={profile.avoidTopics} tone="teal" />
+                  <Field label="Flirting" value={profile.flirting} tone="coral" />
+                  <Field label="Deep conversations" value={profile.deepConvos} tone="teal" />
+                  <Field label="Visibility" value={profile.visibility} tone="coral" />
+                </div>
+              </Section>
             </div>
-          </>
+          </div>
+        )}
+
+        {profile && (
+          <div className="flex items-center justify-center gap-2 text-slate-muted text-sm py-4">
+            <Heart size={14} className="text-coral" fill="hsl(var(--coral))" />
+            Your answers are saved on this device.
+          </div>
         )}
       </div>
     </div>
