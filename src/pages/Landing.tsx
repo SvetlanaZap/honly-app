@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { MessageCircle, Users, Sparkles, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
-import heroImg from "@/assets/hero-silhouettes.jpg";
+import heroImg from "@/assets/hero-hands.svg";
 import howImg from "@/assets/how-it-works.jpg";
 
 const features = [
@@ -63,7 +63,7 @@ export default function Landing() {
 
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.2 }} className="flex justify-center items-center">
             <div className="w-full max-w-lg rounded-3xl overflow-hidden flex items-center justify-center bg-cream-dark border-2 border-navy" style={{ minHeight: 340 }}>
-              <img src={heroImg} alt="Two people connecting" className="w-full h-full object-cover" width={1024} height={768} style={{ maxHeight: 380 }} />
+              <img src={heroImg} alt="Two hands holding — real human connection" className="w-full h-full object-cover" width={760} height={560} style={{ maxHeight: 380 }} />
             </div>
           </motion.div>
         </div>

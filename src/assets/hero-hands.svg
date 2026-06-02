@@ -1,0 +1,52 @@
+<svg width="760" height="560" viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+  <!-- HOnly hero · two hands holding · teal + coral, warm flat illustration -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
+      <stop offset="0%" stop-color="#F7F2EA"/>
+      <stop offset="100%" stop-color="#E9E0D2"/>
+    </radialGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#5BD0BB"/>
+      <stop offset="100%" stop-color="#2C9A88"/>
+    </linearGradient>
+    <linearGradient id="coral" x1="1" y1="0" x2="0.65" y2="1">
+      <stop offset="0%" stop-color="#F28064"/>
+      <stop offset="100%" stop-color="#CB4F38"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="560" fill="url(#bg)"/>
+  <!-- soft halo + floor shadow -->
+  <circle cx="380" cy="280" r="215" fill="#FFFFFF" opacity="0.25"/>
+  <ellipse cx="380" cy="498" rx="150" ry="22" fill="#1B2532" opacity="0.08"/>
+
+  <!-- ===== forearms / wrists ===== -->
+  <g stroke-linecap="round">
+    <line x1="345" y1="340" x2="250" y2="565" stroke="url(#teal)" stroke-width="92"/>
+    <line x1="415" y1="340" x2="510" y2="565" stroke="url(#coral)" stroke-width="92"/>
+  </g>
+
+  <!-- ===== interlaced fingers (alternating = holding hands) ===== -->
+  <g stroke-linecap="round" stroke-width="30">
+    <line x1="318" y1="320" x2="300" y2="206" stroke="#43C2AC"/>
+    <line x1="345" y1="320" x2="337" y2="180" stroke="#EE7A5F"/>
+    <line x1="372" y1="320" x2="368" y2="166" stroke="#43C2AC"/>
+    <line x1="395" y1="320" x2="398" y2="168" stroke="#EE7A5F"/>
+    <line x1="420" y1="320" x2="430" y2="184" stroke="#43C2AC"/>
+    <line x1="446" y1="320" x2="462" y2="212" stroke="#EE7A5F"/>
+  </g>
+
+  <!-- ===== backs of hands (knuckle band) ===== -->
+  <rect x="296" y="300" width="86" height="56" rx="26" fill="url(#teal)"/>
+  <rect x="382" y="300" width="86" height="56" rx="26" fill="url(#coral)"/>
+  <!-- overlap shade where the two hands meet -->
+  <rect x="368" y="300" width="28" height="56" rx="14" fill="#1B2532" opacity="0.10"/>
+
+  <!-- ===== thumbs crossing in front = the clasp ===== -->
+  <g stroke-linecap="round" stroke-width="34">
+    <line x1="356" y1="372" x2="418" y2="332" stroke="url(#teal)"/>
+    <line x1="408" y1="374" x2="346" y2="334" stroke="url(#coral)"/>
+  </g>
+  <!-- gentle sheen -->
+  <ellipse cx="350" cy="250" rx="38" ry="60" fill="#FFFFFF" opacity="0.10" transform="rotate(-12 350 250)"/>
+</svg>
