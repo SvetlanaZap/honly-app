@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { MessageCircle, Users, User, Settings, LogOut, LogIn } from "lucide-react";
-import logoImg from "@/design/logo-concepts/honly-logo-bubble-badge.svg";
+import logoImg from "@/assets/honly-logo.svg";
 
 interface NavbarProps {
   variant?: "landing" | "app";

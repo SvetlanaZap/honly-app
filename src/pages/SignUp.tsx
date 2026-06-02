@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import logoImg from "@/design/logo-concepts/honly-logo-bubble-badge.svg";
+import logoImg from "@/assets/honly-logo.svg";
 
 export default function SignUp() {
   const [showPass, setShowPass] = useState(false);

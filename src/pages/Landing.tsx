@@ -3,7 +3,7 @@ import { MessageCircle, Users, Sparkles, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import heroImg from "@/assets/hero-hands.png";
-import howImg from "@/assets/how-it-works.jpg";
+import howImg from "@/assets/how-it-works.svg";
 
 const features = [
   { icon: MessageCircle, title: "Real conversations", desc: "No swipe culture. Start a conversation with someone who shares your vibe." },
