@@ -39,9 +39,12 @@ export default function Landing() {
             <p className="text-lg mb-2 text-navy/75 max-w-[480px]">
               HOnly helps you meet real people for casual chats, deep conversations, and meaningful human connection.
             </p>
-            <p className="text-base font-medium mb-8 text-teal">
-              No dating expectations. No pressure. No forced next step.
-            </p>
+            <div className="mb-8 max-w-[480px] rounded-2xl border-2 border-navy bg-teal/10 px-5 py-4">
+              <p className="text-xs font-bold uppercase tracking-widest text-teal mb-1.5">This is not a dating app</p>
+              <p className="text-xl md:text-2xl font-bold font-heading text-navy leading-snug">
+                No dating expectations. No pressure. No forced next step.
+              </p>
+            </div>
 
             <div className="flex flex-wrap gap-3 mb-10">
               <span className="honly-tag"><MessageCircle size={14} className="text-coral" /> Real conversations</span>
