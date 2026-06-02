@@ -18,10 +18,10 @@ export default function Navbar({ variant = "landing" }: NavbarProps) {
 
   return (
     <nav className="honly-nav sticky top-0 z-50">
-      <div className="container flex items-center justify-between h-16">
+      <div className="container flex items-center justify-between h-20">
         <Link to="/">
           <div className="flex items-center cursor-pointer select-none">
-            <img src={logoImg} alt="HOnly" className="h-10 w-auto object-contain" />
+            <img src={logoImg} alt="HOnly" className="h-14 w-auto object-contain" />
           </div>
         </Link>
 
