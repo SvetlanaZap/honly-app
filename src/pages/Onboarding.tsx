@@ -217,6 +217,10 @@ export default function Onboarding() {
                   <input className="honly-input" placeholder='e.g. "Berlin, Germany"' value={city} onChange={e => setCity(e.target.value)} />
                 </div>
                 <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Show location on profile?</p>
+                  <Single options={SHOW_LOCATION} value={showLocation} onChange={setShowLocation} color={teal} />
+                </div>
+                <div>
                   <label className="block text-sm font-medium mb-1.5 text-navy">Short bio</label>
                   <textarea maxLength={200} className="honly-input min-h-[100px] resize-none" placeholder="What's your vibe?" value={bio} onChange={e => setBio(e.target.value)} />
                   <p className="text-xs text-slate-muted mt-1">{bio.length}/200</p>
