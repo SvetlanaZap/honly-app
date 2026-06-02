@@ -25,7 +25,7 @@ export default function SignUp() {
             <path d="M140 260 Q140 160 200 160 Q260 160 260 260Z" fill="rgba(26,35,50,0.4)" />
           </svg>
           <h2 className="text-4xl font-bold text-primary-foreground mb-4 font-heading">Join the human side of the internet</h2>
-          <p className="text-primary-foreground/80 text-lg">Real people. Real conversations. No algorithms deciding who you meet.</p>
+          <p className="text-primary-foreground/80 text-lg">Real people. Real conversations. No manipulative feeds deciding what you see.</p>
         </div>
 
         <p className="text-primary-foreground/50 text-sm">Humans Only. Vibes Only.</p>

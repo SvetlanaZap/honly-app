@@ -13,7 +13,7 @@ const features = [
 
 const steps = [
   { num: "01", title: "Create your profile", desc: "Tell us who you are. Your interests, your vibe, your story." },
-  { num: "02", title: "Discover people", desc: "Browse real humans nearby or worldwide. No algorithms hiding people from you." },
+  { num: "02", title: "Discover people", desc: "Browse real humans nearby or worldwide, matched around shared interests and your preferences." },
   { num: "03", title: "Start talking", desc: "Send a message. Have a real conversation. Make a real connection." },
 ];
 
@@ -141,7 +141,7 @@ export default function Landing() {
       <section className="py-20 container text-center">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="text-4xl md:text-5xl mb-4 font-heading text-navy">Ready to meet someone real?</h2>
-          <p className="text-lg mb-8 text-slate-muted max-w-lg mx-auto">Join thousands of real humans having real conversations. No algorithms. No pressure.</p>
+          <p className="text-lg mb-8 text-slate-muted max-w-lg mx-auto">Join thousands of real humans having real conversations. No manipulative feeds. No pressure.</p>
           <Link to="/signup">
             <button className="honly-btn-primary text-lg px-10 py-4">Join HOnly — it's free</button>
           </Link>
