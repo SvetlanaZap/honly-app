@@ -54,6 +54,7 @@ function Single({ options, value, onChange, color = "hsl(var(--coral))" }: {
 
 // Step 1
 const GENDERS = ["Man", "Woman", "Non-binary", "Other", "Prefer not to say"];
+const SHOW_LOCATION = ["Yes, show my city", "No, keep it hidden"];
 
 // Step 2
 const SPIRITUAL_PATHS = ["Spiritual but not religious", "Buddhist", "Christian", "Hindu", "Muslim", "Jewish", "Mystical / esoteric", "Energy work", "Atheist but curious", "Agnostic", "Pagan / nature-based", "Secular / no label", "Still exploring"];
