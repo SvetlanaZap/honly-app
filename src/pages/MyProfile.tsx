@@ -73,7 +73,8 @@ export default function MyProfile() {
 
   const name = profile?.name || "You";
   const age = profile?.age ? `, ${profile.age}` : "";
-  const city = profile?.city || "Add your city";
+  const showLoc = profile?.showLocation !== "No, keep it hidden";
+  const city = showLoc ? (profile?.city || "Add your city") : "Location hidden";
   const bio = profile?.bio || "Complete the onboarding to fill in your profile with all your interests, values, and conversation style.";
   const initial = (profile?.name?.[0] || "Y").toUpperCase();
 
