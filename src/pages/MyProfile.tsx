@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 
 type Profile = {
-  name: string; age: string; gender: string; city: string; timezone: string; bio: string;
+  name: string; age: string; gender: string; city: string; showLocation: string; timezone: string; bio: string;
   spiritualPath: string; spiritImportance: string; practices: string[]; beliefs: string[]; spiritTopics: string[]; spiritMeaning: string;
   connectionType: string[]; convoStyle: string[]; textFreq: string; replyStyle: string; convoStarters: string[];
   values: string[]; peace: string[]; appreciated: string[]; workingOn: string[];
