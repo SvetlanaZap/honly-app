@@ -101,8 +101,14 @@ export default function MyProfile() {
           <div className="pt-14 pb-6 px-6 bg-card">
             <h1 className="text-2xl font-bold font-heading text-navy">{name}{age}</h1>
             <div className="flex items-center gap-1.5 mt-1 mb-4 flex-wrap">
-              <MapPin size={14} className="text-slate-muted" />
-              <span className="text-slate-muted">{city}</span>
+              {showLoc ? (
+                <>
+                  <MapPin size={14} className="text-slate-muted" />
+                  <span className="text-slate-muted">{city}</span>
+                </>
+              ) : (
+                <span className="text-slate-muted italic">{city}</span>
+              )}
               {profile?.gender && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.gender}</span></>}
               {profile?.timezone && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.timezone}</span></>}
             </div>
