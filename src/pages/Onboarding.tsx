@@ -152,7 +152,7 @@ export default function Onboarding() {
     if (step < TOTAL_STEPS) setStep(step + 1);
     else {
       const profile = {
-        name, age, gender, city, timezone, bio,
+        name, age, gender, city, showLocation, timezone, bio,
         spiritualPath, spiritImportance, practices, beliefs, spiritTopics, spiritMeaning,
         connectionType, convoStyle, textFreq, replyStyle, convoStarters,
         values, peace, appreciated, workingOn,
