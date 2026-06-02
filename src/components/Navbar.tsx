@@ -21,10 +21,7 @@ export default function Navbar({ variant = "landing" }: NavbarProps) {
       <div className="container flex items-center justify-between h-16">
         <Link to="/">
           <div className="flex items-center gap-2 cursor-pointer select-none">
-            <img src={logoImg} alt="HOnly logo" className="w-8 h-8 object-contain" />
-            <span className="text-xl font-bold font-heading text-navy">
-              H<span className="text-coral">Only</span>
-            </span>
+            <img src={logoImg} alt="HOnly logo" className="h-8 w-auto object-contain" />
           </div>
         </Link>
 
