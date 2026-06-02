@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/design/logo-concepts/honly-logo-bubble-badge.svg";
 import { toast } from "sonner";
 
 function ChipGroup({ options, selected, onToggle, max, color = "hsl(var(--coral))" }: {
