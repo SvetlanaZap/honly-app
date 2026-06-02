@@ -12,9 +12,8 @@ export default function SignUp() {
       {/* Left Panel */}
       <div className="hidden md:flex flex-col justify-between p-12 w-5/12 shrink-0 bg-coral border-r-2 border-navy">
         <Link to="/">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <img src={logoImg} alt="HOnly" className="w-8 h-8 object-contain brightness-0 invert" />
-            <span className="text-2xl font-bold font-heading text-primary-foreground">HOnly</span>
+          <div className="flex items-center cursor-pointer">
+            <span className="text-4xl font-bold font-heading text-primary-foreground">HOnly</span>
           </div>
         </Link>
 
@@ -36,9 +35,8 @@ export default function SignUp() {
       <div className="flex-1 flex items-center justify-center p-8">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-md">
           <Link to="/">
-            <div className="flex items-center gap-2 mb-8 md:hidden">
-              <img src={logoImg} alt="HOnly" className="w-8 h-8 object-contain" />
-              <span className="text-2xl font-bold font-heading text-navy">H<span className="text-coral">Only</span></span>
+            <div className="flex items-center mb-8 md:hidden">
+              <img src={logoImg} alt="HOnly" className="h-12 w-auto object-contain" />
             </div>
           </Link>
 

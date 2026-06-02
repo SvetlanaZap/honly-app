@@ -173,9 +173,8 @@ export default function Onboarding() {
     <div className="min-h-screen bg-background font-body flex flex-col items-center p-6 py-10">
       <div className="w-full max-w-lg">
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <img src={logoImg} alt="HOnly" className="w-8 h-8 object-contain" />
-          <span className="text-xl font-bold font-heading text-navy">H<span className="text-coral">Only</span></span>
+        <div className="flex items-center justify-center mb-6">
+          <img src={logoImg} alt="HOnly" className="h-11 w-auto object-contain" />
         </div>
 
         {/* Progress */}

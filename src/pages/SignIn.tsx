@@ -14,9 +14,8 @@ export default function SignIn() {
 
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full max-w-md relative">
         <Link to="/">
-          <div className="flex items-center justify-center gap-2 mb-10">
-            <img src={logoImg} alt="HOnly" className="w-9 h-9 object-contain" />
-            <span className="text-2xl font-bold font-heading text-navy">H<span className="text-coral">Only</span></span>
+          <div className="flex items-center justify-center mb-10">
+            <img src={logoImg} alt="HOnly" className="h-12 w-auto object-contain" />
           </div>
         </Link>
 
