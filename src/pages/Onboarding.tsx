@@ -100,6 +100,7 @@ export default function Onboarding() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
+  const [showLocation, setShowLocation] = useState("yes");
   const [timezone, setTimezone] = useState("");
   const [bio, setBio] = useState("");
 
