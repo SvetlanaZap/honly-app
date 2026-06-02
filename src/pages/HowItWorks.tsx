@@ -11,8 +11,8 @@ const STEPS = [
 ];
 
 const VALUES = [
-  { icon: Shield, title: "Safety first", desc: "Every account is verified. Our moderation team keeps the community safe." },
-  { icon: Users, title: "No algorithms", desc: "We don't hide people from you. Everyone is visible, everyone has a chance." },
+  { icon: Shield, title: "Safety first", desc: "We use profile review, anti-bot checks, and community reporting to help keep HOnly human and safe." },
+  { icon: Users, title: "Matched on your terms", desc: "We connect you around shared interests and the preferences you set — like whether you're open to flirting. No manipulative feeds designed to keep you scrolling." },
   { icon: MessageCircle, title: "Real conversations", desc: "No swipe culture. Messages are front and center." },
 ];
 
