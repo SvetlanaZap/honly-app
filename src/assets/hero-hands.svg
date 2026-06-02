@@ -1,52 +1,104 @@
-<svg width="760" height="560" viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
-  <!-- HOnly hero · two hands holding · teal + coral, warm flat illustration -->
+<svg width="1000" height="760" viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg">
+  <!-- HOnly hero · holding hands · brand palette: coral #E8654A · teal #3CBEA8 · cream -->
   <defs>
-    <radialGradient id="bg" cx="50%" cy="42%" r="72%">
-      <stop offset="0%" stop-color="#F7F2EA"/>
-      <stop offset="100%" stop-color="#E9E0D2"/>
-    </radialGradient>
-    <linearGradient id="teal" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0%" stop-color="#5BD0BB"/>
-      <stop offset="100%" stop-color="#2C9A88"/>
+    <linearGradient id="bgg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F6F1E8"/>
+      <stop offset="100%" stop-color="#ECE2D2"/>
     </linearGradient>
-    <linearGradient id="coral" x1="1" y1="0" x2="0.65" y2="1">
-      <stop offset="0%" stop-color="#F28064"/>
-      <stop offset="100%" stop-color="#CB4F38"/>
+    <linearGradient id="coralG" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#F2876D"/>
+      <stop offset="100%" stop-color="#D34F38"/>
+    </linearGradient>
+    <linearGradient id="tealG" x1="1" y1="0" x2="0.6" y2="1">
+      <stop offset="0%" stop-color="#62D3BE"/>
+      <stop offset="100%" stop-color="#2B9281"/>
     </linearGradient>
   </defs>
 
-  <rect width="760" height="560" fill="url(#bg)"/>
-  <!-- soft halo + floor shadow -->
-  <circle cx="380" cy="280" r="215" fill="#FFFFFF" opacity="0.25"/>
-  <ellipse cx="380" cy="498" rx="150" ry="22" fill="#1B2532" opacity="0.08"/>
+  <rect width="1000" height="760" fill="url(#bgg)"/>
 
-  <!-- ===== forearms / wrists ===== -->
-  <g stroke-linecap="round">
-    <line x1="345" y1="340" x2="250" y2="565" stroke="url(#teal)" stroke-width="92"/>
-    <line x1="415" y1="340" x2="510" y2="565" stroke="url(#coral)" stroke-width="92"/>
+  <!-- cobblestone hint -->
+  <g fill="none" stroke="#D9CBB1" stroke-width="2.5" opacity="0.5">
+    <path d="M250 650 H430 M470 650 H660 M700 650 H820"/>
+    <path d="M210 690 H360 M400 690 H560 M600 690 H760"/>
+    <path d="M280 720 H470 M510 720 H700"/>
+    <path d="M360 650 V690 M560 650 V690 M460 690 V720 M660 690 V720"/>
+  </g>
+  <!-- ground contact shadow -->
+  <ellipse cx="500" cy="612" rx="150" ry="22" fill="#9C5E3B" opacity="0.10"/>
+
+  <!-- ===================== HANDS (skin) ===================== -->
+  <g stroke="#9C5E3B" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- fingers hanging -->
+    <path d="M407 372 V512 C407 536 422 542 434 542 C446 542 461 536 461 512 V372 Z" fill="#EDC4A0"/>
+    <path d="M455 372 V530 C455 554 470 560 482 560 C494 560 509 554 509 530 V372 Z" fill="#E6BB95"/>
+    <path d="M503 372 V526 C503 550 518 556 530 556 C542 556 557 550 557 526 V372 Z" fill="#EDC4A0"/>
+    <path d="M551 372 V506 C551 530 566 536 578 536 C590 536 605 530 605 506 V372 Z" fill="#E0B188"/>
+    <!-- thumb (front, interlocked) -->
+    <path d="M412 432 C396 458 398 500 418 516 C436 522 446 500 443 472 C441 452 432 440 426 432 C420 426 416 426 412 432 Z" fill="#D7A179"/>
+    <!-- backs of hands -->
+    <path d="M396 404 C388 348 418 314 470 318 C498 320 506 338 512 352 C520 338 540 318 568 320 C618 324 616 360 608 404 C540 416 462 416 396 404 Z" fill="#EDC4A0"/>
   </g>
 
-  <!-- ===== interlaced fingers (alternating = holding hands) ===== -->
-  <g stroke-linecap="round" stroke-width="30">
-    <line x1="318" y1="320" x2="300" y2="206" stroke="#43C2AC"/>
-    <line x1="345" y1="320" x2="337" y2="180" stroke="#EE7A5F"/>
-    <line x1="372" y1="320" x2="368" y2="166" stroke="#43C2AC"/>
-    <line x1="395" y1="320" x2="398" y2="168" stroke="#EE7A5F"/>
-    <line x1="420" y1="320" x2="430" y2="184" stroke="#43C2AC"/>
-    <line x1="446" y1="320" x2="462" y2="212" stroke="#EE7A5F"/>
+  <!-- nails -->
+  <g fill="#F4DEC6" stroke="#C99B73" stroke-width="2">
+    <rect x="420" y="498" width="28" height="24" rx="11"/>
+    <rect x="468" y="516" width="28" height="24" rx="11"/>
+    <rect x="516" y="512" width="28" height="24" rx="11"/>
+    <rect x="564" y="492" width="28" height="24" rx="11"/>
+    <rect x="406" y="492" width="22" height="20" rx="9"/>
   </g>
 
-  <!-- ===== backs of hands (knuckle band) ===== -->
-  <rect x="296" y="300" width="86" height="56" rx="26" fill="url(#teal)"/>
-  <rect x="382" y="300" width="86" height="56" rx="26" fill="url(#coral)"/>
-  <!-- overlap shade where the two hands meet -->
-  <rect x="368" y="300" width="28" height="56" rx="14" fill="#1B2532" opacity="0.10"/>
-
-  <!-- ===== thumbs crossing in front = the clasp ===== -->
-  <g stroke-linecap="round" stroke-width="34">
-    <line x1="356" y1="372" x2="418" y2="332" stroke="url(#teal)"/>
-    <line x1="408" y1="374" x2="346" y2="334" stroke="url(#coral)"/>
+  <!-- cel shading -->
+  <g fill="#BE855F" opacity="0.30">
+    <path d="M400 398 C470 410 540 410 606 398 L606 414 C540 426 470 426 400 414 Z"/>
+    <path d="M512 352 C520 338 540 318 568 320 C616 324 616 360 608 404 C575 410 545 412 515 410 Z"/>
   </g>
-  <!-- gentle sheen -->
-  <ellipse cx="350" cy="250" rx="38" ry="60" fill="#FFFFFF" opacity="0.10" transform="rotate(-12 350 250)"/>
+  <!-- finger separations + knuckle creases -->
+  <g stroke="#BE855F" stroke-width="3.5" stroke-linecap="round" opacity="0.45" fill="none">
+    <path d="M458 408 V520"/>
+    <path d="M506 408 V538"/>
+    <path d="M554 408 V516"/>
+    <path d="M416 466 Q434 474 452 466"/>
+    <path d="M464 470 Q482 478 500 470"/>
+    <path d="M512 468 Q530 476 548 468"/>
+  </g>
+
+  <!-- wrist skin slivers -->
+  <g stroke="#9C5E3B" stroke-width="3.5" stroke-linejoin="round">
+    <path d="M400 360 L360 350 L330 300 L398 318 Z" fill="#E6BB95"/>
+    <path d="M604 360 L644 350 L674 300 L606 318 Z" fill="#D7A179"/>
+  </g>
+
+  <!-- ===================== CORAL KNIT SLEEVE (left) ===================== -->
+  <path d="M-10 60 C120 90 250 165 350 245 L405 312 C320 352 150 320 -10 250 Z"
+        fill="url(#coralG)" stroke="#9E3A27" stroke-width="4" stroke-linejoin="round"/>
+  <!-- cuff (ribbed) -->
+  <path d="M335 240 L405 312 L368 360 L300 285 Z" fill="#C24A35" stroke="#9E3A27" stroke-width="4" stroke-linejoin="round"/>
+  <g stroke="#9E3A27" stroke-width="2.5" opacity="0.6" fill="none">
+    <path d="M318 268 L385 338"/><path d="M333 256 L400 326"/><path d="M348 300 L372 326"/>
+  </g>
+  <!-- cable-knit texture -->
+  <g stroke="#C24A35" stroke-width="6" fill="none" opacity="0.55" stroke-linecap="round">
+    <path d="M30 110 C110 160 190 205 285 255"/>
+    <path d="M70 95 C150 140 230 185 320 235"/>
+    <path d="M50 150 C130 195 205 235 300 280"/>
+  </g>
+  <g stroke="#F2876D" stroke-width="3" fill="none" opacity="0.55" stroke-linecap="round">
+    <path d="M55 120 C135 168 210 210 300 258"/>
+  </g>
+
+  <!-- ===================== TEAL SLEEVE (right) ===================== -->
+  <path d="M1010 60 C880 90 750 165 650 245 L595 312 C680 352 850 320 1010 250 Z"
+        fill="url(#tealG)" stroke="#226E60" stroke-width="4" stroke-linejoin="round"/>
+  <!-- cuff -->
+  <path d="M665 240 L595 312 L632 360 L700 285 Z" fill="#2B9281" stroke="#226E60" stroke-width="4" stroke-linejoin="round"/>
+  <!-- soft folds -->
+  <g stroke="#226E60" stroke-width="5" fill="none" opacity="0.45" stroke-linecap="round">
+    <path d="M970 110 C880 158 790 205 690 258"/>
+    <path d="M940 150 C860 198 780 238 690 282"/>
+  </g>
+  <g stroke="#7CDFCC" stroke-width="3" fill="none" opacity="0.6" stroke-linecap="round">
+    <path d="M955 95 C865 142 775 188 680 238"/>
+  </g>
 </svg>
