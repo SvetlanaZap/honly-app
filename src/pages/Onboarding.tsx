@@ -149,7 +149,19 @@ export default function Onboarding() {
       if (!n || n < 18 || n > 99) { toast.error("Please enter a valid age (18–99)"); return; }
     }
     if (step < TOTAL_STEPS) setStep(step + 1);
-    else { toast.success("Profile created!"); navigate("/discover"); }
+    else {
+      const profile = {
+        name, age, gender, city, timezone, bio,
+        spiritualPath, spiritImportance, practices, beliefs, spiritTopics, spiritMeaning,
+        connectionType, convoStyle, textFreq, replyStyle, convoStarters,
+        values, peace, appreciated, workingOn,
+        dayType, social, loveLang, relationship, substances,
+        openTopics, avoidTopics, flirting, deepConvos, visibility,
+      };
+      localStorage.setItem("honly_profile", JSON.stringify(profile));
+      toast.success("Profile created!");
+      navigate("/profile");
+    }
   };
 
   const teal = "hsl(var(--teal))";
