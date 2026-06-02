@@ -1,0 +1,28 @@
+<svg width="560" height="220" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" font-family="'Space Grotesk', 'DM Sans', sans-serif">
+  <!-- HOnly · Bubble-O wordmark with "new message" badge · brand colors -->
+  <!-- coral #E8654A · teal #3CBEA8 · navy #1B2532 · cream #F2EDE6 -->
+
+  <!-- H -->
+  <text x="30" y="162" font-size="128" font-weight="700" fill="#E8654A" letter-spacing="-3">H</text>
+
+  <!-- O = speech bubble -->
+  <g>
+    <!-- tail -->
+    <path d="M150 150 l-6 30 24 -16 Z" fill="#3CBEA8" stroke="#1B2532" stroke-width="6" stroke-linejoin="round"/>
+    <!-- bubble body -->
+    <rect x="122" y="62" width="88" height="88" rx="28" fill="#3CBEA8" stroke="#1B2532" stroke-width="6"/>
+    <!-- typing dots -->
+    <circle cx="146" cy="108" r="8.5" fill="#F2EDE6"/>
+    <circle cx="166" cy="108" r="8.5" fill="#F2EDE6"/>
+    <circle cx="186" cy="108" r="8.5" fill="#F2EDE6"/>
+  </g>
+
+  <!-- nly -->
+  <text x="218" y="162" font-size="128" font-weight="700" fill="#1B2532" letter-spacing="-3">nly</text>
+
+  <!-- new-message badge "1" -->
+  <g>
+    <circle cx="206" cy="66" r="25" fill="#E8654A" stroke="#1B2532" stroke-width="5"/>
+    <text x="206" y="78" text-anchor="middle" font-size="34" font-weight="700" fill="#FFFFFF">1</text>
+  </g>
+</svg>
