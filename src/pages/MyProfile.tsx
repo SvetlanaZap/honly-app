@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 
 type Profile = {
-  name: string; age: string; gender: string; city: string; timezone: string; bio: string;
+  name: string; age: string; gender: string; city: string; showLocation: string; timezone: string; bio: string;
   spiritualPath: string; spiritImportance: string; practices: string[]; beliefs: string[]; spiritTopics: string[]; spiritMeaning: string;
   connectionType: string[]; convoStyle: string[]; textFreq: string; replyStyle: string; convoStarters: string[];
   values: string[]; peace: string[]; appreciated: string[]; workingOn: string[];
@@ -73,7 +73,8 @@ export default function MyProfile() {
 
   const name = profile?.name || "You";
   const age = profile?.age ? `, ${profile.age}` : "";
-  const city = profile?.city || "Add your city";
+  const showLoc = profile?.showLocation !== "No, keep it hidden";
+  const city = showLoc ? (profile?.city || "Add your city") : "Location hidden";
   const bio = profile?.bio || "Complete the onboarding to fill in your profile with all your interests, values, and conversation style.";
   const initial = (profile?.name?.[0] || "Y").toUpperCase();
 
@@ -100,8 +101,14 @@ export default function MyProfile() {
           <div className="pt-14 pb-6 px-6 bg-card">
             <h1 className="text-2xl font-bold font-heading text-navy">{name}{age}</h1>
             <div className="flex items-center gap-1.5 mt-1 mb-4 flex-wrap">
-              <MapPin size={14} className="text-slate-muted" />
-              <span className="text-slate-muted">{city}</span>
+              {showLoc ? (
+                <>
+                  <MapPin size={14} className="text-slate-muted" />
+                  <span className="text-slate-muted">{city}</span>
+                </>
+              ) : (
+                <span className="text-slate-muted italic">{city}</span>
+              )}
               {profile?.gender && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.gender}</span></>}
               {profile?.timezone && <><span className="mx-1 text-cream-dark">·</span><span className="text-slate-muted">{profile.timezone}</span></>}
             </div>

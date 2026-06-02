@@ -54,6 +54,7 @@ function Single({ options, value, onChange, color = "hsl(var(--coral))" }: {
 
 // Step 1
 const GENDERS = ["Man", "Woman", "Non-binary", "Other", "Prefer not to say"];
+const SHOW_LOCATION = ["Yes, show my city", "No, keep it hidden"];
 
 // Step 2
 const SPIRITUAL_PATHS = ["Spiritual but not religious", "Buddhist", "Christian", "Hindu", "Muslim", "Jewish", "Mystical / esoteric", "Energy work", "Atheist but curious", "Agnostic", "Pagan / nature-based", "Secular / no label", "Still exploring"];
@@ -100,6 +101,7 @@ export default function Onboarding() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [city, setCity] = useState("");
+  const [showLocation, setShowLocation] = useState("yes");
   const [timezone, setTimezone] = useState("");
   const [bio, setBio] = useState("");
 
@@ -151,7 +153,7 @@ export default function Onboarding() {
     if (step < TOTAL_STEPS) setStep(step + 1);
     else {
       const profile = {
-        name, age, gender, city, timezone, bio,
+        name, age, gender, city, showLocation, timezone, bio,
         spiritualPath, spiritImportance, practices, beliefs, spiritTopics, spiritMeaning,
         connectionType, convoStyle, textFreq, replyStyle, convoStarters,
         values, peace, appreciated, workingOn,
@@ -213,6 +215,10 @@ export default function Onboarding() {
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-navy">City / Country</label>
                   <input className="honly-input" placeholder='e.g. "Berlin, Germany"' value={city} onChange={e => setCity(e.target.value)} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Show location on profile?</p>
+                  <Single options={SHOW_LOCATION} value={showLocation} onChange={setShowLocation} color={teal} />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-navy">Short bio</label>
