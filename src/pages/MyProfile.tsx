@@ -1,8 +1,10 @@
-import { Edit3, MapPin, Sparkles, MessageCircle, Heart, Leaf, Moon, Shield, Clock, User, Globe2, Quote } from "lucide-react";
+import { Edit3, MapPin, Sparkles, MessageCircle, Heart, Leaf, Moon, Shield, Clock, User, Globe2, Quote, Camera, X, ImagePlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
+
+const MAX_PHOTOS = 6;
 
 type Profile = {
   name: string; age: string; gender: string; city: string; showLocation: string; timezone: string; bio: string;
@@ -92,13 +94,44 @@ function Stat({ label, value, tone }: { label: string; value: number | string; t
 
 export default function MyProfile() {
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [photos, setPhotos] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const raw = localStorage.getItem("honly_profile");
     if (raw) {
       try { setProfile(JSON.parse(raw)); } catch { /* ignore */ }
     }
+    const rawPhotos = localStorage.getItem("honly_photos");
+    if (rawPhotos) {
+      try { setPhotos(JSON.parse(rawPhotos)); } catch { /* ignore */ }
+    }
   }, []);
+
+  const persistPhotos = (next: string[]) => {
+    setPhotos(next);
+    try { localStorage.setItem("honly_photos", JSON.stringify(next)); } catch { /* quota */ }
+  };
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const slots = MAX_PHOTOS - photos.length;
+    const toRead = files.filter(f => f.type.startsWith("image/")).slice(0, slots);
+    if (toRead.length === 0) { e.target.value = ""; return; }
+    Promise.all(
+      toRead.map(file => new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      }))
+    ).then(dataUrls => {
+      persistPhotos([...photos, ...dataUrls].slice(0, MAX_PHOTOS));
+    });
+    e.target.value = "";
+  };
+
+  const removePhoto = (idx: number) => persistPhotos(photos.filter((_, i) => i !== idx));
 
   const name = profile?.name || "You";
   const age = profile?.age ? `, ${profile.age}` : "";
@@ -160,8 +193,10 @@ export default function MyProfile() {
 
           {/* Avatar */}
           <div className="px-6 -mt-12 relative">
-            <div className="w-24 h-24 rounded-2xl flex items-center justify-center font-bold text-primary-foreground font-heading text-4xl bg-coral border-[3px] border-navy shadow-[4px_4px_0_hsl(var(--navy))]">
-              {initial}
+            <div className="w-24 h-24 rounded-2xl overflow-hidden flex items-center justify-center font-bold text-primary-foreground font-heading text-4xl bg-coral border-[3px] border-navy shadow-[4px_4px_0_hsl(var(--navy))]">
+              {photos[0]
+                ? <img src={photos[0]} alt={name} className="w-full h-full object-cover" />
+                : initial}
             </div>
           </div>
 
@@ -214,6 +249,69 @@ export default function MyProfile() {
                 </div>
               </div>
             )}
+          </div>
+        </motion.div>
+
+        {/* PHOTOS */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="relative rounded-2xl bg-card border-2 border-navy overflow-hidden"
+        >
+          <div className="absolute top-0 left-0 right-0 h-1 bg-teal" />
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-teal border-2 border-navy">
+                  <Camera size={18} className="text-primary-foreground" strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold font-heading text-navy leading-tight">Photos</h3>
+                  <p className="text-xs text-slate-muted mt-0.5">Optional · up to {MAX_PHOTOS} · first one is your avatar</p>
+                </div>
+              </div>
+              <span className="text-sm font-bold font-heading text-navy">{photos.length}/{MAX_PHOTOS}</span>
+            </div>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={handleUpload}
+            />
+
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+              {photos.map((src, i) => (
+                <div key={i} className="relative aspect-square rounded-xl overflow-hidden border-2 border-navy group">
+                  <img src={src} alt={`Photo ${i + 1}`} className="w-full h-full object-cover" />
+                  {i === 0 && (
+                    <span className="absolute bottom-1 left-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-coral text-primary-foreground border border-navy">
+                      Avatar
+                    </span>
+                  )}
+                  <button
+                    onClick={() => removePhoto(i)}
+                    title="Remove photo"
+                    className="absolute top-1 right-1 w-6 h-6 rounded-full flex items-center justify-center bg-card border-2 border-navy text-navy opacity-0 group-hover:opacity-100 transition-opacity hover:bg-coral hover:text-primary-foreground"
+                  >
+                    <X size={13} />
+                  </button>
+                </div>
+              ))}
+
+              {photos.length < MAX_PHOTOS && (
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  className="aspect-square rounded-xl border-2 border-dashed border-navy/40 flex flex-col items-center justify-center gap-1 text-slate-muted hover:border-teal hover:text-teal transition-colors bg-cream"
+                >
+                  <ImagePlus size={22} />
+                  <span className="text-[11px] font-semibold">Add</span>
+                </button>
+              )}
+            </div>
           </div>
         </motion.div>
 
