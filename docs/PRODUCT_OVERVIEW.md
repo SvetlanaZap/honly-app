@@ -50,7 +50,7 @@ The result: people feel **lonely in a crowd of apps**. They want to talk to some
 HOnly is a **conversation-first connection platform** built around three commitments:
 
 1. **Real people, not profiles to swipe.** You browse and discover actual humans, matched around shared interests and the preferences *you* set — not a manipulative feed designed to keep you scrolling.
-2. **Conversation is the whole point.** Messaging is front and center: real chats, replies, photos, GIFs, and voice messages — with read receipts and typing indicators that make it feel human.
+2. **Conversation is the whole point.** Messaging is front and center: real chats, replies, photos, GIFs, voice messages, voice and video calls — with read receipts and typing indicators that make it feel human.
 3. **No forced next step.** There is no expectation to flirt, meet up, or escalate. If someone pushes you toward in-person meetings you didn't ask for, you can report it. Connection here is allowed to simply *be* a connection.
 
 ### What's in the product today
