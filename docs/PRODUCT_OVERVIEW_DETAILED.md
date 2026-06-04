@@ -91,6 +91,7 @@ HOnly is an early-stage product. Today it is a **front-end prototype** (built fi
 - **Safety & moderation** — **reporting of aggressive or abusive users**, with moderation workflows.
 - **Age assurance** — users confirm they are **at least 18**.
 - **Boundary enforcement** — honoring declared preferences (e.g., platonic-only, no pushing toward offline meetings).
+- **Mobile app**
 
 ---
 
@@ -124,15 +125,9 @@ HOnly is an early-stage product. Today it is a **front-end prototype** (built fi
 
 ---
 
-## 9. North-Star Summary
+## 9. Summary
 
 > HOnly is where real humans have real conversations — matched by what they actually care about, free from swipe culture, manipulative feeds, and the pressure to turn every connection into a date. **Humans Only. Vibes Only.**
 
 ---
 
-## 10. Open Questions / To Define
-
-- **Reference / competitor set** — the dating apps HOnly will benchmark UX against (to be selected) while deliberately dropping swiping.
-- **Calling/RTC provider** — the tool for real-time voice/video (under evaluation).
-- **Moderation model** — how reports are triaged (automated checks + human review).
-- **Design pass** — UI is intentionally simple for now; a dedicated design phase comes after core flows and backend.
