@@ -89,6 +89,7 @@ const AVOID_TOPICS = ["Politics", "Sex & intimacy", "Trauma details", "Religion 
 const FLIRTING = ["Yes, if it's respectful", "Light flirting is fine", "No, please keep it platonic", "Depends on the person"];
 const DEEP_CONVOS = ["Yes — that's why I'm here", "Sometimes, when I'm ready", "I prefer lighter topics", "Depends on the connection"];
 const VISIBILITY = ["👤 Real profile", "🎭 Anonymous"];
+const POLITICS = ["Progressive", "Moderate", "Conservative", "Apolitical", "Prefer not to say"];
 
 // Matching essentials
 const INTERESTS = ["Music", "Film & TV", "Books", "Art", "Photography", "Gaming", "Technology", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
@@ -166,6 +167,7 @@ export default function Onboarding() {
   const [flirting, setFlirting] = useState("");
   const [deepConvos, setDeepConvos] = useState("");
   const [visibility, setVisibility] = useState("");
+  const [politics, setPolitics] = useState("");
 
   const toggle = (arr: string[], set: React.Dispatch<React.SetStateAction<string[]>>, v: string) => {
     set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
@@ -191,7 +193,7 @@ export default function Onboarding() {
         connectionType, convoStyle, textFreq, replyStyle, convoStarters,
         values, peace, appreciated, workingOn,
         dayType, social, loveLang, relationship, substances,
-        openTopics, avoidTopics, flirting, deepConvos, visibility,
+        openTopics, avoidTopics, flirting, deepConvos, visibility, politics,
       };
       localStorage.setItem("honly_profile", JSON.stringify(profile));
       toast.success("Profile created!");
@@ -494,6 +496,11 @@ export default function Onboarding() {
                 <div>
                   <p className="text-sm font-medium mb-2 text-navy">Am I okay with deep conversations?</p>
                   <Single options={DEEP_CONVOS} value={deepConvos} onChange={setDeepConvos} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-1 text-navy">Political leaning <span className="text-slate-muted font-normal">· optional</span></p>
+                  <p className="text-xs text-slate-muted mb-2">Only used if you want it for matching. Always private if you pick "Prefer not to say."</p>
+                  <Single options={POLITICS} value={politics} onChange={setPolitics} color={teal} />
                 </div>
                 <div>
                   <p className="text-sm font-medium mb-2 text-navy">Profile visibility</p>
