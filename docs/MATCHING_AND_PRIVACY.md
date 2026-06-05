@@ -32,6 +32,8 @@ These are **separate** controls. "Let the app see where I am" ≠ "let others se
 
 **Privacy-first defaults:** *Discoverable by location* and *distance display* are **Off until you explicitly opt in**. Nothing about your location is shared by default.
 
+> **Settings note:** All three location/visibility controls are configured during onboarding and will also be editable in the Settings screen post-sign-up (🚧 planned — see USER_JOURNEY.md §9).
+
 ---
 
 ## 3. Matching criteria
@@ -48,7 +50,7 @@ These are **separate** controls. "Let the app see where I am" ≠ "let others se
 | 4 | 🤝 Intent ("why I'm here") | overlap | enum | "intent matches" | ×2 | friendship / deep talks / language practice / support / banter |
 | 5 | 💬 Conversation depth & style | overlap | enum | — | ×1 | reflective, witty, etc. |
 | 6 | 📍 Proximity | yes + both share location | radius | "within X km" | ×2 (closer = higher) | needs mutual location |
-| 7 | 😏 Flirt openness | yes, **mutual only** | bool | "both open" | gating (not weighted) | platonic-only protected by default |
+| 7 | 😏 Flirt openness | yes, **mutual only** | bool | "both open" | gating only — **Off/Nice/Must all map to the same gate**: active iff both enabled. No additive weight. | platonic-only protected by default |
 | 8 | 🎂 Age range | yes | range (18+) | filter by range | — | 18+ always enforced |
 | 9 | 🕉️ Spiritual alignment | overlap | path/tags | optional | ×1 | **Optional — default Off** |
 | 10 | 🗳️ Political alignment | overlap | **simple leaning** | optional | ×1 | **Optional — default Off**, sensitive (see below) |
@@ -72,6 +74,7 @@ Inner-world details (values, "what I'm working on," what gives me peace), lifest
 2. For survivors: score = Σ (weight × strength-of-match) over Nice-to-haves.
 3. Symmetric criteria (language, proximity, flirt, spirituality, politics)
    are active only when BOTH provided data / consented.
+   Edge case: if User A opts in but User B has not, the criterion is silently skipped — never surfaced as a nudge and never used against either user.
 4. Rank the feed by score; each card shows a **match %** plus its **top 3 reason chips**.
 ```
 
@@ -79,7 +82,7 @@ Inner-world details (values, "what I'm working on," what gives me peace), lifest
 Bob: must = interests; nice = depth.
 → Must of both satisfied (shared interests ✅, shared language ✅). Score (Ann's side) = interests(3×4=12) + proximity(2) + depth(1) = **15**. Card shows: `92% · 🎯 4 shared · 📍 ~3 km · 💬 deep talks`.
 
-This is "no forced" in math: if Bob is closed to flirt, Ann's "flirt = nice" simply never activates.
+This is "no forced" in math: flirt is a gate, not a scored criterion — if Bob has not enabled it, the gate never opens regardless of Ann's setting (Off/Nice/Must all behave identically unless both consent).
 
 ---
 
