@@ -148,7 +148,7 @@ Split onboarding into **Essentials** (needed to start) and **Deepen your profile
 
 ### Essentials (to reach Discover)
 1. **Basics** — name, age (18+), pronouns *(new)*, city, bio.
-2. **Interests** *(new — currently missing!)* — explicit tag picker (music, **films, TV shows, books, reels & memes**, sport, gaming, art, tech, nature…). Foundation of criterion #1.
+2. **Interests** *(new — currently missing!)* — explicit tag picker (music, **films, TV shows, books, reels & memes**, sport, gaming, art, **technology, AI**, nature…). Foundation of criterion #1.
 3. **Languages** *(new)* — languages you converse in.
 4. **Intent** *(new)* — why you're here (friendship / deep talks / language practice / support / banter).
 5. **Location & visibility** — the three privacy settings.

@@ -100,7 +100,7 @@ const PROMPT_LIBRARY = [
 ];
 
 // Matching essentials
-const INTERESTS = ["Music", "Films", "TV shows", "Books", "Reels & memes", "Art", "Photography", "Gaming", "Technology", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
+const INTERESTS = ["Music", "Films", "TV shows", "Books", "Reels & memes", "Art", "Photography", "Gaming", "Technology", "AI", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
 const LANGUAGES = ["English", "Spanish", "French", "German", "Russian", "Ukrainian", "Portuguese", "Italian", "Arabic", "Hindi", "Mandarin", "Japanese", "Korean", "Turkish", "Polish", "Dutch"];
 const INTENT = ["Friendship", "Deep talks", "Light daily chat", "Emotional support", "Language practice", "Playful banter"];
 
