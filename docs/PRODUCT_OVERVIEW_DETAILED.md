@@ -77,7 +77,7 @@ HOnly is a **conversation-first connection platform** built around three commitm
 HOnly is an early-stage product. Today it is a **front-end prototype** (built first with Lovable, then continued in Claude Code) with state stored locally in the browser — **no backend or database yet**, by deliberate choice, until it's built properly and reliably.
 
 ### ✅ Built today (front-end prototype)
-- **Rich onboarding** capturing identity, values, spirituality, conversation style, boundaries, and the kind of connection you want — including a **share-location / keep-it-hidden** choice.
+- **Onboarding essentials** — captures name, age (18+), pronouns, city, bio, interests, languages, intent, location & visibility settings, and match preset. (The deeper optional layer — conversation style, conversation prompts, voice intro, inner world, spirituality, politics, and boundaries — is planned for the next phase.)
 - **Profile** reflecting a whole person (interests, inner world, lifestyle, explicit boundaries such as whether you're open to flirting at all), with **optional photos — up to six**, first as avatar.
 - **Discover** — browse real humans by interests, location, and online status. **No swiping.**
 - **Human-feeling chat** — text, **photos, GIFs, and voice messages**, replies/quotes, **read receipts**, and **typing indicators**.
@@ -91,6 +91,7 @@ HOnly is an early-stage product. Today it is a **front-end prototype** (built fi
 - **Safety & moderation** — **reporting of aggressive or abusive users**, with moderation workflows.
 - **Age assurance** — users confirm they are **at least 18**.
 - **Boundary enforcement** — honoring declared preferences (e.g., platonic-only, no pushing toward offline meetings).
+- **Deeper onboarding** — conversation style, conversation prompts (icebreakers shown on profile & Discover), **voice intro** (short optional clip — humanizing, on-brand, and helps with anti-bot), inner world, spirituality & politics (both default Off), and boundaries & safety.
 - **Mobile app**
 
 ---
