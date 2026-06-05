@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -112,7 +112,7 @@ const DISTANCE_DISPLAY = ["Hidden", "Nearby / city", "Approx distance"];
 const PRESETS = [
   { key: "nearby", emoji: "🏙️", label: "Nearby & social", desc: "Interests + proximity" },
   { key: "deep", emoji: "💬", label: "Deep conversations", desc: "Interests + deep talks" },
-  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "Match on a shared topic — location not used" },
+  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "People who love the same topic" },
   { key: "flirt", emoji: "😏", label: "Open to flirt", desc: "Interests + mutual flirt" },
   { key: "custom", emoji: "🎚️", label: "Custom", desc: "Fine-tune later in Discover" },
 ];
@@ -181,6 +181,29 @@ export default function Onboarding() {
   const toggle = (arr: string[], set: React.Dispatch<React.SetStateAction<string[]>>, v: string) => {
     set(arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v]);
   };
+
+  // Pre-fill from saved profile so editing doesn't mean re-entering everything
+  useEffect(() => {
+    try {
+      const p = JSON.parse(localStorage.getItem("honly_profile") || "null");
+      if (!p) return;
+      setName(p.name || ""); setAge(p.age || ""); setGender(p.gender || ""); setCity(p.city || "");
+      setShowLocation(p.showLocation || "yes"); setTimezone(p.timezone || ""); setBio(p.bio || "");
+      setInterests(p.interests || []); setLanguages(p.languages || []); setIntent(p.intent || []);
+      setLocationAccess(p.locationAccess || "Off"); setDiscoverable(!!p.discoverable); setDistanceDisplay(p.distanceDisplay || "Hidden");
+      setMatchPreset(p.matchPreset || "");
+      setSpiritualPath(p.spiritualPath || ""); setSpiritImportance(p.spiritImportance || ""); setPractices(p.practices || []); setBeliefs(p.beliefs || []); setSpiritTopics(p.spiritTopics || []); setSpiritMeaning(p.spiritMeaning || "");
+      setConnectionType(p.connectionType || []); setConvoStyle(p.convoStyle || []); setTextFreq(p.textFreq || ""); setReplyStyle(p.replyStyle || ""); setConvoStarters(p.convoStarters || []);
+      setValues(p.values || []); setPeace(p.peace || []); setAppreciated(p.appreciated || []); setWorkingOn(p.workingOn || []);
+      setDayType(p.dayType || ""); setSocial(p.social || ""); setLoveLang(p.loveLang || ""); setRelationship(p.relationship || ""); setSubstances(p.substances || "");
+      setOpenTopics(p.openTopics || []); setAvoidTopics(p.avoidTopics || []); setFlirting(p.flirting || ""); setDeepConvos(p.deepConvos || ""); setVisibility(p.visibility || ""); setPolitics(p.politics || "");
+      if (Array.isArray(p.prompts)) {
+        const rec: Record<string, string> = {};
+        p.prompts.forEach((x: { q: string; a: string }) => { if (x?.q) rec[x.q] = x.a || ""; });
+        setPromptAnswers(rec);
+      }
+    } catch { /* ignore */ }
+  }, []);
 
   const next = () => {
     if (step === 1) {

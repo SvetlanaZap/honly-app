@@ -30,7 +30,7 @@ const PRESET_LABELS: Record<string, string> = {
 const PRESETS = [
   { key: "nearby", emoji: "🏙️", label: "Nearby & social", desc: "Shared interests + you're near each other" },
   { key: "deep", emoji: "💬", label: "Deep conversations", desc: "Shared interests + both want deep talks" },
-  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "Match on a shared topic — location not used" },
+  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "People who love the same topic" },
   { key: "flirt", emoji: "😏", label: "Open to flirt", desc: "Shared interests + both open to flirt" },
   { key: "custom", emoji: "🎚️", label: "Custom", desc: "Everything counts, nothing is required" },
 ];
