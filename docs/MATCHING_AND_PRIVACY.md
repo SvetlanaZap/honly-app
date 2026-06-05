@@ -56,15 +56,14 @@ These are **separate** controls. "Let the app see where I am" ≠ "let others se
 | 8 | 🎂 Age range | yes | range (18+) | filter by range | — | 18+ always enforced |
 | 9 | 🕉️ Spiritual alignment | overlap | path/tags | optional | ×1 | **Optional — default Off** |
 | 10 | 🗳️ Political alignment | overlap | **simple leaning** | optional | ×1 | **Optional — default Off**, sensitive (see below) |
-| 11 | 🚻 Gender | preference | gender values | "only my selected genders" | ×1 | **Optional — default Off**, sensitive (see below) |
-| 12 | 🌈 Sexual orientation | preference | orientation values | "only my selected orientations" | ×1 | **Optional — default Off**, sensitive (see below) |
+| 11 | 🫂 Open to connecting with | preference | women / men / everyone | "only who I'm open to" | ×1 | **Optional — default Off**, sensitive (see below) |
 
-**Sensitive, optional criteria (spirituality, politics, gender & sexual orientation):**
+**Sensitive, optional criteria (spirituality, politics & who you're open to connecting with):**
 - Default **Off**. Used only if the user opts in.
 - Always include **"Prefer not to say."** If a user keeps it private, it is never exposed or used against them.
 - Politics matters to some users (especially in the US) — supported, but never a forced or default filter. A user may use it to *find aligned* people **or** simply to display openness; HOnly takes no stance.
 - **Representation is a simple leaning** (e.g., progressive / moderate / conservative / apolitical / prefer not to say) — **not** granular issue tags — to keep it low-heat and easy.
-- **Gender & sexual orientation** are *preference* filters (e.g., "I only want to talk to women", an LGBTQ+ comfort space). Default **Off**; "prefer not to say" is honored and a person is never excluded unless the *viewer* opts into the filter. As with all symmetric criteria, they apply respectfully and only when set.
+- **"Who you're open to connecting with"** (women / men / everyone) is a soft, **no-labels** preference — *not* a sexual-orientation label. Default **Off**; "prefer not to say" is honored; nobody is excluded unless the *viewer* opts in. **Gender** stays a self-identification shown on the profile, not a filter.
 
 ### Profile-only fields (shown, not matched)
 Inner-world details (values, "what I'm working on," what gives me peace), lifestyle extras, etc. — they enrich the profile but don't drive Discover.
@@ -150,7 +149,7 @@ Looks like "Proximity = Must" is the blocker.
 Split onboarding into **Essentials** (needed to start) and **Deepen your profile** (optional, can finish later). Progressive profiling reduces drop-off; a "60% complete" bar nudges completion.
 
 ### Essentials (to reach Discover)
-1. **Basics** — name, age (18+), pronouns, gender, **sexual orientation (optional)**, city, bio.
+1. **Basics** — name, age (18+), pronouns, gender, **who you're open to connecting with (optional, no labels)**, city, bio.
 2. **Interests** *(new — currently missing!)* — explicit tag picker (music, **films, TV shows, books, reels & memes**, sport, gaming, art, **technology, AI**, nature…). Foundation of criterion #1.
 3. **Languages** *(new)* — languages you converse in.
 4. **Intent** *(new)* — why you're here (friendship / deep talks / language practice / support / banter).

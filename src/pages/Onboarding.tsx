@@ -54,7 +54,7 @@ function Single({ options, value, onChange, color = "hsl(var(--coral))" }: {
 
 // Step 1
 const GENDERS = ["Man", "Woman", "Non-binary", "Other", "Prefer not to say"];
-const SEXUAL_ORIENTATION = ["Straight", "Gay", "Lesbian", "Bisexual", "Pansexual", "Asexual", "Queer", "Questioning", "Prefer not to say"];
+const OPEN_TO = ["Women", "Men", "Everyone", "Prefer not to say"];
 const SHOW_LOCATION = ["Yes, show my city", "No, keep it hidden"];
 
 // Step 2
@@ -128,7 +128,7 @@ export default function Onboarding() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [orientation, setOrientation] = useState("");
+  const [openTo, setOpenTo] = useState("");
   const [city, setCity] = useState("");
   const [showLocation, setShowLocation] = useState("yes");
   const [timezone, setTimezone] = useState("");
@@ -189,7 +189,7 @@ export default function Onboarding() {
     try {
       const p = JSON.parse(localStorage.getItem("honly_profile") || "null");
       if (!p) return;
-      setName(p.name || ""); setAge(p.age || ""); setGender(p.gender || ""); setOrientation(p.orientation || ""); setCity(p.city || "");
+      setName(p.name || ""); setAge(p.age || ""); setGender(p.gender || ""); setOpenTo(p.openTo || ""); setCity(p.city || "");
       setShowLocation(p.showLocation || "yes"); setTimezone(p.timezone || ""); setBio(p.bio || "");
       setInterests(p.interests || []); setLanguages(p.languages || []); setIntent(p.intent || []);
       setLocationAccess(p.locationAccess || "Off"); setDiscoverable(!!p.discoverable); setDistanceDisplay(p.distanceDisplay || "Hidden");
@@ -221,7 +221,7 @@ export default function Onboarding() {
     if (step < TOTAL_STEPS) setStep(step + 1);
     else {
       const profile = {
-        name, age, gender, orientation, city, showLocation, timezone, bio,
+        name, age, gender, openTo, city, showLocation, timezone, bio,
         interests, languages, intent, locationAccess, discoverable, distanceDisplay, matchPreset,
         spiritualPath, spiritImportance, practices, beliefs, spiritTopics, spiritMeaning,
         connectionType, convoStyle, textFreq, replyStyle, convoStarters,
@@ -282,8 +282,9 @@ export default function Onboarding() {
                   <Single options={GENDERS} value={gender} onChange={setGender} />
                 </div>
                 <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Sexual orientation <span className="text-slate-muted font-normal">· optional</span></p>
-                  <Single options={SEXUAL_ORIENTATION} value={orientation} onChange={setOrientation} color={teal} />
+                  <p className="text-sm font-medium mb-1 text-navy">Who you're open to connecting with <span className="text-slate-muted font-normal">· optional</span></p>
+                  <p className="text-xs text-slate-muted mb-2">No labels required — just tell us who you're open to talking to. It's optional and private.</p>
+                  <Single options={OPEN_TO} value={openTo} onChange={setOpenTo} color={teal} />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5 text-navy">City / Country</label>
