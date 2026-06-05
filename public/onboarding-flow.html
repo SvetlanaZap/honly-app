@@ -36,6 +36,16 @@
   .chip.teal{background:var(--teal);color:#fff;border-color:var(--teal)}
   .pcard{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:9.5px;font-weight:700;color:var(--navy)}
   .pcard.sel{border-color:var(--coral);background:rgba(232,101,74,.07)}
+  .crow{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:9.5px;font-weight:600;margin-bottom:1px}
+  .seg{display:inline-flex;border:1.5px solid var(--line);border-radius:7px;overflow:hidden;flex:none}
+  .seg .sg{font-size:8px;font-weight:700;padding:3px 7px;color:var(--muted);background:#fff;border-left:1px solid var(--line)}
+  .seg .sg:first-child{border-left:none}
+  .seg .sg.must{background:var(--coral);color:#fff}
+  .seg .sg.nice{background:var(--teal);color:#fff}
+  .slider{height:5px;background:#E0D8CC;border-radius:3px;position:relative;margin:6px 0 9px}
+  .slider .fill{position:absolute;height:100%;border-radius:3px;background:var(--coral)}
+  .slider .knob{position:absolute;top:-3.5px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--coral)}
+  .num.alt{background:var(--teal)}
   .bt{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;font-size:9.5px;font-weight:600}
   .tg{width:30px;height:17px;border-radius:50px;position:relative;flex:none}
   .tg.off{background:#D9D2C6}.tg.on{background:var(--coral)}
@@ -145,6 +155,31 @@
       <div class="btn">Continue</div>
     </div></div>
     <div class="cap">4 · What matters<small>Match preset · no swiping</small></div>
+  </div>
+
+  <!-- STEP 4b: CUSTOM — MUST / NICE -->
+  <div class="item"><div class="num alt">4b</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">🎚️ Custom matching</div>
+      <div class="opt" style="margin-bottom:3px">Opens when you pick “Custom”. <b>Must</b> filters · <b>Nice</b> ranks · <b>Off</b> ignores.</div>
+      <div class="crow">🎯 Shared interests <span class="seg"><span class="sg">Off</span><span class="sg">Nice</span><span class="sg must">Must</span></span></div>
+      <div class="crow">🗣️ Common language <span class="seg"><span class="sg">Off</span><span class="sg nice">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">✨ Topic focus <span class="seg"><span class="sg must">Off</span><span class="sg">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">🤝 Intent <span class="seg"><span class="sg">Off</span><span class="sg nice">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">💬 Conversation depth <span class="seg"><span class="sg must">Off</span><span class="sg">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">📍 Proximity <span class="seg"><span class="sg">Off</span><span class="sg">Nice</span><span class="sg must">Must</span></span></div>
+      <div class="crow">🕉️ Spiritual alignment <span class="seg"><span class="sg must">Off</span><span class="sg">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">🗳️ Political alignment <span class="seg"><span class="sg must">Off</span><span class="sg">Nice</span><span class="sg">Must</span></span></div>
+      <div class="crow">😏 Flirt (mutual) <span class="seg"><span class="sg must">Off</span><span class="sg">Mutual</span></span></div>
+      <div class="lab">Age range · 24–38</div>
+      <div class="slider"><div class="fill" style="left:22%;width:46%"></div><div class="knob" style="left:20%"></div><div class="knob" style="left:66%"></div></div>
+      <div class="lab">Distance radius · 25 km</div>
+      <div class="slider"><div class="fill" style="left:0;width:42%"></div><div class="knob" style="left:40%"></div></div>
+      <div class="note">Same controls live later in Discover → <b>Refine</b>.</div>
+      <div class="btn">Continue</div>
+    </div></div>
+    <div class="cap">4b · Custom — Must / Nice<small>Advanced layer of step 4 (“Custom” preset)</small></div>
   </div>
 
   <!-- STEP 5: SPIRITUALITY (optional) -->
