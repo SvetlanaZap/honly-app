@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Search, MapPin, MessageCircle } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Search, MapPin, Bookmark, X, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
@@ -47,6 +47,23 @@ export default function Discover() {
     try { return JSON.parse(localStorage.getItem("honly_profile") || "null"); } catch { return null; }
   });
   const [showRefine, setShowRefine] = useState(false);
+  const navigate = useNavigate();
+  const [saved, setSaved] = useState<Set<number>>(new Set());
+  const [dismissed, setDismissed] = useState<Set<number>>(new Set());
+  const [whyOpen, setWhyOpen] = useState<number | null>(null);
+
+  const toggleSave = (p: Person) => {
+    setSaved(prev => {
+      const n = new Set(prev);
+      if (n.has(p.id)) { n.delete(p.id); toast(`Removed ${p.name} from saved`); }
+      else { n.add(p.id); toast.success(`Saved ${p.name} for later`); }
+      return n;
+    });
+  };
+  const dismiss = (p: Person) => {
+    setDismissed(prev => new Set(prev).add(p.id));
+    toast(`Okay — we won't show ${p.name}`);
+  };
 
   const applyPreset = (key: string) => {
     const updated = { ...(profile || {}), matchPreset: key };
@@ -86,8 +103,8 @@ export default function Discover() {
 
     const score = reasons.reduce((s, r) => s + r.weight, 0);
     const matchPct = Math.min(99, Math.round(38 + score * 6));
-    const top = [...reasons].sort((a, b) => b.weight - a.weight).slice(0, 3);
-    return { passes, score, matchPct, reasons: top };
+    const all = [...reasons].sort((a, b) => b.weight - a.weight);
+    return { passes, score, matchPct, reasons: all.slice(0, 3), all };
   };
 
   const ranked = useMemo(() => {
@@ -100,6 +117,7 @@ export default function Discover() {
   }, [profile]);
 
   const onlineCount = PEOPLE.filter(p => p.online).length;
+  const visible = ranked.filter(x => !dismissed.has(x.person.id));
 
   return (
     <div className="min-h-screen bg-background font-body">
@@ -164,45 +182,76 @@ export default function Discover() {
             <p className="text-navy/70 mb-4">Try a different vibe or loosen a requirement.</p>
             <Link to="/onboarding"><button className="honly-btn-outline">Adjust preferences</button></Link>
           </div>
+        ) : visible.length === 0 ? (
+          <div className="rounded-2xl p-8 bg-cream border-2 border-navy text-center max-w-lg mx-auto">
+            <span className="text-3xl block mb-2">👀</span>
+            <h2 className="text-lg font-bold font-heading text-navy mb-1">You've seen everyone for now</h2>
+            <p className="text-navy/70 mb-4">Check back later, or take another look at people you passed.</p>
+            <button className="honly-btn-outline" onClick={() => setDismissed(new Set())}>Show them again</button>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {ranked.map(({ person, m }, i) => (
-              <motion.div key={person.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}>
-                <Link to={`/profile/${person.id}`}>
-                  <div className="honly-card overflow-hidden cursor-pointer">
-                    <div className="h-40 flex items-center justify-center relative" style={{ backgroundColor: person.color + "22" }}>
-                      <svg viewBox="0 0 100 100" className="w-24 h-24" fill="none">
-                        <circle cx="50" cy="30" r="20" fill={person.color} />
-                        <path d="M15 100 Q15 60 50 60 Q85 60 85 100Z" fill={person.color} />
-                      </svg>
-                      {person.online && <div className="absolute top-3 right-3 w-3 h-3 rounded-full bg-green-500 border-2 border-card" />}
-                      {m && (
-                        <span className="absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded-full bg-card border-2 border-navy text-navy font-heading">
-                          {m.matchPct}% match
-                        </span>
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="text-lg font-heading text-navy">{person.name}, {person.age}</h3>
-                        <span className="text-xs font-medium" style={{ color: person.online ? "#22C55E" : "hsl(var(--slate-muted))" }}>
-                          {person.online ? "Online" : "Offline"}
-                        </span>
+            {visible.map(({ person, m }, i) => {
+              const isSaved = saved.has(person.id);
+              const open = whyOpen === person.id;
+              return (
+                <motion.div key={person.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
+                  <div className="honly-card overflow-hidden flex flex-col">
+                    {/* Tappable header → full profile */}
+                    <div className="cursor-pointer" onClick={() => navigate(`/profile/${person.id}`)}>
+                      <div className="h-40 flex items-center justify-center relative" style={{ backgroundColor: person.color + "22" }}>
+                        <svg viewBox="0 0 100 100" className="w-24 h-24" fill="none">
+                          <circle cx="50" cy="30" r="20" fill={person.color} />
+                          <path d="M15 100 Q15 60 50 60 Q85 60 85 100Z" fill={person.color} />
+                        </svg>
+                        {person.online && <div className="absolute top-3 right-3 w-3 h-3 rounded-full bg-green-500 border-2 border-card" />}
+                        {m && (
+                          <span className="absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded-full bg-card border-2 border-navy text-navy font-heading">
+                            {m.matchPct}% match
+                          </span>
+                        )}
                       </div>
-                      <div className="flex items-center gap-1 mb-3">
-                        <MapPin size={12} className="text-slate-muted" />
-                        <span className="text-sm text-slate-muted">{person.city}</span>
-                      </div>
-
-                      {/* Match reasons */}
-                      {m && m.reasons.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mb-3">
-                          {m.reasons.map((r, idx) => (
-                            <span key={idx} className="text-xs px-2 py-0.5 rounded-full font-medium bg-teal/10 text-navy border border-teal/40">
-                              {r.icon} {r.text}
-                            </span>
-                          ))}
+                      <div className="px-4 pt-4">
+                        <div className="flex items-center justify-between mb-1">
+                          <h3 className="text-lg font-heading text-navy">{person.name}, {person.age}</h3>
+                          <span className="text-xs font-medium" style={{ color: person.online ? "#22C55E" : "hsl(var(--slate-muted))" }}>
+                            {person.online ? "Online" : "Offline"}
+                          </span>
                         </div>
+                        <div className="flex items-center gap-1 mb-3">
+                          <MapPin size={12} className="text-slate-muted" />
+                          <span className="text-sm text-slate-muted">{person.city}</span>
+                        </div>
+                        {m && m.reasons.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mb-1">
+                            {m.reasons.map((r, idx) => (
+                              <span key={idx} className="text-xs px-2 py-0.5 rounded-full font-medium bg-teal/10 text-navy border border-teal/40">
+                                {r.icon} {r.text}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="px-4 pb-4 pt-2 flex flex-col flex-1">
+                      {/* See why you match */}
+                      {m && m.all.length > 0 && (
+                        <>
+                          <button onClick={() => setWhyOpen(open ? null : person.id)} className="text-xs font-semibold text-teal hover:underline self-start mb-2">
+                            {open ? "Hide" : "See why you match"}
+                          </button>
+                          {open && (
+                            <div className="mb-3 rounded-xl bg-teal/10 border border-teal/30 p-3">
+                              <p className="text-xs font-bold text-navy mb-1.5">{m.matchPct}% match</p>
+                              <ul className="flex flex-col gap-1">
+                                {m.all.map((r, idx) => (
+                                  <li key={idx} className="text-xs text-navy/80">{r.icon} {r.text}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </>
                       )}
 
                       <p className="text-sm mb-3 line-clamp-2 text-navy/75">{person.bio}</p>
@@ -211,15 +260,31 @@ export default function Discover() {
                           <span key={int} className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: person.color + "22", color: person.color, border: `1px solid ${person.color}44` }}>{int}</span>
                         ))}
                       </div>
-                      <button className="w-full py-2 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all font-heading border-2 border-navy" style={{ backgroundColor: person.color, color: "white" }}
-                        onClick={e => { e.preventDefault(); toast.success(`Message sent to ${person.name}!`); }}>
-                        <MessageCircle size={14} /> Say hello
-                      </button>
+
+                      <div className="mt-auto flex flex-col gap-2">
+                        {/* Primary CTA */}
+                        <button onClick={() => navigate(`/profile/${person.id}`)}
+                          className="w-full py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all font-heading border-2 border-navy bg-coral text-primary-foreground hover:-translate-y-0.5 hover:shadow-[3px_3px_0_hsl(var(--navy))]">
+                          View profile <ArrowRight size={14} />
+                        </button>
+                        {/* Secondary actions */}
+                        <div className="flex gap-2">
+                          <button onClick={() => toggleSave(person)}
+                            className="flex-1 py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors font-heading border-2 border-navy"
+                            style={{ backgroundColor: isSaved ? "hsl(var(--teal) / 0.15)" : "hsl(var(--card))", color: "hsl(var(--navy))" }}>
+                            <Bookmark size={13} fill={isSaved ? "hsl(var(--teal))" : "none"} /> {isSaved ? "Saved" : "Save for later"}
+                          </button>
+                          <button onClick={() => dismiss(person)} title="Not for me"
+                            className="py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors font-heading border-2 border-navy bg-card text-slate-muted hover:text-coral">
+                            <X size={13} /> Not for me
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         )}
       </div>
