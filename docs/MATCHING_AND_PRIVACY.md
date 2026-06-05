@@ -25,10 +25,12 @@ These are **separate** controls. "Let the app see where I am" ≠ "let others se
 | Setting | Options | Effect |
 |---|---|---|
 | **Location access** | Off / Approximate (city) / Precise | The data source. **Off** disables all geo features for you (you see no one by proximity, and no one sees you by proximity). |
-| **Discoverable by location** | On / Off | Outbound visibility. You can search nearby while staying invisible yourself. |
-| **Distance display on my card** | Hidden / Fuzzy ("Nearby", "In your city") / Approx ("~3 km") | We **never** show an exact point. Coordinates are snapped to a grid / jittered. |
+| **Discoverable by location** | On / **Off (default)** | Outbound visibility. You can search nearby while staying invisible yourself. |
+| **Distance display on my card** | **Hidden (default)** / Fuzzy ("Nearby", "In your city") / Approx ("~3 km") | We **never** show an exact point. Coordinates are snapped to a grid / jittered. |
 
 **Privacy guarantees:** no exact coordinates ever exposed; no direction/bearing; turning location Off removes you from everyone's "nearby" instantly.
+
+**Privacy-first defaults:** *Discoverable by location* and *distance display* are **Off until you explicitly opt in**. Nothing about your location is shared by default.
 
 ---
 
@@ -45,17 +47,17 @@ These are **separate** controls. "Let the app see where I am" ≠ "let others se
 | 3 | ✨ Topic focus | overlap | topic tags | "topic matches" | ×3 | e.g. psychedelics, philosophy |
 | 4 | 🤝 Intent ("why I'm here") | overlap | enum | "intent matches" | ×2 | friendship / deep talks / language practice / support / banter |
 | 5 | 💬 Conversation depth & style | overlap | enum | — | ×1 | reflective, witty, etc. |
-| 6 | 🌙 Active-hours overlap | yes | morning/day/evening/night | "share a slot" | ×2 | powers "night talks" |
-| 7 | 📍 Proximity | yes + both share location | radius | "within X km" | ×2 (closer = higher) | needs mutual location |
-| 8 | 😏 Flirt openness | yes, **mutual only** | bool | "both open" | gating (not weighted) | platonic-only protected by default |
-| 9 | 🎂 Age range | yes | range (18+) | filter by range | — | 18+ always enforced |
-| 10 | 🕉️ Spiritual alignment | overlap | path/tags | optional | ×1 | **Optional — default Off** |
-| 11 | 🗳️ Political alignment | overlap | leaning/tags | optional | ×1 | **Optional — default Off**, sensitive (see below) |
+| 6 | 📍 Proximity | yes + both share location | radius | "within X km" | ×2 (closer = higher) | needs mutual location |
+| 7 | 😏 Flirt openness | yes, **mutual only** | bool | "both open" | gating (not weighted) | platonic-only protected by default |
+| 8 | 🎂 Age range | yes | range (18+) | filter by range | — | 18+ always enforced |
+| 9 | 🕉️ Spiritual alignment | overlap | path/tags | optional | ×1 | **Optional — default Off** |
+| 10 | 🗳️ Political alignment | overlap | **simple leaning** | optional | ×1 | **Optional — default Off**, sensitive (see below) |
 
 **Sensitive, optional criteria (spirituality & politics):**
 - Default **Off**. Used only if the user opts in.
 - Always include **"Prefer not to say."** If a user keeps it private, it is never exposed or used against them.
 - Politics matters to some users (especially in the US) — supported, but never a forced or default filter. A user may use it to *find aligned* people **or** simply to display openness; HOnly takes no stance.
+- **Representation is a simple leaning** (e.g., progressive / moderate / conservative / apolitical / prefer not to say) — **not** granular issue tags — to keep it low-heat and easy.
 
 ### Profile-only fields (shown, not matched)
 Inner-world details (values, "what I'm working on," what gives me peace), lifestyle extras, etc. — they enrich the profile but don't drive Discover.
@@ -68,14 +70,14 @@ Inner-world details (values, "what I'm working on," what gives me peace), lifest
 1. Apply ALL Must-haves from BOTH users (intersection).
    If any Must fails on either side → pair is excluded.
 2. For survivors: score = Σ (weight × strength-of-match) over Nice-to-haves.
-3. Symmetric criteria (language, hours, proximity, flirt, spirituality, politics)
+3. Symmetric criteria (language, proximity, flirt, spirituality, politics)
    are active only when BOTH provided data / consented.
-4. Rank the feed by score; each card shows its top 3 match reasons.
+4. Rank the feed by score; each card shows a **match %** plus its **top 3 reason chips**.
 ```
 
-**Example.** Ann: must = interests, language; nice = night hours, proximity.
+**Example.** Ann: must = interests, language; nice = proximity, depth.
 Bob: must = interests; nice = depth.
-→ Must of both satisfied (shared interests ✅, shared language ✅). Score (Ann's side) = interests(3×4=12) + night(2) + proximity(2) = **16**. Card shows: `🎯 4 shared · 🌙 both night owls · 📍 ~3 km`.
+→ Must of both satisfied (shared interests ✅, shared language ✅). Score (Ann's side) = interests(3×4=12) + proximity(2) + depth(1) = **15**. Card shows: `92% · 🎯 4 shared · 📍 ~3 km · 💬 deep talks`.
 
 This is "no forced" in math: if Bob is closed to flirt, Ann's "flirt = nice" simply never activates.
 
@@ -88,7 +90,7 @@ This is "no forced" in math: if Bob is closed to flirt, Ann's "flirt = nice" sim
 | Preset | Contents |
 |---|---|
 | 🏙️ Nearby & social | interests (must) + proximity (must) |
-| 🌙 Night talks | interests (must) + night hours (must) |
+| 💬 Deep conversations | interests (must) + intent "deep talks" (must) |
 | 🧠 Topic deep-dive | a topic (must), location Off |
 | 😏 Open to flirt | interests (must) + flirt mutual (must) |
 | 🎚️ Custom | opens Layer 2 |
@@ -110,7 +112,7 @@ Use your location?   ( )Off  (•)Approximate  ( )Precise
 **Onboarding → What matters to you**
 ```
 Pick a vibe:
-[🏙️ Nearby & social] [🌙 Night talks]
+[🏙️ Nearby & social] [💬 Deep conversations]
 [🧠 Topic deep-dive] [😏 Open to flirt] [🎚️ Custom ▾]
   ▾ Custom:
    🎯 Interests   [Off][Nice][•Must]
@@ -119,10 +121,10 @@ Pick a vibe:
    😏 Flirt       [•Off][ Mutual ]
 ```
 
-**Discover card**
+**Discover card** (match % + reason chips)
 ```
 [photo] Maya, 27 · Berlin  ● online   match 92%
-        🎯 7 shared · 🌙 both night owls · 📍 ~3 km
+        🎯 7 shared · ✨ psychedelics · 📍 ~3 km
         "Chasing sunsets…"            [ Message ]
 ```
 
@@ -149,14 +151,13 @@ Split onboarding into **Essentials** (needed to start) and **Deepen your profile
 
 ### Deepen your profile (optional, skippable)
 7. **Conversation** — depth/style, texting frequency, reply style.
-8. **Active hours** *(new)* — when you're usually around (feeds night-talk matching).
-9. **Conversation prompts** *(new — see §8)*.
-10. **Voice intro** *(new, optional)* — a short clip "say hi in your own voice." Humanizes, helps anti-bot, very on-brand (reuses chat voice recording).
-11. **Inner world** — values, peace, working on (profile-only).
-12. **Spirituality** — **optional**, default Off as a match factor.
-13. **Politics** — **optional**, default Off, "prefer not to say" always available.
-14. **Boundaries & safety** — open/avoid topics, flirting stance, **"never ask me to meet offline"** toggle, visibility (real / anonymous).
-15. *(future)* **Verification** — selfie/liveness anti-bot.
+8. **Conversation prompts** *(new — see §8)*.
+9. **Voice intro** *(new, optional)* — a short clip "say hi in your own voice." Humanizes, helps anti-bot, very on-brand (reuses chat voice recording).
+10. **Inner world** — values, peace, working on (profile-only).
+11. **Spirituality** — **optional**, default Off as a match factor.
+12. **Politics** — **optional**, default Off, **simple leaning** (progressive / moderate / conservative / apolitical), "prefer not to say" always available.
+13. **Boundaries & safety** — open/avoid topics, flirting stance, **"never ask me to meet offline"** toggle, visibility (real / anonymous).
+14. *(future)* **Verification** — selfie/liveness anti-bot.
 
 ---
 
@@ -175,9 +176,14 @@ The most HOnly-native feature: HOnly is conversation-first, so we help conversat
 
 ---
 
-## 9. Open questions
+## 9. Decisions & open questions
+
+**Resolved:**
+- **Active-hours matching — removed.** People can sort out timing personally in conversation; not a match criterion.
+- **Politics — simple leaning** only (progressive / moderate / conservative / apolitical / prefer not to say), not issue tags.
+- **Privacy defaults — Off / opt-in.** Discoverable-by-location and distance-display are Off by default.
+- **Match-score display — both.** Show a **match %** *and* the **top reason chips**.
+
+**Still open:**
 1. **Interest & topic taxonomy** — finalize the canonical tag lists.
-2. **Active-hours model** — fixed slots vs. real online-activity inference.
-3. **Politics representation** — simple leaning, issue tags, or both? How to keep it low-heat.
-4. **Privacy defaults** — should Discoverable / Show-distance default On or Off? (Lean: Off, opt-in.)
-5. **Match-score display** — show a % or just the reason chips?
+2. **Proximity radius defaults** — default radius and max range.

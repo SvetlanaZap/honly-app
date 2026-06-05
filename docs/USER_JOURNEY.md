@@ -24,7 +24,7 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 Split into **Essentials** (to start) and **Deepen your profile** (optional, finish later) with a completion bar.
 
 **Essentials:** Basics (+ pronouns) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings) · **What matters to you** (match preset/custom).
-**Deepen (optional):** Conversation · **Active hours** *(new)* · **Conversation prompts** *(new)* · **Voice intro** *(new, optional)* · Inner world · **Spirituality (optional)** · **Politics (optional, "prefer not to say")** · Boundaries & safety (incl. *"never ask me to meet offline"*) · *(future)* Verification.
+**Deepen (optional):** Conversation · **Conversation prompts** *(new)* · **Voice intro** *(new, optional)* · Inner world · **Spirituality (optional)** · **Politics (optional, simple leaning, "prefer not to say")** · Boundaries & safety (incl. *"never ask me to meet offline"*) · *(future)* Verification.
 
 - **Today:** 6 steps saved to browser (`honly_profile`) → `/discover`. ✅
 - **🚧 Planned:** the new structure above; persist to backend; resume/partial save. See matching spec.
@@ -35,7 +35,7 @@ Split into **Essentials** (to start) and **Deepen your profile** (optional, fini
 - **Does:** **Edit** → `/onboarding`. ✅
 
 ## 4. Discovery — `/discover` — **no swiping**
-- **Sees:** people ranked by **match score**, each card showing **match-reason chips** (🎯 interests · 🌙 hours · 📍 nearby). Search, **Refine** panel to adjust Must/Nice live. ✅ list today (static) · 🚧 real ranking & reasons.
+- **Sees:** people ranked by **match score**, each card showing a **match %** + **reason chips** (🎯 interests · ✨ topic · 📍 nearby). Search, **Refine** panel to adjust Must/Nice live. ✅ list today (static) · 🚧 real ranking & reasons.
 - **Empty state:** if Must-haves too strict → suggest loosening. 🚧
 - **Does:** open a profile (`/profile/:id`). ✅
 
