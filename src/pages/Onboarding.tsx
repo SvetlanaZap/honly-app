@@ -206,8 +206,8 @@ export default function Onboarding() {
         prompts: Object.entries(promptAnswers).filter(([, a]) => a.trim()).map(([q, a]) => ({ q, a: a.trim() })),
       };
       localStorage.setItem("honly_profile", JSON.stringify(profile));
-      toast.success("Profile created!");
-      navigate("/profile");
+      toast.success("Profile created! Let's find your people.");
+      navigate("/discover");
     }
   };
 
