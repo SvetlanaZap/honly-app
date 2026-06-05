@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=1800" />
-<title>HOnly — Onboarding Flow Map</title>
+<meta name="viewport" content="width=2200" />
+<title>HOnly — Onboarding Flow Map (full options)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -11,40 +11,41 @@
   :root{--coral:#E8654A;--teal:#3CBEA8;--navy:#1B2532;--cream:#F5EFE6;--muted:#5A6A7E;--line:#E0D8CC}
   body{background:#EBE4D8;font-family:'Inter',system-ui,sans-serif;color:var(--navy);padding:36px 30px 70px}
   h1{font-size:28px;font-weight:900;display:flex;align-items:center;gap:12px}
-  .sub{color:var(--muted);font-size:14px;margin:6px 0 28px}
-  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 6px}
-  .item{display:flex;flex-direction:column;align-items:center;width:226px}
-  .cap{font-family:'Space Grotesk';font-weight:700;font-size:12px;margin-top:8px;text-align:center}
-  .cap small{display:block;color:var(--muted);font-weight:500;font-size:10px}
-  .arrow{font-size:24px;color:var(--coral);font-weight:900}
-  .ph{width:226px;height:466px;background:var(--cream);border:3px solid var(--navy);border-radius:28px;
-      box-shadow:0 9px 22px rgba(0,0,0,.16);overflow:hidden;display:flex;flex-direction:column;position:relative}
+  .sub{color:var(--muted);font-size:14px;margin:6px 0 26px;max-width:900px}
+  .flow{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+  .item{width:268px;position:relative}
+  .num{position:absolute;top:-12px;left:-12px;z-index:5;width:30px;height:30px;border-radius:50%;background:var(--coral);color:#fff;
+       font-family:'Space Grotesk';font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;border:3px solid #EBE4D8;box-shadow:0 3px 8px rgba(0,0,0,.2)}
+  .ph{width:268px;min-height:440px;background:var(--cream);border:3px solid var(--navy);border-radius:28px;
+      box-shadow:0 9px 22px rgba(0,0,0,.16);overflow:hidden;display:flex;flex-direction:column}
   .notch{height:16px;display:flex;align-items:center;justify-content:center}
-  .notch::after{content:"";width:58px;height:4px;border-radius:4px;background:var(--navy);opacity:.25}
-  .top{padding:6px 14px 0}
-  .body{padding:6px 14px 14px;display:flex;flex-direction:column;gap:7px;flex:1;overflow:hidden}
-  .dots{display:flex;gap:3px;margin-bottom:7px}
+  .notch::after{content:"";width:60px;height:4px;border-radius:4px;background:var(--navy);opacity:.25}
+  .body{padding:8px 15px 15px;display:flex;flex-direction:column;gap:9px;flex:1}
+  .dots{display:flex;gap:3px;margin-bottom:4px}
   .dots i{flex:1;height:3px;border-radius:2px;background:var(--line)}.dots i.on{background:var(--coral)}
   .eb{font-size:8px;font-weight:800;letter-spacing:1px}
-  .tt{font-size:18px;font-weight:900;color:var(--navy);line-height:1.12}
-  .lab{font-size:8.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:1px}
-  .fld{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:10px;color:var(--muted)}
+  .tt{font-size:19px;font-weight:900;color:var(--navy);line-height:1.1}
+  .opt{font-size:11px;font-weight:600;color:var(--muted)}
+  .lab{font-size:8.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:3px 0 1px}
+  .fld{background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;font-size:9.5px;color:var(--muted)}
   .fld.on{border-color:var(--coral);color:var(--navy)}
   .chips{display:flex;flex-wrap:wrap;gap:4px}
-  .chip{border:1px solid #D9D2C6;border-radius:50px;padding:3px 8px;font-size:9px;font-weight:600;color:var(--muted);background:#fff}
+  .chip{border:1px solid #D9D2C6;border-radius:50px;padding:3px 7px;font-size:8.5px;font-weight:600;color:var(--muted);background:#fff;line-height:1.3}
   .chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
   .chip.coral{background:var(--coral);color:#fff;border-color:var(--coral)}
   .chip.teal{background:var(--teal);color:#fff;border-color:var(--teal)}
-  .pcard{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:9.5px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:6px}
+  .pcard{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:9.5px;font-weight:700;color:var(--navy)}
   .pcard.sel{border-color:var(--coral);background:rgba(232,101,74,.07)}
-  .bt{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:6px 9px;font-size:9.5px;font-weight:600}
+  .bt{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:6px 9px;font-size:9.5px;font-weight:600}
   .tg{width:30px;height:17px;border-radius:50px;position:relative;flex:none}
   .tg.off{background:#D9D2C6}.tg.on{background:var(--coral)}
   .tg i{position:absolute;top:1.5px;width:13px;height:13px;border-radius:50%;background:#fff}.tg.off i{left:2px}.tg.on i{right:2px}
-  .note{background:rgba(60,190,168,.12);border:1px solid rgba(60,190,168,.4);border-radius:8px;padding:6px 8px;font-size:9px;color:var(--navy)}
-  .btn{margin-top:auto;background:var(--coral);color:#fff;border-radius:50px;padding:9px;text-align:center;font-size:11px;font-weight:700}
-  .btn.gh{background:#fff;color:var(--muted);border:1.5px solid var(--line)}
-  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;padding:0 16px}
+  .note{background:rgba(60,190,168,.12);border:1px solid rgba(60,190,168,.4);border-radius:8px;padding:6px 8px;font-size:8.5px;color:var(--navy)}
+  .btn{margin-top:8px;background:var(--coral);color:#fff;border-radius:50px;padding:9px;text-align:center;font-size:11px;font-weight:700}
+  .btn.gh{background:#fff;color:var(--muted);border:1.5px solid var(--line);margin-top:0}
+  .cap{font-family:'Space Grotesk';font-weight:700;font-size:12px;margin-top:9px;text-align:center}
+  .cap small{display:block;color:var(--muted);font-weight:500;font-size:10px}
+  .center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;padding:10px 16px}
   .legend{margin-top:34px;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:6px 22px}
   .legend b{color:var(--navy)}
 </style>
@@ -61,14 +62,14 @@
   </symbol>
 </svg>
 
-<h1><svg width="110" height="47"><use href="#honly"/></svg> Onboarding Flow Map</h1>
-<p class="sub">Full sign-up → onboarding → first screen. 9 onboarding steps · Essentials first, deeper layers after. Optional steps can be skipped.</p>
+<h1><svg width="110" height="47"><use href="#honly"/></svg> Onboarding Flow — full options</h1>
+<p class="sub">Every screen and every option, exactly as in the app. Follow the numbers 1→9. Selected chips are highlighted for illustration; in the app you pick your own. Optional steps (Spirituality, Politics, Prompts, Voice intro) can be skipped.</p>
 
 <div class="flow">
 
   <!-- ENTRY: SIGN UP -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="body">
+  <div class="item">
+    <div class="ph"><div class="notch"></div><div class="body">
       <div class="eb" style="color:var(--coral)">CREATE ACCOUNT</div>
       <div class="tt">Sign up</div>
       <div><div class="lab">Email</div><div class="fld on">alex@example.com</div></div>
@@ -76,187 +77,195 @@
       <div><div class="lab">Date of birth · 18+</div><div class="fld">04 / 12 / 1998</div></div>
       <div class="note">🔒 18+ only · email verified</div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">Sign up<small>Email · password · 18+ gate</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">Sign up<small>Email · password · 18+ gate</small></div>
+  </div>
 
   <!-- STEP 1: BASICS -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">👤</div>
-      <div class="tt">Basics</div>
+  <div class="item"><div class="num">1</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">👤 Basics</div>
       <div><div class="lab">Display name</div><div class="fld on">Alex</div></div>
-      <div style="display:flex;gap:6px"><div style="flex:1"><div class="lab">Age</div><div class="fld">27</div></div><div style="flex:1"><div class="lab">Pronouns</div><div class="fld">they/them</div></div></div>
-      <div><div class="lab">City</div><div class="fld">Berlin</div></div>
+      <div style="display:flex;gap:6px"><div style="flex:1"><div class="lab">Age</div><div class="fld">27</div></div><div style="flex:1"><div class="lab">Time zone</div><div class="fld">UTC+1</div></div></div>
+      <div class="lab">I am…</div>
+      <div class="chips"><span class="chip">Man</span><span class="chip">Woman</span><span class="chip on">Non-binary</span><span class="chip">Other</span><span class="chip">Prefer not to say</span></div>
+      <div><div class="lab">City / Country</div><div class="fld">Berlin, Germany</div></div>
+      <div class="lab">Show location on profile?</div>
+      <div class="chips"><span class="chip teal">Yes, show my city</span><span class="chip">No, keep it hidden</span></div>
       <div><div class="lab">Short bio</div><div class="fld">What's your vibe?</div></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">1 · Basics<small>Name · age · pronouns · city · bio</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">1 · Basics<small>Name · age · gender · city · bio</small></div>
+  </div>
 
   <!-- STEP 2: INTERESTS & LANGUAGES -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">🎯</div>
-      <div class="tt">Interests & languages</div>
-      <div class="lab">Interests</div>
-      <div class="chips"><span class="chip on">Films</span><span class="chip on">Books</span><span class="chip coral">AI</span><span class="chip">Music</span><span class="chip on">Philosophy</span><span class="chip">Reels & memes</span></div>
-      <div class="lab">Languages</div>
-      <div class="chips"><span class="chip teal">English</span><span class="chip teal">German</span></div>
-      <div class="lab">Why I'm here</div>
-      <div class="chips"><span class="chip on">Friendship</span><span class="chip on">Deep talks</span></div>
+  <div class="item"><div class="num">2</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">🎯 Interests & languages</div>
+      <div class="lab">Interests (pick a few)</div>
+      <div class="chips"><span class="chip on">Music</span><span class="chip on">Films</span><span class="chip">TV shows</span><span class="chip on">Books</span><span class="chip">Reels & memes</span><span class="chip">Art</span><span class="chip">Photography</span><span class="chip">Gaming</span><span class="chip">Technology</span><span class="chip coral">AI</span><span class="chip">Science</span><span class="chip">Travel</span><span class="chip">Food & cooking</span><span class="chip">Fitness</span><span class="chip">Nature & hiking</span><span class="chip">Fashion</span><span class="chip">Writing</span><span class="chip">Politics</span><span class="chip">History</span><span class="chip on">Philosophy</span><span class="chip">Psychology</span><span class="chip">Business</span><span class="chip">Animals</span><span class="chip">Sports</span><span class="chip">Dance</span><span class="chip">Theatre</span><span class="chip">Volunteering</span></div>
+      <div class="lab">Languages I talk in</div>
+      <div class="chips"><span class="chip teal">English</span><span class="chip">Spanish</span><span class="chip">French</span><span class="chip teal">German</span><span class="chip">Russian</span><span class="chip">Ukrainian</span><span class="chip">Portuguese</span><span class="chip">Italian</span><span class="chip">Arabic</span><span class="chip">Hindi</span><span class="chip">Mandarin</span><span class="chip">Japanese</span><span class="chip">Korean</span><span class="chip">Turkish</span><span class="chip">Polish</span><span class="chip">Dutch</span></div>
+      <div class="lab">Why I'm here (up to 3)</div>
+      <div class="chips"><span class="chip on">Friendship</span><span class="chip on">Deep talks</span><span class="chip">Light daily chat</span><span class="chip">Emotional support</span><span class="chip">Language practice</span><span class="chip">Playful banter</span></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">2 · Interests & languages<small>+ intent — foundation of matching</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">2 · Interests & languages<small>27 interests · 16 languages · intent</small></div>
+  </div>
 
   <!-- STEP 3: LOCATION & VISIBILITY -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">📍</div>
-      <div class="tt">Location & visibility</div>
+  <div class="item"><div class="num">3</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">📍 Location & visibility</div>
       <div class="lab">Use my location?</div>
-      <div class="chips"><span class="chip">Off</span><span class="chip coral">Approximate</span><span class="chip">Precise</span></div>
-      <div class="bt">Find me nearby <span class="tg off"><i></i></span></div>
-      <div class="lab">Show distance</div>
-      <div class="chips"><span class="chip coral">Hidden</span><span class="chip">Nearby</span><span class="chip">~3 km</span></div>
-      <div class="note">🔒 Off by default · exact spot never shown</div>
+      <div class="chips"><span class="chip">Off</span><span class="chip coral">Approximate (city)</span><span class="chip">Precise</span></div>
+      <div class="bt">Let others find me nearby <span class="tg off"><i></i></span></div>
+      <div class="lab">Show distance on my card</div>
+      <div class="chips"><span class="chip coral">Hidden</span><span class="chip">Nearby / city</span><span class="chip">Approx distance</span></div>
+      <div class="note">🔒 Discoverable &amp; distance OFF by default · exact location never shown</div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">3 · Location & visibility<small>Two privacy axes · off by default</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">3 · Location & visibility<small>Two privacy axes · off by default</small></div>
+  </div>
 
   <!-- STEP 4: WHAT MATTERS -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">🎚️</div>
-      <div class="tt">What matters to you</div>
-      <div class="pcard">🏙️ Nearby & social</div>
-      <div class="pcard sel">💬 Deep conversations ✓</div>
-      <div class="pcard">🧠 Topic deep-dive</div>
-      <div class="pcard">😏 Open to flirt</div>
-      <div class="pcard">🎚️ Custom</div>
+  <div class="item"><div class="num">4</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">🎚️ What matters to you</div>
+      <div class="opt" style="margin-bottom:2px">Pick a vibe for who we show you</div>
+      <div class="pcard">🏙️ Nearby & social <span class="opt">· interests + proximity</span></div>
+      <div class="pcard sel">💬 Deep conversations ✓ <span class="opt">· interests + deep talks</span></div>
+      <div class="pcard">🧠 Topic deep-dive <span class="opt">· same topic</span></div>
+      <div class="pcard">😏 Open to flirt <span class="opt">· interests + mutual flirt</span></div>
+      <div class="pcard">🎚️ Custom <span class="opt">· set Must / Nice</span></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">4 · What matters<small>Match preset · no swiping</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">4 · What matters<small>Match preset · no swiping</small></div>
+  </div>
 
   <!-- STEP 5: SPIRITUALITY (optional) -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">✨</div>
-      <div class="tt">Spirituality <span style="font-size:11px;color:var(--muted);font-weight:600">· optional</span></div>
-      <div class="lab">Path</div>
-      <div class="chips"><span class="chip on">Spiritual, not religious</span><span class="chip">Agnostic</span></div>
+  <div class="item"><div class="num">5</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <div class="tt">✨ Spirituality <span class="opt">· optional</span></div>
+      <div class="lab">Path / tradition</div>
+      <div class="chips"><span class="chip on">Spiritual but not religious</span><span class="chip">Buddhist</span><span class="chip">Christian</span><span class="chip">Hindu</span><span class="chip">Muslim</span><span class="chip">Jewish</span><span class="chip">Mystical / esoteric</span><span class="chip">Energy work</span><span class="chip">Atheist but curious</span><span class="chip">Agnostic</span><span class="chip">Pagan / nature-based</span><span class="chip">Secular / no label</span><span class="chip">Still exploring</span></div>
+      <div class="lab">Importance</div>
+      <div class="chips"><span class="chip">🌱 Low</span><span class="chip teal">🌿 Medium</span><span class="chip">🌳 High</span><span class="chip">🌟 Central</span></div>
       <div class="lab">Practices</div>
-      <div class="chips"><span class="chip teal">Meditation</span><span class="chip">Journaling</span><span class="chip teal">Nature walks</span></div>
-      <div style="display:flex;gap:6px;margin-top:auto"><div class="btn gh" style="flex:1;margin:0">Skip</div><div class="btn" style="flex:1;margin:0">Continue</div></div>
-    </div>
-  </div><div class="cap">5 · Spirituality<small>Optional · default off for matching</small></div></div>
-  <div class="arrow">→</div>
+      <div class="chips"><span class="chip teal">Meditation</span><span class="chip">Prayer</span><span class="chip">Tarot / oracle cards</span><span class="chip">Astrology</span><span class="chip">Yoga</span><span class="chip teal">Journaling</span><span class="chip">Breathwork</span><span class="chip">Church / temple / mosque</span><span class="chip">Rituals</span><span class="chip teal">Nature walks</span><span class="chip">Fasting</span><span class="chip">Sound healing</span><span class="chip">Dream work</span><span class="chip">Somatic practices</span></div>
+      <div class="lab">Beliefs</div>
+      <div class="chips"><span class="chip on">Intuition</span><span class="chip">Karma</span><span class="chip">God / higher power</span><span class="chip on">The Universe</span><span class="chip">Manifestation</span><span class="chip">Reincarnation</span><span class="chip">Healing energy</span><span class="chip">Science first</span><span class="chip">Synchronicity</span><span class="chip">Ancestral wisdom</span><span class="chip">Free will</span><span class="chip">Fate / destiny</span></div>
+      <div class="lab">Topics I love (up to 5)</div>
+      <div class="chips"><span class="chip teal">Meaning of life</span><span class="chip">Relationships & attachment</span><span class="chip">Shadow work</span><span class="chip">Dreams & the subconscious</span><span class="chip teal">Consciousness</span><span class="chip">Purpose & calling</span><span class="chip">Healing & trauma</span><span class="chip">Death & afterlife</span><span class="chip">Mystical experiences</span><span class="chip">Religion & culture</span><span class="chip">Psychedelics & expansion</span><span class="chip">Awakening</span></div>
+      <div><div class="lab">What it means to me</div><div class="fld">One honest sentence…</div></div>
+      <div style="display:flex;gap:6px"><div class="btn gh" style="flex:1">Skip</div><div class="btn" style="flex:1;margin-top:0">Continue</div></div>
+    </div></div>
+    <div class="cap">5 · Spirituality<small>Optional · path · practices · beliefs · topics</small></div>
+  </div>
 
   <!-- STEP 6: CONVERSATION (+ prompts) -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">💬</div>
-      <div class="tt">Conversation</div>
-      <div class="lab">Connection I want</div>
-      <div class="chips"><span class="chip on">Deep talks</span><span class="chip">Light chat</span></div>
-      <div class="lab">Texting</div>
-      <div class="chips"><span class="chip teal">A few times a day</span></div>
-      <div class="lab">Prompts (optional)</div>
-      <div class="fld on">Ask me about… the trip that changed me</div>
+  <div class="item"><div class="num">6</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="tt">💬 Conversation</div>
+      <div class="lab">Connection I want (up to 3)</div>
+      <div class="chips"><span class="chip on">Deep, meaningful talks</span><span class="chip">Light daily chat</span><span class="chip">Emotional support</span><span class="chip on">Philosophical exchange</span><span class="chip">Spiritual connection</span><span class="chip">Intellectual sparring</span><span class="chip">Playful banter</span><span class="chip">Slow and intentional</span><span class="chip">Flirty energy</span></div>
+      <div class="lab">My style (up to 3)</div>
+      <div class="chips"><span class="chip">Playful & witty</span><span class="chip teal">Thoughtful & reflective</span><span class="chip">Intellectual & analytical</span><span class="chip">Warm & nurturing</span><span class="chip">Direct & honest</span><span class="chip teal">Slow and deep</span><span class="chip">Poetic & expressive</span><span class="chip">Curious & questioning</span></div>
+      <div class="lab">Texting frequency</div>
+      <div class="chips"><span class="chip">A lot — I love long conversations</span><span class="chip teal">A few times a day</span><span class="chip">Sometimes, when inspired</span><span class="chip">Only when there's real connection</span></div>
+      <div class="lab">Reply style</div>
+      <div class="chips"><span class="chip">Short, punchy messages</span><span class="chip on">Long, thoughtful messages</span><span class="chip">Voice-note style (but text)</span><span class="chip">Fast replies — I'm always around</span><span class="chip">Slow, deliberate replies</span></div>
+      <div class="lab">Conversation starters</div>
+      <div class="chips"><span class="chip teal">Big philosophical questions</span><span class="chip">Everyday life & feelings</span><span class="chip">Emotions & inner world</span><span class="chip teal">Books & ideas</span><span class="chip">Spirituality & beliefs</span><span class="chip">Weird thoughts & dreams</span><span class="chip">Humor & absurdity</span><span class="chip">Creativity & art</span></div>
+      <div class="lab">⭐ Conversation prompts (optional)</div>
+      <div class="chips"><span class="chip">Ask me about…</span><span class="chip">A hill I'll die on…</span><span class="chip">The last thing that made me laugh…</span><span class="chip">I could talk for hours about…</span><span class="chip">An unpopular opinion I hold…</span><span class="chip">A show, film or book everyone should try…</span></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">6 · Conversation<small>Style · texting · ⭐ conversation prompts</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">6 · Conversation<small>Connection · style · texting · reply · starters · prompts</small></div>
+  </div>
 
   <!-- STEP 7: INNER WORLD -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">🌿</div>
-      <div class="tt">Inner world</div>
-      <div class="lab">Values</div>
-      <div class="chips"><span class="chip on">Honesty</span><span class="chip on">Curiosity</span><span class="chip">Growth</span></div>
+  <div class="item"><div class="num">7</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+      <div class="tt">🌿 Inner world</div>
+      <div class="lab">Values (up to 5)</div>
+      <div class="chips"><span class="chip on">Honesty</span><span class="chip on">Kindness</span><span class="chip">Growth</span><span class="chip">Ambition</span><span class="chip">Loyalty</span><span class="chip">Freedom</span><span class="chip">Faith</span><span class="chip">Mindfulness</span><span class="chip on">Authenticity</span><span class="chip">Compassion</span><span class="chip">Courage</span><span class="chip">Simplicity</span><span class="chip on">Curiosity</span><span class="chip">Service to others</span></div>
       <div class="lab">What gives me peace</div>
-      <div class="chips"><span class="chip teal">Nature</span><span class="chip teal">Music</span></div>
-      <div class="lab">Working on</div>
-      <div class="chips"><span class="chip">Self-love</span></div>
+      <div class="chips"><span class="chip">Silence</span><span class="chip">Prayer / meditation</span><span class="chip teal">Ocean / water</span><span class="chip teal">Music</span><span class="chip teal">Nature</span><span class="chip">Movement / exercise</span><span class="chip">Deep conversation</span><span class="chip">Solitude</span><span class="chip">Creative work</span><span class="chip">Animals</span><span class="chip">Reading</span><span class="chip">Cooking</span></div>
+      <div class="lab">People appreciate (up to 3)</div>
+      <div class="chips"><span class="chip on">Calm energy</span><span class="chip">Humor</span><span class="chip on">Empathy</span><span class="chip">Curiosity</span><span class="chip">Wisdom</span><span class="chip">Honesty</span><span class="chip">Warmth</span><span class="chip on">Depth</span><span class="chip">Creativity</span><span class="chip">Reliability</span><span class="chip">Playfulness</span></div>
+      <div class="lab">Working on (up to 3)</div>
+      <div class="chips"><span class="chip">Healing old wounds</span><span class="chip teal">Personal growth</span><span class="chip">Career & purpose</span><span class="chip teal">Self-love</span><span class="chip">Discipline</span><span class="chip">Opening up emotionally</span><span class="chip">Finding my path</span><span class="chip">Letting go</span><span class="chip">Building something meaningful</span><span class="chip">Spiritual deepening</span></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">7 · Inner world<small>Values · peace · growth (profile only)</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">7 · Inner world<small>Values · peace · appreciated · working on</small></div>
+  </div>
 
   <!-- STEP 8: LIFESTYLE -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">🌙</div>
-      <div class="tt">Lifestyle</div>
+  <div class="item"><div class="num">8</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+      <div class="tt">🌙 Lifestyle</div>
       <div class="lab">I am a…</div>
-      <div class="chips"><span class="chip on">🌙 Night owl</span></div>
-      <div class="lab">Socially</div>
-      <div class="chips"><span class="chip teal">Ambivert</span></div>
-      <div class="lab">Relationship</div>
-      <div class="chips"><span class="chip">Single & open</span></div>
+      <div class="chips"><span class="chip">☀️ Morning person</span><span class="chip on">🌙 Night owl</span><span class="chip">🌤️ Depends on the day</span></div>
+      <div class="lab">Socially, I'm…</div>
+      <div class="chips"><span class="chip">Introvert</span><span class="chip">Extrovert</span><span class="chip teal">Ambivert</span></div>
+      <div class="lab">My love language</div>
+      <div class="chips"><span class="chip on">Words of affirmation</span><span class="chip">Quality time</span><span class="chip">Acts of service</span><span class="chip">Physical touch</span><span class="chip">Gifts</span></div>
+      <div class="lab">Relationship status</div>
+      <div class="chips"><span class="chip">Single & not looking</span><span class="chip teal">Single & open</span><span class="chip">In a relationship</span><span class="chip">It's complicated</span><span class="chip">Prefer not to say</span></div>
+      <div class="lab">Alcohol / substances</div>
+      <div class="chips"><span class="chip on">I don't drink or smoke</span><span class="chip">Occasionally social</span><span class="chip">Regularly</span><span class="chip">Prefer not to say</span></div>
       <div class="btn">Continue</div>
-    </div>
-  </div><div class="cap">8 · Lifestyle<small>Day type · social · love lang · status</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">8 · Lifestyle<small>Day type · social · love lang · status · substances</small></div>
+  </div>
 
   <!-- STEP 9: BOUNDARIES -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="top"><div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
-    <div class="body">
-      <div style="font-size:20px">🛡️</div>
-      <div class="tt">Boundaries</div>
-      <div class="lab">Flirting</div>
-      <div class="chips"><span class="chip coral">Platonic only</span></div>
-      <div class="bt">Never meet offline <span class="tg on"><i></i></span></div>
-      <div class="lab">Politics · optional</div>
-      <div class="chips"><span class="chip teal">Prefer not to say</span></div>
-      <div class="lab">Visibility</div>
-      <div class="chips"><span class="chip on">👤 Real</span><span class="chip">🎭 Anon</span></div>
+  <div class="item"><div class="num">9</div>
+    <div class="ph"><div class="notch"></div><div class="body">
+      <div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <div class="tt">🛡️ Boundaries</div>
+      <div class="lab">Open to discussing</div>
+      <div class="chips"><span class="chip on">Mental health</span><span class="chip on">Relationships & love</span><span class="chip">Spirituality</span><span class="chip">Politics</span><span class="chip">Sex & intimacy</span><span class="chip on">Trauma & healing</span><span class="chip">Death & grief</span><span class="chip">Money & ambition</span><span class="chip">Family dynamics</span><span class="chip">Controversial ideas</span><span class="chip">Psychedelics</span><span class="chip">Religion</span></div>
+      <div class="lab">Rather not discuss</div>
+      <div class="chips"><span class="chip teal">Politics</span><span class="chip">Sex & intimacy</span><span class="chip">Trauma details</span><span class="chip teal">Religion debates</span><span class="chip">Conspiracy theories</span><span class="chip">Negative gossip</span><span class="chip">Graphic content</span><span class="chip">Relationship drama</span></div>
+      <div class="lab">Flirting?</div>
+      <div class="chips"><span class="chip">Yes, if it's respectful</span><span class="chip">Light flirting is fine</span><span class="chip coral">No, please keep it platonic</span><span class="chip">Depends on the person</span></div>
+      <div class="lab">Deep conversations?</div>
+      <div class="chips"><span class="chip on">Yes — that's why I'm here</span><span class="chip">Sometimes, when I'm ready</span><span class="chip">I prefer lighter topics</span><span class="chip">Depends on the connection</span></div>
+      <div class="lab">Political leaning · optional</div>
+      <div class="chips"><span class="chip">Progressive</span><span class="chip">Moderate</span><span class="chip">Conservative</span><span class="chip">Apolitical</span><span class="chip teal">Prefer not to say</span></div>
+      <div class="lab">Profile visibility</div>
+      <div class="chips"><span class="chip on">👤 Real profile</span><span class="chip">🎭 Anonymous</span></div>
       <div class="btn">Start exploring →</div>
-    </div>
-  </div><div class="cap">9 · Boundaries<small>Flirting · politics(opt) · meet-offline guard · visibility</small></div></div>
-  <div class="arrow">→</div>
+    </div></div>
+    <div class="cap">9 · Boundaries<small>Open / avoid topics · flirting · deep convos · politics · visibility</small></div>
+  </div>
 
   <!-- FINISH: WELCOME -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="center">
+  <div class="item">
+    <div class="ph"><div class="notch"></div><div class="center">
       <div style="font-size:46px;margin-bottom:8px">🎉</div>
       <div class="eb" style="color:var(--teal);margin-bottom:6px">YOU'RE IN!</div>
       <div class="tt" style="margin-bottom:8px">Welcome, Alex!</div>
       <p style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:14px">A community of real humans having real conversations.</p>
-      <div class="btn" style="width:100%;margin:0">Start discovering people</div>
-    </div>
-  </div><div class="cap">✅ Welcome<small>Celebration → goes to Discover</small></div></div>
-  <div class="arrow">→</div>
-
-  <!-- DESTINATION: DISCOVER -->
-  <div class="item"><div class="ph"><div class="notch"></div>
-    <div class="body">
-      <svg width="70" height="30"><use href="#honly"/></svg>
-      <div class="tt" style="font-size:16px">Discover</div>
-      <div class="chips"><span class="chip">🧠 Topic deep-dive</span></div>
-      <div class="pcard sel" style="flex-direction:column;align-items:flex-start;gap:3px"><span>Maya, 27 · 92% match</span><span style="font-weight:500;color:var(--muted);font-size:8.5px">🎯 7 shared · ✨ AI</span></div>
-      <div class="pcard" style="flex-direction:column;align-items:flex-start;gap:3px"><span>Kai, 29 · 88% match</span><span style="font-weight:500;color:var(--muted);font-size:8.5px">✨ AI · 🤝 friends</span></div>
-      <div class="note" style="margin-top:auto">Curated grid — no swiping</div>
-    </div>
-  </div><div class="cap">→ Discover<small>Lands here after onboarding</small></div></div>
+      <div class="btn" style="width:100%;margin:0">Start discovering people →</div>
+    </div></div>
+    <div class="cap">✅ Welcome → Discover<small>Celebration · lands in the curated grid</small></div>
+  </div>
 
 </div>
 
 <div class="legend">
-  <span><b>9 onboarding steps</b> after sign up</span>
+  <span><b>Order:</b> Sign up → 1…9 → Discover</span>
   <span><b>Optional / skippable:</b> Spirituality · Politics · Conversation prompts · Voice intro</span>
   <span><b>Privacy:</b> location off by default</span>
   <span><b>No swiping</b> — onboarding leads into a curated Discover grid</span>
