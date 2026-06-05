@@ -5,6 +5,8 @@
 
 How HOnly decides who you see — transparent, consent-based, and configurable per user. No swiping, no manipulative feed.
 
+**Discovery mechanic:** a **curated profile grid** — the user browses recommended people and chooses *"who do I want to learn more about?"*, never an instant accept/reject. (CTAs detailed in [USER_JOURNEY.md](./USER_JOURNEY.md) § Discovery.)
+
 ---
 
 ## 1. Core model in one breath

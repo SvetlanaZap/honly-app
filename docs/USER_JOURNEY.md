@@ -34,10 +34,31 @@ Split into **Essentials** (to start) and **Deepen your profile** (optional, fini
 - **Photos:** up to **6**, first = avatar. ✅
 - **Does:** **Edit** → `/onboarding`. ✅
 
-## 4. Discovery — `/discover` — **no swiping**
-- **Sees:** people ranked by **match score**, each card showing a **match %** + **reason chips** (🎯 interests · ✨ topic · 📍 nearby). Search, **Refine** panel to adjust Must/Nice live. ✅ list today (static) · 🚧 real ranking & reasons.
-- **Empty state:** if Must-haves too strict → suggest loosening. 🚧
-- **Does:** open a profile (`/profile/:id`). ✅
+## 4. Discovery — `/discover` — curated profile grid (no swiping)
+
+HOnly replaces swiping with a **curated profile grid**. The user opens Discover and sees a grid / vertical list of recommended people. Each card shows a photo, name, short bio, context (match % + reason chips), and a few tags. Tapping a card opens the full profile, where the user takes an action.
+
+The interface never asks *"Accept or reject this person instantly?"* — it asks **"Who do I want to learn more about?"**
+
+- **Sees:** recommended people ranked by **match score**; each card has a **match %** + **reason chips** (🎯 interests · ✨ topic · 📍 nearby) and interest tags. Search + **Refine** panel to switch preset live. ✅ static list today · 🚧 real ranking.
+- **Empty state:** if must-haves too strict → suggest loosening. 🚧
+- **Does:** tap a card → full profile (`/profile/:id`) → take an action (CTAs below). ✅
+
+### Card / profile CTAs
+Primary action is **View Profile** — learn more, not judge. CTAs are chosen to stay low-pressure and conversation-first:
+
+| CTA | Best use | Feeling |
+|---|---|---|
+| **View Profile** | Main button on each grid card | Neutral, intentional, familiar |
+| **See Why You Match** | Card / profile, uses compatibility logic | Smart, personalized, meaningful |
+| **Start Conversation** | When messaging is allowed immediately | Clear, active, social |
+| **Send Intro** | After opening full profile | Direct, relationship-oriented |
+| **Show Interest** | Softer alternative to "Like" | Soft, intentional |
+| **Like Prompt** | On a specific profile answer / interest | Low-pressure, contextual |
+| **Save for Later** | Secondary action | Gentle, non-committal |
+| **Not for Me** | Pass action | Respectful, less harsh than "Reject" |
+
+**Guardrail:** no instant accept/reject. CTAs favor *learning more* and *starting a conversation* over binary judgments; "Not for Me" is a quiet pass, never a public rejection.
 
 ## 5. Viewing a Profile — `/profile/:id`
 - **Sees:** full profile + **Share**, **Report**, **Send message**. ✅ (Report = stub)
