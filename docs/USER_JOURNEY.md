@@ -30,7 +30,7 @@ Split into **Essentials** (to start) and **Deepen your profile** (optional, fini
 - **🚧 Planned:** the new structure above; persist to backend; resume/partial save. See matching spec.
 
 ## 3. Profile — `/profile`
-- **Sees:** hero (avatar, name, age, location/hidden, bio), completion %, stats, sections; **conversation prompts** shown here. ✅ (prompts 🚧)
+- **Sees:** hero (avatar, name, age, location/hidden, bio), completion %, stats, sections. ✅ | **Conversation prompt cards** displayed on profile: 🚧 (section placeholder exists; prompt content & functionality not yet built)
 - **Photos:** up to **6**, first = avatar. ✅
 - **Does:** **Edit** → `/onboarding`. ✅
 
@@ -67,7 +67,7 @@ Split into **Essentials** (to start) and **Deepen your profile** (optional, fini
 ## Journey at a glance
 ```
 Landing → Signup [🚧 18+] → Onboarding (Essentials + Deepen)
-  → Profile [✅ 6 photos, 🚧 prompts]
+  → Profile [✅ 6 photos · ✅ profile shell · 🚧 conversation prompts]
      → Discover [no swiping; 🚧 match score + reasons]
         → View profile → Chat [✅ media/voice/reply/receipts/typing]
            → Call [🚧 voice/video]
