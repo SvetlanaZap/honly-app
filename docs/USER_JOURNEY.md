@@ -23,7 +23,7 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 ## 2. Onboarding — `/onboarding`
 Split into **Essentials** (to start) and **Deepen your profile** (optional, finish later) with a completion bar.
 
-**Essentials:** Basics (+ pronouns) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings, **Off by default / opt-in**) · **What matters to you** (match preset/custom).
+**Essentials:** Basics (+ pronouns, gender, sexual orientation) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings, **Off by default / opt-in**) · **What matters to you** (match preset/custom).
 **Deepen (optional):** Conversation · **Conversation prompts** *(new)* · **Voice intro** *(new, optional)* · Inner world · **Spirituality (optional)** · **Politics (optional, simple leaning, "prefer not to say")** · Boundaries & safety (incl. *"never ask me to meet offline"*) · *(future)* Verification.
 
 - **Today:** 6 steps saved to browser (`honly_profile`) → `/discover`. ✅

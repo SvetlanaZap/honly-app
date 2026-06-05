@@ -7,7 +7,7 @@ import Navbar from "@/components/Navbar";
 const MAX_PHOTOS = 6;
 
 type Profile = {
-  name: string; age: string; gender: string; city: string; showLocation: string; timezone: string; bio: string;
+  name: string; age: string; gender: string; orientation?: string; city: string; showLocation: string; timezone: string; bio: string;
   spiritualPath: string; spiritImportance: string; practices: string[]; beliefs: string[]; spiritTopics: string[]; spiritMeaning: string;
   connectionType: string[]; convoStyle: string[]; textFreq: string; replyStyle: string; convoStarters: string[];
   values: string[]; peace: string[]; appreciated: string[]; workingOn: string[];
@@ -214,6 +214,11 @@ export default function MyProfile() {
               {profile?.gender && (
                 <span className="inline-flex items-center gap-1.5 text-slate-muted">
                   <User size={14} /> {profile.gender}
+                </span>
+              )}
+              {profile?.orientation && profile.orientation !== "Prefer not to say" && (
+                <span className="inline-flex items-center gap-1.5 text-slate-muted">
+                  <Heart size={14} /> {profile.orientation}
                 </span>
               )}
               {profile?.timezone && (
