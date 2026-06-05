@@ -23,7 +23,7 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 ## 2. Onboarding — `/onboarding`
 Split into **Essentials** (to start) and **Deepen your profile** (optional, finish later) with a completion bar.
 
-**Essentials:** Basics (+ pronouns) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings) · **What matters to you** (match preset/custom).
+**Essentials:** Basics (+ pronouns) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings, **Off by default / opt-in**) · **What matters to you** (match preset/custom).
 **Deepen (optional):** Conversation · **Conversation prompts** *(new)* · **Voice intro** *(new, optional)* · Inner world · **Spirituality (optional)** · **Politics (optional, simple leaning, "prefer not to say")** · Boundaries & safety (incl. *"never ask me to meet offline"*) · *(future)* Verification.
 
 - **Today:** 6 steps saved to browser (`honly_profile`) → `/discover`. ✅
@@ -57,7 +57,7 @@ Split into **Essentials** (to start) and **Deepen your profile** (optional, fini
 
 ## 9. Settings — `/settings`
 - **Today (UI):** Account (language, dark mode, password) · Notifications · Privacy (**public profile, show age, show location, blocked users**) · Account actions (**sign out, delete account**). ✅
-- **🚧 Planned:** make settings real & persisted; the **3 location/visibility controls** and **match preferences** editable here; working sign-out & account deletion.
+- **🚧 Planned:** make settings real & persisted; the **3 location/visibility controls** (Off by default) and **match preferences** editable here; working sign-out & account deletion.
 
 ## 10. Return / Sign out
 - Sign out → Landing. Returning user → Discover (or resume onboarding). 🚧 backend auth.
@@ -75,9 +75,12 @@ Landing → Signup [🚧 18+] → Onboarding (Essentials + Deepen)
 Settings [privacy · blocked · delete] → Sign out
 ```
 
-## Open questions
+## Decisions & open questions
+
+**Resolved** (see matching spec): no active-hours matching · politics = simple leaning · location/discoverable/distance **Off by default (opt-in)** · Discover shows **match % + reason chips**.
+
+**Still open:**
 1. Age assurance — self-declared 18+ vs. stronger checks later.
 2. Calling/RTC provider.
-3. Match signals & taxonomy (see matching spec).
+3. Interest & topic taxonomy + default proximity radius (see matching spec).
 4. Report taxonomy + auto-action vs. human-review thresholds.
-5. Privacy defaults (location/discoverable On or Off).
