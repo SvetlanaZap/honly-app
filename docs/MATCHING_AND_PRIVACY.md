@@ -176,14 +176,3 @@ The most HOnly-native feature: HOnly is conversation-first, so we help conversat
 
 ---
 
-## 9. Decisions & open questions
-
-**Resolved:**
-- **Active-hours matching — removed.** People can sort out timing personally in conversation; not a match criterion.
-- **Politics — simple leaning** only (progressive / moderate / conservative / apolitical / prefer not to say), not issue tags.
-- **Privacy defaults — Off / opt-in.** Discoverable-by-location and distance-display are Off by default.
-- **Match-score display — both.** Show a **match %** *and* the **top reason chips**.
-
-**Still open:**
-1. **Interest & topic taxonomy** — finalize the canonical tag lists.
-2. **Proximity radius defaults** — default radius and max range.
