@@ -2,427 +2,455 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>HOnly — Mobile App Design</title>
+<meta name="viewport" content="width=1800" />
+<title>HOnly — Screen Mockups</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  *{margin:0;padding:0;box-sizing:border-box}
   :root{
-    --coral:#E8654A; --teal:#3CBEA8; --navy:#1B2532; --cream:#F2EDE6;
-    --cream-d:#E6DECF; --card:#FFFFFF; --red:#FF2D2D; --muted:#7A8290;
+    --coral:#E8654A;--teal:#3CBEA8;--navy:#1B2532;--cream:#F5EFE6;
+    --muted:#5A6A7E;--mut2:#8A9BAE;--line:#E8E4DF;--green:#3BBF6E;--dark:#1A2332;
   }
-  *{box-sizing:border-box}
-  body{margin:0;background:#ECE6DC;color:var(--navy);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,h4,.head{font-family:'Space Grotesk',sans-serif}
-  .page{max-width:1320px;margin:0 auto;padding:40px 24px 80px}
-  .page-head{margin-bottom:8px;font-size:40px;font-weight:700}
-  .page-sub{color:var(--muted);font-size:17px;margin-bottom:8px;max-width:680px}
-  .page-meta{color:var(--muted);font-size:13px;margin-bottom:36px}
-  .grid{display:flex;flex-wrap:wrap;gap:44px 40px;align-items:flex-start}
-  .frame{width:300px}
-  .caption{font-family:'Space Grotesk';font-weight:700;font-size:15px;margin:14px 2px 2px}
-  .caption small{display:block;color:var(--muted);font-weight:500;font-size:12px;margin-top:2px}
+  body{background:#111827;font-family:'Inter',system-ui,sans-serif;min-height:100vh;padding:40px 30px 80px}
+  .hd{color:#F9FAFB;margin-bottom:10px}
+  .hd h1{font-size:28px;font-weight:800;margin-bottom:4px}
+  .hd p{font-size:14px;color:#6B7280}
+  .seclabel{display:flex;align-items:center;gap:12px;margin:46px 0 30px}
+  .seclabel h2{font-size:11px;font-weight:700;color:#9aa3b2;letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+  .seclabel .line{flex:1;height:1px;background:#1F2937}
+  .row{display:flex;flex-wrap:wrap;gap:0}
+  .pw{display:inline-flex;flex-direction:column;align-items:center;gap:14px;margin:0 18px 44px}
+  .pf{width:340px;height:736px;background:var(--dark);border-radius:42px;position:relative;overflow:hidden;
+      box-shadow:0 0 0 9px #1F2937,0 26px 70px rgba(0,0,0,.8);flex-shrink:0}
+  .ps{width:340px;height:736px;overflow:hidden;border-radius:42px;position:relative}
+  .scr{width:340px;height:736px;position:relative;overflow:hidden;background:var(--cream)}
+  .scr.dark{background:var(--dark)}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:118px;height:26px;background:#0a0a0a;border-radius:0 0 16px 16px;z-index:50}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 0;font-size:11px;font-weight:700}
+  .lbl{text-align:center;max-width:320px}
+  .lbl .name{color:#F3F4F6;font-size:13.5px;font-weight:700;margin-bottom:4px}
+  .lbl .desc{color:#6B7280;font-size:12px;line-height:1.5}
 
-  /* phone */
-  .phone{width:300px;height:620px;background:var(--cream);border:3px solid var(--navy);border-radius:34px;
-    box-shadow:7px 7px 0 var(--navy);overflow:hidden;display:flex;flex-direction:column;position:relative}
-  .notch{height:22px;display:flex;align-items:center;justify-content:center;background:var(--cream)}
-  .notch::after{content:"";width:90px;height:6px;border-radius:6px;background:var(--navy);opacity:.25}
-  .screen{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--cream)}
-  .pad{padding:14px 16px;display:flex;flex-direction:column;gap:12px;overflow:hidden;flex:1}
-  .scroll{overflow:hidden}
+  /* glow blobs */
+  .blob{position:absolute;border-radius:50%;filter:blur(2px);z-index:0}
 
-  /* topbar */
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:2px solid var(--navy);background:var(--cream)}
-  .logo{height:24px}
-  .logo-sm{height:20px}
+  /* logo */
+  .lg{display:flex;align-items:center;gap:2px}
+  .lg b{font-size:27px;font-weight:900;letter-spacing:-.5px}
+  .lg .o{width:18px;height:18px;background:var(--coral);border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .lg .o i{width:6px;height:6px;background:#fff;border-radius:50%}
 
-  /* tabbar */
-  .tabbar{display:flex;border-top:2px solid var(--navy);background:var(--card)}
-  .tab{flex:1;text-align:center;padding:9px 0 8px;font-size:10px;font-weight:600;color:var(--muted)}
-  .tab .ic{display:block;font-size:17px;line-height:1}
-  .tab.active{color:var(--coral)}
+  /* buttons */
+  .btn{background:var(--coral);color:#fff;border-radius:50px;padding:14px;text-align:center;font-weight:700;font-size:14.5px;box-shadow:0 8px 20px rgba(232,101,74,.32)}
+  .btn.teal{background:var(--teal);box-shadow:0 8px 20px rgba(60,190,168,.32)}
+  .outline{border:1.5px solid var(--line);border-radius:50px;padding:12px;text-align:center;color:var(--muted);font-weight:600;font-size:14px}
+  .outline.dk{border-color:#3A4A5E;color:#fff}
+  .eyebrow{font-size:10px;font-weight:800;letter-spacing:1.2px}
+  .h2{font-size:27px;font-weight:800;color:var(--navy);line-height:1.15}
+  .sub{font-size:12.5px;color:var(--muted);line-height:1.5}
 
-  /* elements */
-  .btn{display:block;width:100%;text-align:center;padding:11px;border:2px solid var(--navy);border-radius:12px;
-    font-family:'Space Grotesk';font-weight:700;font-size:14px;cursor:default}
-  .btn.primary{background:var(--coral);color:#fff;box-shadow:3px 3px 0 var(--navy)}
-  .btn.teal{background:var(--teal);color:#fff;box-shadow:3px 3px 0 var(--navy)}
-  .btn.ghost{background:var(--card);color:var(--navy)}
-  .btn.sm{padding:8px;font-size:12px}
-  .row{display:flex;gap:8px}
-  .input{border:2px solid var(--navy);border-radius:11px;background:#fff;padding:9px 11px;font-size:12.5px;color:var(--navy)}
-  .label{font-size:11px;font-weight:600;margin-bottom:5px}
-  .muted{color:var(--muted)}
-  .h-title{font-size:23px;font-weight:700;line-height:1.1}
-  .h-sub{font-size:12.5px;color:var(--muted)}
-  .chip{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--navy);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:600;background:#fff}
-  .chip.on{background:var(--coral);color:#fff;border-color:var(--coral)}
-  .chip.teal{background:var(--teal);color:#fff;border-color:var(--teal)}
-  .chip.soft{background:rgba(60,190,168,.12);border-color:rgba(60,190,168,.5);color:var(--navy)}
-  .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .card{background:var(--card);border:2px solid var(--navy);border-radius:16px;padding:12px}
-  .card.tealtop{position:relative;overflow:hidden}
-  .card.tealtop::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--teal)}
-  .card.coraltop::before{background:var(--coral)}
-  .progress{display:flex;gap:5px}
-  .progress i{flex:1;height:5px;border-radius:5px;background:var(--cream-d)}
-  .progress i.on{background:var(--coral)}
-  .pill{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:999px;border:1.5px solid var(--navy)}
-  .toggle{width:42px;height:23px;border:2px solid var(--navy);border-radius:999px;position:relative;flex:none}
-  .toggle.on{background:var(--coral)}
-  .toggle.off{background:var(--cream-d)}
-  .toggle i{position:absolute;top:1.5px;width:15px;height:15px;border-radius:50%;background:#fff;border:1px solid var(--navy)}
+  /* tags / chips */
+  .tag{background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:7px 12px;font-size:11px;font-weight:500;color:var(--muted);display:inline-flex;gap:5px;align-items:center}
+  .tag.on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+  .tag.coral{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:700}
+  .tag.teal{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .reason{background:rgba(60,190,168,.13);border:1px solid rgba(60,190,168,.45);border-radius:50px;padding:4px 9px;font-size:10px;font-weight:700;color:var(--navy)}
+  .card{background:#fff;border-radius:18px;padding:13px;box-shadow:0 3px 14px rgba(0,0,0,.07)}
+  .match{background:var(--coral);border-radius:50px;padding:3px 9px;font-size:10px;font-weight:800;color:#fff;display:inline-block}
+  .field{background:#fff;border:2px solid var(--line);border-radius:14px;padding:13px 15px}
+  .field.on{border-color:var(--coral)}
+  .flbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px}
+  .pg{display:flex;gap:5px}.pg i{width:22px;height:4px;border-radius:2px;background:var(--line)}.pg i.on{background:var(--coral)}
+  .back{width:32px;height:32px;background:#E8E4DF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--navy)}
+  .toggle{width:42px;height:24px;border-radius:50px;position:relative;flex:none}
+  .toggle.on{background:var(--coral)}.toggle.off{background:#D9D2C6}
+  .toggle i{position:absolute;top:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
   .toggle.on i{right:2px}.toggle.off i{left:2px}
-  .between{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .ava{border:2px solid var(--navy);border-radius:14px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
-  .note{background:var(--cream);border-left:4px solid var(--teal);border-radius:10px;padding:8px 10px;font-size:11px}
-  .badge-match{font-size:10px;font-weight:700;background:#fff;border:2px solid var(--navy);border-radius:999px;padding:3px 7px}
-
-  /* discover grid card */
-  .dcard{background:#fff;border:2px solid var(--navy);border-radius:16px;overflow:hidden}
-  .dphoto{height:78px;position:relative;display:flex;align-items:flex-end;justify-content:center}
-  .silh{width:54px;height:46px}
-  .ddot{position:absolute;top:7px;right:7px;width:9px;height:9px;border-radius:50%;background:#22C55E;border:2px solid #fff}
-  .dmatch{position:absolute;top:6px;left:6px}
-
-  /* chat */
-  .bubble{max-width:78%;padding:8px 10px;font-size:11.5px;border-radius:14px;line-height:1.35}
-  .bubble.them{background:#fff;border:2px solid var(--navy);border-bottom-left-radius:4px;align-self:flex-start}
-  .bubble.me{background:var(--coral);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
-  .ticks{font-size:9px;opacity:.85;text-align:right;margin-top:2px}
-  .legend{display:flex;flex-wrap:wrap;gap:10px 18px;margin:30px 0 4px;color:var(--muted);font-size:13px}
-  .legend b{color:var(--navy)}
+  .row-bt{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .nav{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:11px 0 24px;z-index:20}
+  .navi{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:600;color:var(--mut2)}
+  .navi .i{font-size:20px}
+  .navi.act{color:var(--coral)}
+  .avatar{border-radius:18px;display:flex;align-items:flex-end;justify-content:center;color:#fff;font-weight:800;overflow:hidden;position:relative}
+  .ondot{position:absolute;bottom:-3px;right:-3px;width:14px;height:14px;background:var(--green);border:2px solid #fff;border-radius:50%}
+  .pad{padding:40px 22px 0}
+  .note{background:rgba(60,190,168,.12);border:1px solid rgba(60,190,168,.4);border-radius:12px;padding:10px 12px;font-size:11.5px;color:var(--navy);display:flex;gap:8px;align-items:flex-start}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:26px;color:#6B7280;font-size:13px}
+  .legend b{color:#cfd6e0}
 </style>
 </head>
 <body>
 
-<!-- shared logo symbols -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="honly" viewBox="20 34 385 165">
-    <text x="30" y="162" font-family="'Space Grotesk'" font-size="128" font-weight="700" fill="#E8654A" letter-spacing="-3">H</text>
-    <path d="M150 62 H182 A28 28 0 0 1 210 90 V122 A28 28 0 0 1 182 150 H172 L132 190 L150 150 A28 28 0 0 1 122 122 V90 A28 28 0 0 1 150 62 Z" fill="#3CBEA8" stroke="#1B2532" stroke-width="6" stroke-linejoin="round"/>
-    <circle cx="146" cy="106" r="8.5" fill="#F2EDE6"/><circle cx="166" cy="106" r="8.5" fill="#F2EDE6"/><circle cx="186" cy="106" r="8.5" fill="#F2EDE6"/>
-    <text x="218" y="162" font-family="'Space Grotesk'" font-size="128" font-weight="700" fill="#1B2532" letter-spacing="-3">nly</text>
-    <circle cx="206" cy="66" r="25" fill="#FF2D2D" stroke="#1B2532" stroke-width="5"/>
-    <text x="206" y="78" text-anchor="middle" font-family="'Space Grotesk'" font-size="34" font-weight="700" fill="#FFFFFF">1</text>
-  </symbol>
-</svg>
-
-<div class="page">
-  <h1 class="page-head">HOnly — Mobile App Design</h1>
-  <p class="page-sub">Mobile screen designs for the full flow: welcome, sign up, every onboarding step, discovery (curated grid, no swiping), profiles, chat and settings. Neo-brutalist style in the brand palette.</p>
-  <p class="page-meta">Humans Only. Vibes Only. · coral #E8654A · teal #3CBEA8 · navy #1B2532 · cream #F2EDE6</p>
-
-  <div class="grid">
-
-  <!-- 1 WELCOME -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad" style="justify-content:space-between">
-        <div style="margin-top:10px"><svg class="logo" style="height:34px"><use href="#honly"/></svg></div>
-        <div>
-          <div class="h-title" style="font-size:30px">Meet someone<br><span style="color:var(--coral)">real</span></div>
-          <p class="h-sub" style="margin:10px 0">Real people for casual chats, deep conversations, and genuine human connection.</p>
-          <div class="card" style="background:rgba(60,190,168,.1);border-color:var(--navy)">
-            <div class="pill" style="color:var(--teal);border-color:var(--teal)">Not a dating app</div>
-            <div class="head" style="font-weight:700;font-size:15px;margin-top:6px">No dating expectations. No pressure. No forced next step.</div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:9px">
-          <div class="btn primary">Join HOnly</div>
-          <div class="btn ghost">Sign in</div>
-          <p class="muted" style="text-align:center;font-size:11px;margin:2px 0 0">Humans Only. Vibes Only.</p>
-        </div>
-      </div></div>
-    </div>
-    <div class="caption">1 · Welcome<small>Anti-dating positioning up front</small></div>
-  </div>
-
-  <!-- 2 SIGN UP -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <svg class="logo-sm" style="height:26px;align-self:center;margin-bottom:2px"><use href="#honly"/></svg>
-        <div class="h-title">Create your account</div>
-        <div class="h-sub">Already have one? <span style="color:var(--coral);font-weight:700">Sign in</span></div>
-        <div class="row"><div style="flex:1"><div class="label">First name</div><div class="input">Alex</div></div>
-        <div style="flex:1"><div class="label">Last name</div><div class="input">Kim</div></div></div>
-        <div><div class="label">Email</div><div class="input muted">you@example.com</div></div>
-        <div><div class="label">Password</div><div class="input muted">••••••••</div></div>
-        <div><div class="label">Date of birth · 18+</div><div class="input muted">MM / DD / YYYY</div></div>
-        <div class="between"><div class="toggle off" style="width:34px;height:20px"><i></i></div><div style="font-size:11px" class="muted">I agree to Terms & Privacy</div></div>
-        <div class="btn primary">Create account →</div>
-      </div></div>
-    </div>
-    <div class="caption">2 · Sign up<small>Email + 18&plus; age gate</small></div>
-  </div>
-
-  <!-- 3 ONB BASICS -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <svg class="logo-sm" style="align-self:center"><use href="#honly"/></svg>
-        <div class="progress"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div style="font-size:26px">👤</div>
-        <div class="h-title">Basics</div>
-        <div class="h-sub">This is what people see. Be real — that's the point.</div>
-        <div><div class="label">Display name</div><div class="input">Alex</div></div>
-        <div class="row"><div style="flex:1"><div class="label">Age</div><div class="input">27</div></div>
-        <div style="flex:1"><div class="label">Pronouns</div><div class="input muted">they/them</div></div></div>
-        <div><div class="label">City</div><div class="input muted">Berlin, Germany</div></div>
-        <div><div class="label">Short bio</div><div class="input muted" style="height:46px">What's your vibe?</div></div>
-        <div class="btn primary" style="margin-top:auto">Continue →</div>
-      </div></div>
-    </div>
-    <div class="caption">3 · Onboarding — Basics<small>Step 1 of 6 essentials</small></div>
-  </div>
-
-  <!-- 4 ONB INTERESTS -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <div class="progress"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
-        <div style="font-size:26px">🎯</div>
-        <div class="h-title">Interests & languages</div>
-        <div class="h-sub">How we find people you'll actually click with.</div>
-        <div class="label">My interests</div>
-        <div class="chips">
-          <span class="chip on">Films</span><span class="chip on">Books</span><span class="chip">Reels & memes</span>
-          <span class="chip on">AI</span><span class="chip">Technology</span><span class="chip">Music</span>
-          <span class="chip">Art</span><span class="chip on">Philosophy</span><span class="chip">Travel</span>
-        </div>
-        <div class="label" style="margin-top:2px">Languages</div>
-        <div class="chips"><span class="chip teal">English</span><span class="chip teal">German</span><span class="chip">Spanish</span></div>
-        <div class="label" style="margin-top:2px">Why I'm here</div>
-        <div class="chips"><span class="chip on">Friendship</span><span class="chip on">Deep talks</span><span class="chip">Language practice</span></div>
-        <div class="btn primary" style="margin-top:auto">Continue →</div>
-      </div></div>
-    </div>
-    <div class="caption">4 · Interests, languages & intent<small>Foundation of matching</small></div>
-  </div>
-
-  <!-- 5 ONB LOCATION -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <div class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
-        <div style="font-size:26px">📍</div>
-        <div class="h-title">Location & visibility</div>
-        <div class="h-sub">Two separate choices — off until you opt in.</div>
-        <div class="label">Let the app use your location?</div>
-        <div class="chips"><span class="chip">Off</span><span class="chip on">Approximate</span><span class="chip">Precise</span></div>
-        <div class="between card"><div><div style="font-size:12px;font-weight:600">Let others find me nearby</div><div class="muted" style="font-size:10px">Browse nearby while staying hidden</div></div><div class="toggle off"><i></i></div></div>
-        <div class="label">Show distance on my card</div>
-        <div class="chips"><span class="chip on">Hidden</span><span class="chip">Nearby</span><span class="chip">~3 km</span></div>
-        <div class="note">🔒 We never show your exact location — only a fuzzy distance, and only if you choose to.</div>
-        <div class="btn primary" style="margin-top:auto">Continue →</div>
-      </div></div>
-    </div>
-    <div class="caption">5 · Location & visibility<small>Two privacy axes · off by default</small></div>
-  </div>
-
-  <!-- 6 ONB PRESETS -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <div class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
-        <div style="font-size:26px">🎚️</div>
-        <div class="h-title">What matters to you</div>
-        <div class="h-sub">Pick a vibe for who we show you.</div>
-        <div class="card"><div class="between"><div><b>🏙️ Nearby & social</b><div class="muted" style="font-size:10px">Interests + proximity</div></div></div></div>
-        <div class="card" style="border-color:var(--coral);box-shadow:3px 3px 0 var(--navy);background:rgba(232,101,74,.08)"><b>💬 Deep conversations</b><div class="muted" style="font-size:10px">Interests + deep talks</div></div>
-        <div class="card"><b>🧠 Topic deep-dive</b><div class="muted" style="font-size:10px">People who love the same topic</div></div>
-        <div class="card"><b>😏 Open to flirt</b><div class="muted" style="font-size:10px">Interests + mutual flirt</div></div>
-        <div class="card"><b>🎚️ Custom</b><div class="muted" style="font-size:10px">Fine-tune Must / Nice</div></div>
-        <div class="btn primary" style="margin-top:auto">Continue →</div>
-      </div></div>
-    </div>
-    <div class="caption">6 · Match presets<small>Simple now, advanced later</small></div>
-  </div>
-
-  <!-- 7 ONB PROMPTS -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <div class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
-        <div style="font-size:26px">💬</div>
-        <div class="h-title">Conversation prompts <span class="muted" style="font-size:13px">· optional</span></div>
-        <div class="h-sub">Give people an easy way to break the ice.</div>
-        <div><div class="label" style="color:var(--teal)">Ask me about…</div><div class="input">…the trip that changed me</div></div>
-        <div><div class="label" style="color:var(--teal)">A hill I'll die on…</div><div class="input muted">Your answer…</div></div>
-        <div><div class="label" style="color:var(--teal)">I could talk for hours about…</div><div class="input">AI and where it's all going</div></div>
-        <div><div class="label" style="color:var(--teal)">A show, film or book everyone should try…</div><div class="input muted">Your answer…</div></div>
-        <div class="btn primary" style="margin-top:auto">Continue →</div>
-      </div></div>
-    </div>
-    <div class="caption">7 · Conversation prompts<small>Conversation-first icebreakers</small></div>
-  </div>
-
-  <!-- 8 ONB BOUNDARIES -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad">
-        <div class="progress"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-        <div style="font-size:26px">🛡️</div>
-        <div class="h-title">Boundaries</div>
-        <div class="h-sub">Upfront limits make things safer & honest.</div>
-        <div class="label">Am I okay with flirting?</div>
-        <div class="chips"><span class="chip">Yes, if respectful</span><span class="chip on">Platonic only</span></div>
-        <div class="between card"><div style="font-size:12px;font-weight:600">Never ask me to meet offline</div><div class="toggle on"><i></i></div></div>
-        <div class="label">Political leaning · optional</div>
-        <div class="chips"><span class="chip">Progressive</span><span class="chip">Moderate</span><span class="chip teal">Prefer not to say</span></div>
-        <div class="label">Profile visibility</div>
-        <div class="chips"><span class="chip on">👤 Real profile</span><span class="chip">🎭 Anonymous</span></div>
-        <div class="btn primary" style="margin-top:auto">Start exploring →</div>
-      </div></div>
-    </div>
-    <div class="caption">8 · Boundaries & safety<small>Politics optional · meet-offline guard</small></div>
-  </div>
-
-  <!-- 9 DISCOVER -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen">
-        <div class="topbar"><svg class="logo-sm"><use href="#honly"/></svg><span style="font-size:16px">🔍</span></div>
-        <div class="pad" style="gap:10px">
-          <div><div class="h-title" style="font-size:19px">Discover people</div><div class="muted" style="font-size:11px">5 people online now</div></div>
-          <div style="font-size:11px"><span class="muted">Matching:</span> <span class="chip" style="padding:3px 8px">🧠 Topic deep-dive</span> <span style="color:var(--coral);font-weight:700">Refine</span></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <div class="dcard">
-              <div class="dphoto" style="background:rgba(232,101,74,.18)"><span class="dmatch badge-match">92%</span><span class="ddot"></span>
-                <svg class="silh" viewBox="0 0 100 100"><circle cx="50" cy="30" r="20" fill="#E8654A"/><path d="M15 100 Q15 60 50 60 Q85 60 85 100Z" fill="#E8654A"/></svg></div>
-              <div style="padding:8px">
-                <div style="font-weight:700;font-size:12px" class="head">Maya, 27</div>
-                <div class="muted" style="font-size:10px">📍 Berlin</div>
-                <div class="chips" style="margin:5px 0"><span class="chip soft" style="padding:2px 6px">🎯 7</span><span class="chip soft" style="padding:2px 6px">✨ AI</span></div>
-                <div class="btn primary sm">View profile</div>
-              </div>
-            </div>
-            <div class="dcard">
-              <div class="dphoto" style="background:rgba(244,162,97,.22)"><span class="dmatch badge-match">88%</span><span class="ddot"></span>
-                <svg class="silh" viewBox="0 0 100 100"><circle cx="50" cy="30" r="20" fill="#F4A261"/><path d="M15 100 Q15 60 50 60 Q85 60 85 100Z" fill="#F4A261"/></svg></div>
-              <div style="padding:8px">
-                <div style="font-weight:700;font-size:12px" class="head">Kai, 29</div>
-                <div class="muted" style="font-size:10px">📍 Tokyo</div>
-                <div class="chips" style="margin:5px 0"><span class="chip soft" style="padding:2px 6px">✨ AI</span><span class="chip soft" style="padding:2px 6px">🤝 friends</span></div>
-                <div class="btn primary sm">View profile</div>
-              </div>
-            </div>
-          </div>
-          <div class="muted" style="font-size:10px;text-align:center">Tap a card to learn more — no swiping.</div>
-        </div>
-        <div class="tabbar"><div class="tab active"><span class="ic">🧭</span>Discover</div><div class="tab"><span class="ic">💬</span>Chats</div><div class="tab"><span class="ic">👤</span>Profile</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
-      </div>
-    </div>
-    <div class="caption">9 · Discover<small>Curated grid · match % + reasons</small></div>
-  </div>
-
-  <!-- 10 PROFILE DETAIL -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen"><div class="pad scroll" style="gap:10px">
-        <div class="between"><span style="font-size:16px">←</span><span class="muted" style="font-size:13px">⤴︎  ⚐</span></div>
-        <div class="ava" style="height:120px;background:rgba(232,101,74,.18)">
-          <svg style="width:80px;height:70px" viewBox="0 0 100 100"><circle cx="50" cy="30" r="20" fill="#E8654A"/><path d="M15 100 Q15 60 50 60 Q85 60 85 100Z" fill="#E8654A"/></svg></div>
-        <div class="between"><div class="h-title" style="font-size:21px">Maya, 27</div><span class="badge-match">92% match</span></div>
-        <div class="muted" style="font-size:11px">📍 Berlin · 🟢 Online</div>
-        <div class="card coraltop"><div class="pill" style="color:var(--teal);border-color:var(--teal)">Ask me about…</div><div style="font-size:12px;margin-top:4px">the trip that changed me</div></div>
-        <div class="label">Why you match</div>
-        <div class="chips"><span class="chip soft">🎯 7 shared</span><span class="chip soft">✨ AI</span><span class="chip soft">🗣️ English</span></div>
-        <div class="label">Interests</div>
-        <div class="chips"><span class="chip">Films</span><span class="chip">Art</span><span class="chip">AI</span><span class="chip">Philosophy</span></div>
-        <div class="btn primary">Start conversation</div>
-        <div class="row"><div class="btn ghost sm" style="flex:1">♡ Show interest</div><div class="btn ghost sm" style="flex:1">⚑ Report</div></div>
-      </div></div>
-    </div>
-    <div class="caption">10 · Profile (other user)<small>Prompts · why-you-match · CTAs</small></div>
-  </div>
-
-  <!-- 11 MY PROFILE -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen">
-        <div class="topbar"><svg class="logo-sm"><use href="#honly"/></svg><span class="muted" style="font-size:12px">✎ Edit</span></div>
-        <div class="pad scroll" style="gap:10px">
-          <div class="between"><div class="ava" style="width:64px;height:64px;background:var(--coral)"><svg style="width:42px;height:40px" viewBox="0 0 100 100"><circle cx="50" cy="32" r="18" fill="#fff"/><path d="M20 100 Q20 64 50 64 Q80 64 80 100Z" fill="#fff"/></svg></div>
-            <div style="text-align:right"><div class="h-title" style="font-size:20px">Alex, 27</div><div class="muted" style="font-size:11px">Berlin · they/them</div></div></div>
-          <div class="label">Photos · 3/6</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
-            <div class="ava" style="height:48px;background:rgba(60,190,168,.2)"></div>
-            <div class="ava" style="height:48px;background:rgba(232,101,74,.18)"></div>
-            <div class="ava" style="height:48px;background:rgba(244,162,97,.2)"></div>
-            <div class="ava muted" style="height:48px;border-style:dashed;align-items:center;font-size:18px">＋</div>
-          </div>
-          <div class="card coraltop"><div style="font-weight:700;font-size:12px" class="head">Conversation starters</div>
-            <div class="note" style="margin-top:6px"><b style="color:var(--teal);font-size:10px">Ask me about…</b><div style="font-size:11px">the trip that changed me</div></div></div>
-          <div class="row"><div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--coral)" class="head">5</div><div class="muted" style="font-size:9px">VALUES</div></div>
-            <div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700;color:var(--teal)" class="head">8</div><div class="muted" style="font-size:9px">INTERESTS</div></div>
-            <div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:700" class="head">3</div><div class="muted" style="font-size:9px">TOPICS</div></div></div>
-        </div>
-        <div class="tabbar"><div class="tab"><span class="ic">🧭</span>Discover</div><div class="tab"><span class="ic">💬</span>Chats</div><div class="tab active"><span class="ic">👤</span>Profile</div><div class="tab"><span class="ic">⚙️</span>Settings</div></div>
-      </div>
-    </div>
-    <div class="caption">11 · My profile<small>Photos (6) · prompts · stats</small></div>
-  </div>
-
-  <!-- 12 CHAT -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen">
-        <div class="topbar" style="gap:10px"><span style="font-size:15px">←</span>
-          <div class="ava" style="width:30px;height:30px;background:rgba(232,101,74,.2)"><svg style="width:20px;height:18px" viewBox="0 0 100 100"><circle cx="50" cy="32" r="18" fill="#E8654A"/><path d="M20 100 Q20 64 50 64 Q80 64 80 100Z" fill="#E8654A"/></svg></div>
-          <div style="flex:1"><div style="font-weight:700;font-size:12px" class="head">Maya</div><div style="font-size:10px;color:var(--teal)">Typing…</div></div></div>
-        <div class="pad" style="gap:8px;justify-content:flex-end">
-          <div class="bubble them">Hey! I saw you're into AI too — what got you into it?</div>
-          <div class="bubble me">The creative side, mostly. You? <div class="ticks">10:34 ✓✓</div></div>
-          <div class="bubble them">Same! 😄 I'll send you something I made</div>
-          <div class="bubble me" style="padding:6px"><div style="width:150px;height:84px;border-radius:8px;background:rgba(255,255,255,.25)"></div><div class="ticks">10:36 ✓✓</div></div>
-          <div class="bubble them" style="display:flex;gap:6px;align-items:center;width:120px">▶︎ <div style="flex:1;height:4px;border-radius:4px;background:var(--cream-d)"></div> 0:08</div>
-        </div>
-        <div style="padding:10px;border-top:2px solid var(--navy);display:flex;gap:8px;align-items:center;background:var(--card)">
-          <span style="font-size:16px">🖼️</span><div class="input" style="flex:1;color:var(--muted)">Type a message…</div><div style="width:32px;height:32px;border-radius:50%;background:var(--teal);border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;color:#fff">🎤</div></div>
-      </div>
-    </div>
-    <div class="caption">12 · Chat<small>Media · voice · read receipts · typing</small></div>
-  </div>
-
-  <!-- 13 SETTINGS -->
-  <div class="frame">
-    <div class="phone"><div class="notch"></div>
-      <div class="screen">
-        <div class="topbar"><svg class="logo-sm"><use href="#honly"/></svg></div>
-        <div class="pad scroll" style="gap:10px">
-          <div class="h-title" style="font-size:20px">Settings</div>
-          <div class="label muted" style="letter-spacing:.08em">PRIVACY</div>
-          <div class="card" style="padding:0">
-            <div class="between" style="padding:10px 12px;border-bottom:1px solid var(--cream-d)"><div style="font-size:12px;font-weight:600">Discoverable by location</div><div class="toggle off"><i></i></div></div>
-            <div class="between" style="padding:10px 12px;border-bottom:1px solid var(--cream-d)"><div style="font-size:12px;font-weight:600">Show distance</div><div class="toggle off"><i></i></div></div>
-            <div class="between" style="padding:10px 12px;border-bottom:1px solid var(--cream-d)"><div style="font-size:12px;font-weight:600">Show age</div><div class="toggle on"><i></i></div></div>
-            <div class="between" style="padding:10px 12px"><div style="font-size:12px;font-weight:600">Blocked users</div><span class="muted">›</span></div>
-          </div>
-          <div class="label muted" style="letter-spacing:.08em">MATCHING</div>
-          <div class="card between"><div style="font-size:12px;font-weight:600">Match preferences</div><span class="chip" style="padding:2px 8px">🧠 Topic</span></div>
-          <div class="label muted" style="letter-spacing:.08em">ACCOUNT</div>
-          <div class="card" style="padding:0">
-            <div class="between" style="padding:10px 12px;border-bottom:1px solid var(--cream-d)"><div style="font-size:12px;font-weight:600">Sign out</div><span class="muted">›</span></div>
-            <div class="between" style="padding:10px 12px"><div style="font-size:12px;font-weight:600;color:var(--coral)">Delete account</div><span style="color:var(--coral)">›</span></div>
-          </div>
-        </div>
-        <div class="tabbar"><div class="tab"><span class="ic">🧭</span>Discover</div><div class="tab"><span class="ic">💬</span>Chats</div><div class="tab"><span class="ic">👤</span>Profile</div><div class="tab active"><span class="ic">⚙️</span>Settings</div></div>
-      </div>
-    </div>
-    <div class="caption">13 · Settings<small>Privacy off-by-default · match prefs</small></div>
-  </div>
-
-  </div><!--/grid-->
-
-  <div class="legend">
-    <span><b>Primary CTA</b> View profile / Start conversation</span>
-    <span><b>Secondary</b> Save for later · Not for me · Show interest</span>
-    <span><b>No swiping</b> — curated grid, you choose who to learn about</span>
-  </div>
+<div class="hd">
+  <h1>🎨 HOnly — Product Design Mockups</h1>
+  <p>All key screens · Mobile App (375×812) · Humans Only. Vibes Only. · June 2026</p>
 </div>
+
+<!-- ============ ACQUISITION ============ -->
+<div class="seclabel"><h2>🚀 Acquisition &amp; Auth</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- WELCOME -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div>
+    <div class="blob" style="right:-70px;top:40px;width:230px;height:230px;background:rgba(60,190,168,.16)"></div>
+    <div class="blob" style="right:-30px;top:120px;width:170px;height:170px;background:rgba(232,101,74,.12)"></div>
+    <div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="position:absolute;right:18px;top:96px;width:175px;height:215px;background:#EDE5D8;border-radius:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.14);z-index:1">
+      <svg width="150" height="185" viewBox="0 0 160 200"><ellipse cx="60" cy="130" rx="34" ry="58" fill="#C17F55" transform="rotate(-12 60 130)"/><ellipse cx="105" cy="120" rx="32" ry="54" fill="#5AAAA0" transform="rotate(10 105 120)"/><ellipse cx="60" cy="88" rx="36" ry="25" fill="#9C5E35"/><ellipse cx="105" cy="82" rx="34" ry="23" fill="#3BBFAD"/></svg>
+    </div>
+    <div style="padding:78px 26px 0;position:relative;z-index:2">
+      <div class="lg" style="margin-bottom:18px"><b style="color:var(--coral)">H</b><span class="o"><i></i></span><b style="color:var(--navy)">nly</b></div>
+      <h1 style="font-size:44px;font-weight:900;color:var(--navy);line-height:1.04">Meet<br>someone<br><span style="color:var(--coral)">real</span></h1>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6;max-width:180px;margin-top:10px">Casual chats, deep conversations, real human connection.</p>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:var(--navy);border-radius:30px 30px 0 0;padding:22px 22px 30px;z-index:3">
+      <div style="width:40px;height:4px;background:#3A4A5E;border-radius:2px;margin:0 auto 18px"></div>
+      <div style="background:rgba(232,101,74,.14);border:1px solid rgba(232,101,74,.4);border-radius:14px;padding:12px 14px;margin-bottom:16px">
+        <div style="font-size:9px;font-weight:800;color:var(--coral);letter-spacing:1.2px;margin-bottom:4px">THIS IS NOT A DATING APP</div>
+        <div style="font-size:13px;font-weight:600;color:#fff;line-height:1.4">No pressure. No expectations. No forced next step.</div>
+      </div>
+      <div class="btn" style="margin-bottom:9px">Join HOnly — it's free</div>
+      <div class="outline dk" style="margin-bottom:16px">Sign in</div>
+      <div style="display:flex;justify-content:center;gap:14px;color:#5A6A7E;font-size:11px"><span>💬 Real chats</span><span>👥 Humans only</span><span>✨ Good vibes</span></div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">01 — Welcome</div><div class="desc">Hero + anti-dating positioning</div></div></div>
+
+  <!-- SIGN IN -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr dark">
+    <div class="notch"></div>
+    <div class="blob" style="right:-80px;top:-80px;width:240px;height:240px;background:rgba(232,101,74,.14)"></div>
+    <div class="blob" style="left:-60px;bottom:180px;width:190px;height:190px;background:rgba(60,190,168,.1)"></div>
+    <div class="sb" style="color:#fff"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="padding:60px 26px 0;position:relative;z-index:2">
+      <div class="lg" style="margin-bottom:28px"><b style="color:var(--coral)">H</b><span class="o"><i></i></span><b style="color:#fff">nly</b></div>
+      <h2 style="font-size:29px;font-weight:800;color:#fff;margin-bottom:5px">Welcome back</h2>
+      <p style="font-size:13px;color:var(--mut2);margin-bottom:24px">Real people are waiting for you.</p>
+      <div style="background:#fff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <svg width="18" height="18" viewBox="0 0 20 20"><path d="M19 10.2c0-.7-.1-1.3-.2-2H10v3.8h5a4.3 4.3 0 01-1.9 2.8v2.3h3.1A9.4 9.4 0 0019 10.2z" fill="#4285F4"/><path d="M10 19.3c2.5 0 4.7-.8 6.2-2.2l-3-2.3a5.9 5.9 0 01-8.8-3.1H1.3v2.4A9.4 9.4 0 0010 19.3z" fill="#34A853"/><path d="M4.4 11.7a5.6 5.6 0 010-3.4V5.9H1.3a9.4 9.4 0 000 8.2l3.1-2.4z" fill="#FBBC04"/><path d="M10 4.4a5.1 5.1 0 013.6 1.4l2.7-2.7A9 9 0 0010 .7 9.4 9.4 0 001.3 5.9l3.1 2.4A5.6 5.6 0 0110 4.4z" fill="#E94235"/></svg>
+        <span style="font-size:13.5px;font-weight:600;color:var(--navy)">Continue with Google</span>
+      </div>
+      <div style="background:#0f1722;border:1.5px solid #2A3A4E;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px">
+        <span style="font-size:15px"> </span><span style="font-size:13.5px;font-weight:600;color:#fff"> Continue with Apple</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px"><div style="flex:1;height:1px;background:#2A3A4E"></div><span style="font-size:11px;color:#5A6A7E">or email</span><div style="flex:1;height:1px;background:#2A3A4E"></div></div>
+      <div style="background:#253445;border:1.5px solid #3A4A5E;border-radius:12px;padding:13px 15px;margin-bottom:10px"><div style="font-size:10px;color:#5A6A7E;margin-bottom:3px">Email</div><span style="font-size:13.5px;color:var(--mut2)">alex@example.com</span></div>
+      <div style="background:#253445;border:1.5px solid var(--coral);border-radius:12px;padding:13px 15px;margin-bottom:6px"><div style="font-size:10px;color:#5A6A7E;margin-bottom:3px">Password</div><div class="row-bt"><span style="color:#fff;letter-spacing:3px;font-size:14px">••••••••</span><span style="font-size:11px;color:var(--coral)">Show</span></div></div>
+      <div style="text-align:right;margin-bottom:18px"><span style="font-size:12px;color:var(--coral);font-weight:600">Forgot password?</span></div>
+      <div class="btn" style="margin-bottom:16px">Sign in</div>
+      <div style="text-align:center"><span style="font-size:12.5px;color:#5A6A7E">No account? <span style="color:var(--coral);font-weight:700">Join HOnly</span></span></div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">02 — Sign In</div><div class="desc">Dark auth · SSO + email</div></div></div>
+
+</div>
+
+<!-- ============ ONBOARDING ============ -->
+<div class="seclabel"><h2>👋 Onboarding Flow</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- SIGN UP -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:26px"><div class="back">←</div><div class="pg"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><span style="font-size:11px;color:var(--mut2)">1/6</span></div>
+      <div class="eyebrow" style="color:var(--coral)">CREATE ACCOUNT</div>
+      <h2 class="h2" style="margin:6px 0">What's your<br>email?</h2>
+      <p class="sub" style="margin-bottom:24px">18+ only. We'll verify it's really you.</p>
+      <div style="margin-bottom:14px"><div class="flbl">Email address</div><div class="field on row-bt"><span style="font-size:14px;color:var(--navy)">alex@example.com</span><div style="width:18px;height:18px;background:var(--teal);border-radius:50%;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center">✓</div></div></div>
+      <div style="margin-bottom:14px"><div class="flbl">Password</div><div class="field row-bt"><span style="color:var(--navy);letter-spacing:3px;font-size:14px">••••••••</span><span style="font-size:12px;color:var(--mut2)">Show</span></div></div>
+      <div style="margin-bottom:22px"><div class="flbl">Date of birth · must be 18+</div><div class="field" style="color:var(--mut2);font-size:14px">04 / 12 / 1998</div></div>
+      <div class="btn">Continue</div>
+      <p style="text-align:center;font-size:11px;color:var(--mut2);margin-top:16px">By continuing you agree to our <span style="color:var(--coral)">Terms</span> &amp; <span style="color:var(--coral)">Privacy</span></p>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">03 — Sign Up</div><div class="desc">Email, password &amp; 18+ gate</div></div></div>
+
+  <!-- INTERESTS & LANGUAGES -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><span style="font-size:11px;color:var(--mut2)">2/6</span></div>
+      <div class="eyebrow" style="color:var(--teal)">YOUR VIBE</div>
+      <h2 class="h2" style="margin:6px 0">What are you<br>into?</h2>
+      <p class="sub" style="margin-bottom:18px">Better conversations start here.</p>
+      <div class="flbl">Interests</div>
+      <div class="tags" style="margin-bottom:16px">
+        <span class="tag on">🎬 Films</span><span class="tag on">📚 Books</span><span class="tag">😂 Reels &amp; memes</span>
+        <span class="tag coral">🤖 AI</span><span class="tag">💻 Technology</span><span class="tag on">🧠 Philosophy</span>
+        <span class="tag">🎵 Music</span><span class="tag">🎨 Art</span><span class="tag">✈️ Travel</span>
+      </div>
+      <div class="flbl">Languages</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag teal">🇬🇧 English</span><span class="tag teal">🇩🇪 German</span><span class="tag">🇪🇸 Spanish</span></div>
+      <div class="flbl">Why I'm here</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag on">Friendship</span><span class="tag on">Deep talks</span><span class="tag">Language practice</span></div>
+      <div class="note" style="margin-bottom:18px">✨ <span><b style="color:var(--teal)">4 selected</b> — more interests = better matches</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">04 — Interests &amp; Languages</div><div class="desc">Foundation of matching · intent</div></div></div>
+
+  <!-- LOCATION & VISIBILITY -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><span style="font-size:11px;color:var(--mut2)">3/6</span></div>
+      <div class="eyebrow" style="color:var(--coral)">PRIVACY FIRST</div>
+      <h2 class="h2" style="margin:6px 0">Location &amp;<br>visibility</h2>
+      <p class="sub" style="margin-bottom:20px">Two separate choices — off until you opt in.</p>
+      <div class="flbl">Let the app use your location?</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Off</span><span class="tag coral">Approximate</span><span class="tag">Precise</span></div>
+      <div class="card row-bt" style="margin-bottom:12px"><div><div style="font-size:13px;font-weight:700;color:var(--navy)">Let others find me nearby</div><div style="font-size:10.5px;color:var(--mut2)">Browse nearby while staying hidden</div></div><div class="toggle off"><i></i></div></div>
+      <div class="flbl">Show distance on my card</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag coral">Hidden</span><span class="tag">Nearby</span><span class="tag">~3 km</span></div>
+      <div class="note" style="margin-bottom:18px">🔒 <span>We never show your exact location — only a fuzzy distance, and only if you choose to.</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">05 — Location &amp; Visibility</div><div class="desc">Two privacy axes · off by default</div></div></div>
+
+  <!-- WHAT MATTERS / PRESETS -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><span style="font-size:11px;color:var(--mut2)">4/6</span></div>
+      <div class="eyebrow" style="color:var(--teal)">MATCHING</div>
+      <h2 class="h2" style="margin:6px 0">What matters<br>to you?</h2>
+      <p class="sub" style="margin-bottom:18px">Pick a vibe. Fine-tune anytime later.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+        <div class="card row-bt"><div style="display:flex;gap:11px;align-items:center"><span style="font-size:22px">🏙️</span><div><div style="font-weight:700;font-size:13.5px;color:var(--navy)">Nearby &amp; social</div><div style="font-size:10.5px;color:var(--mut2)">Interests + proximity</div></div></div></div>
+        <div class="card row-bt" style="border:2px solid var(--coral);box-shadow:0 8px 20px rgba(232,101,74,.18)"><div style="display:flex;gap:11px;align-items:center"><span style="font-size:22px">💬</span><div><div style="font-weight:700;font-size:13.5px;color:var(--navy)">Deep conversations</div><div style="font-size:10.5px;color:var(--mut2)">Interests + deep talks</div></div></div><div style="width:20px;height:20px;border-radius:50%;background:var(--coral);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">✓</div></div>
+        <div class="card row-bt"><div style="display:flex;gap:11px;align-items:center"><span style="font-size:22px">🧠</span><div><div style="font-weight:700;font-size:13.5px;color:var(--navy)">Topic deep-dive</div><div style="font-size:10.5px;color:var(--mut2)">People who love the same topic</div></div></div></div>
+        <div class="card row-bt"><div style="display:flex;gap:11px;align-items:center"><span style="font-size:22px">😏</span><div><div style="font-weight:700;font-size:13.5px;color:var(--navy)">Open to flirt</div><div style="font-size:10.5px;color:var(--mut2)">Interests + mutual flirt</div></div></div></div>
+        <div class="card row-bt"><div style="display:flex;gap:11px;align-items:center"><span style="font-size:22px">🎚️</span><div><div style="font-weight:700;font-size:13.5px;color:var(--navy)">Custom</div><div style="font-size:10.5px;color:var(--mut2)">Set Must / Nice yourself</div></div></div></div>
+      </div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">06 — What Matters</div><div class="desc">Match presets · no swiping</div></div></div>
+
+  <!-- CONVERSATION PROMPTS -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><span style="font-size:11px;color:var(--mut2)">5/6</span></div>
+      <div class="eyebrow" style="color:var(--coral)">BREAK THE ICE</div>
+      <h2 class="h2" style="margin:6px 0">Conversation<br>prompts</h2>
+      <p class="sub" style="margin-bottom:18px">Optional — give people an easy way in.</p>
+      <div style="margin-bottom:12px"><div class="flbl" style="color:var(--teal)">Ask me about…</div><div class="field on" style="font-size:13px;color:var(--navy)">the trip that changed me</div></div>
+      <div style="margin-bottom:12px"><div class="flbl" style="color:var(--teal)">I could talk for hours about…</div><div class="field" style="font-size:13px;color:var(--navy)">AI and where it's all going</div></div>
+      <div style="margin-bottom:12px"><div class="flbl" style="color:var(--teal)">A hill I'll die on…</div><div class="field" style="color:var(--mut2);font-size:13px">Your answer…</div></div>
+      <div style="margin-bottom:18px"><div class="flbl" style="color:var(--teal)">A show, film or book everyone should try…</div><div class="field" style="color:var(--mut2);font-size:13px">Your answer…</div></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">07 — Conversation Prompts</div><div class="desc">Conversation-first icebreakers</div></div></div>
+
+  <!-- BOUNDARIES -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><span style="font-size:11px;color:var(--mut2)">6/6</span></div>
+      <div class="eyebrow" style="color:var(--teal)">SAFETY &amp; BOUNDARIES</div>
+      <h2 class="h2" style="margin:6px 0">Your comfort,<br>your rules</h2>
+      <p class="sub" style="margin-bottom:18px">Upfront limits keep things honest &amp; safe.</p>
+      <div class="flbl">Am I okay with flirting?</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Yes, if respectful</span><span class="tag coral">Platonic only</span></div>
+      <div class="card row-bt" style="margin-bottom:16px"><div style="font-size:13px;font-weight:700;color:var(--navy)">Never ask me to meet offline</div><div class="toggle on"><i></i></div></div>
+      <div class="flbl">Political leaning · optional</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Progressive</span><span class="tag">Moderate</span><span class="tag teal">Prefer not to say</span></div>
+      <div class="flbl">Profile visibility</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag on">👤 Real profile</span><span class="tag">🎭 Anonymous</span></div>
+      <div class="btn">Start exploring →</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">08 — Boundaries &amp; Safety</div><div class="desc">Politics optional · meet-offline guard</div></div></div>
+
+  <!-- WELCOME CELEBRATION -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div>
+    <div class="blob" style="left:-50px;top:60px;width:200px;height:200px;background:rgba(60,190,168,.16)"></div>
+    <div class="blob" style="right:-50px;top:200px;width:200px;height:200px;background:rgba(232,101,74,.14)"></div>
+    <div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:84%;padding:0 36px;text-align:center;position:relative;z-index:2">
+      <div style="font-size:74px;margin-bottom:16px">🎉</div>
+      <div class="eyebrow" style="color:var(--teal);margin-bottom:8px">YOU'RE IN!</div>
+      <h2 style="font-size:28px;font-weight:800;color:var(--navy);margin-bottom:10px">Welcome to<br>HOnly, Alex!</h2>
+      <p class="sub" style="margin-bottom:26px">You're part of a community of real humans having real conversations.</p>
+      <div class="btn" style="width:100%;margin-bottom:9px">Start discovering people</div>
+      <div class="outline" style="width:100%;margin-bottom:22px">Complete my profile first</div>
+      <div class="card" style="width:100%;text-align:left">
+        <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:10px">YOUR PROFILE</div>
+        <div style="display:flex;justify-content:space-around">
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--coral)">82%</div><div style="font-size:9.5px;color:var(--mut2)">Complete</div></div>
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--teal)">4</div><div style="font-size:9.5px;color:var(--mut2)">Interests</div></div>
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--navy)">2</div><div style="font-size:9.5px;color:var(--mut2)">Prompts</div></div>
+        </div>
+      </div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">09 — Welcome! 🎉</div><div class="desc">Onboarding complete · celebration</div></div></div>
+
+</div>
+
+<!-- ============ CORE APP ============ -->
+<div class="seclabel"><h2>🏠 Core App Screens</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- DISCOVER -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="padding:40px 22px 12px;display:flex;align-items:center;justify-content:space-between">
+      <div><div style="font-size:11px;color:var(--mut2)">Good evening 👋</div><div style="font-size:21px;font-weight:800;color:var(--navy)">Discover</div></div>
+      <div style="display:flex;gap:8px;align-items:center"><div style="width:34px;height:34px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.08);font-size:15px">🔔</div><div style="width:34px;height:34px;background:var(--coral);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px">A</div></div>
+    </div>
+    <div style="margin:0 22px 10px;background:#fff;border-radius:50px;padding:10px 15px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+      <span style="color:var(--mut2)">🔍</span><span style="font-size:12.5px;color:var(--mut2)">Search people, interests…</span>
+    </div>
+    <div style="padding:0 22px 10px;display:flex;align-items:center;gap:8px;font-size:12px"><span style="color:var(--mut2)">Matching:</span><span class="tag" style="padding:4px 10px">🧠 Topic deep-dive</span><span style="color:var(--coral);font-weight:700">Refine</span></div>
+
+    <!-- curated grid -->
+    <div style="padding:0 22px;display:grid;grid-template-columns:1fr 1fr;gap:11px">
+      <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.07)">
+        <div style="height:84px;background:linear-gradient(135deg,#E8654A,#f08a72);position:relative;display:flex;align-items:flex-end;justify-content:center">
+          <span style="position:absolute;top:7px;left:7px;background:#fff;border-radius:50px;padding:2px 7px;font-size:10px;font-weight:800;color:var(--navy)">92%</span>
+          <span style="position:absolute;top:8px;right:8px;width:9px;height:9px;background:var(--green);border:2px solid #fff;border-radius:50%"></span>
+          <svg width="50" height="44" viewBox="0 0 100 100"><circle cx="50" cy="30" r="19" fill="#fff" opacity=".9"/><path d="M16 100 Q16 62 50 62 Q84 62 84 100Z" fill="#fff" opacity=".9"/></svg>
+        </div>
+        <div style="padding:9px">
+          <div style="font-weight:700;font-size:13px;color:var(--navy)">Maya, 27</div>
+          <div style="font-size:10px;color:var(--mut2);margin-bottom:6px">📍 Berlin</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="reason" style="padding:3px 7px">🎯 7</span><span class="reason" style="padding:3px 7px">✨ AI</span></div>
+          <div class="btn" style="padding:8px;font-size:12px;box-shadow:none">View profile</div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.07)">
+        <div style="height:84px;background:linear-gradient(135deg,#F4A261,#f7b787);position:relative;display:flex;align-items:flex-end;justify-content:center">
+          <span style="position:absolute;top:7px;left:7px;background:#fff;border-radius:50px;padding:2px 7px;font-size:10px;font-weight:800;color:var(--navy)">88%</span>
+          <span style="position:absolute;top:8px;right:8px;width:9px;height:9px;background:var(--green);border:2px solid #fff;border-radius:50%"></span>
+          <svg width="50" height="44" viewBox="0 0 100 100"><circle cx="50" cy="30" r="19" fill="#fff" opacity=".9"/><path d="M16 100 Q16 62 50 62 Q84 62 84 100Z" fill="#fff" opacity=".9"/></svg>
+        </div>
+        <div style="padding:9px">
+          <div style="font-weight:700;font-size:13px;color:var(--navy)">Kai, 29</div>
+          <div style="font-size:10px;color:var(--mut2);margin-bottom:6px">📍 Tokyo</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px"><span class="reason" style="padding:3px 7px">✨ AI</span><span class="reason" style="padding:3px 7px">🤝 friends</span></div>
+          <div class="btn" style="padding:8px;font-size:12px;box-shadow:none">View profile</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:10px;color:var(--mut2);margin-top:10px">Tap a card to learn more — no swiping.</div>
+
+    <div class="nav"><div class="navi act"><span class="i">🧭</span>Discover</div><div class="navi"><span class="i">💬</span>Chats</div><div class="navi"><span class="i">👤</span>Profile</div><div class="navi"><span class="i">⚙️</span>Settings</div></div>
+  </div></div></div><div class="lbl"><div class="name">10 — Discover</div><div class="desc">Curated grid · match % + reasons</div></div></div>
+
+  <!-- PROFILE VIEW -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div>
+    <div style="height:230px;background:linear-gradient(150deg,#E8654A,#c9492f);position:relative;overflow:hidden">
+      <div class="blob" style="right:-40px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.12)"></div>
+      <div style="position:absolute;top:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 18px"><div style="width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff">←</div><div style="width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff">⋯</div></div>
+      <div style="position:absolute;bottom:18px;left:20px;display:flex;align-items:flex-end;gap:13px">
+        <div style="width:70px;height:70px;background:#fff;border-radius:20px;border:3px solid #fff;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative"><svg width="48" height="44" viewBox="0 0 100 100"><circle cx="50" cy="30" r="19" fill="#E8654A"/><path d="M16 100 Q16 62 50 62 Q84 62 84 100Z" fill="#E8654A"/></svg><span class="ondot" style="border-color:#E8654A"></span></div>
+        <div style="padding-bottom:3px"><div style="font-size:20px;font-weight:800;color:#fff">Maya, 27</div><div style="font-size:11.5px;color:rgba(255,255,255,.85)">📍 Berlin · 🟢 Online</div></div>
+      </div>
+    </div>
+    <div style="padding:14px 20px;height:430px;overflow:hidden">
+      <div style="display:flex;gap:8px;margin-bottom:14px"><span class="match" style="padding:5px 11px">92% match</span><span class="reason" style="padding:5px 11px">✓ Verified</span></div>
+      <div class="card" style="border-left:4px solid var(--teal);box-shadow:none;background:var(--cream);margin-bottom:12px;padding:11px 13px"><div style="font-size:9.5px;font-weight:700;color:var(--teal);letter-spacing:.5px;margin-bottom:3px">ASK ME ABOUT…</div><div style="font-size:13px;color:var(--navy)">the trip that changed me</div></div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:8px">WHY YOU MATCH</div>
+      <div class="tags" style="margin-bottom:14px"><span class="reason" style="padding:5px 11px">🎯 7 shared</span><span class="reason" style="padding:5px 11px">✨ AI</span><span class="reason" style="padding:5px 11px">🗣️ English</span></div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:8px">INTERESTS</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">🎬 Films</span><span class="tag">🎨 Art</span><span class="tag">🤖 AI</span><span class="tag">🧠 Philosophy</span></div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:12px 18px 26px;display:flex;gap:10px">
+      <div style="width:46px;height:46px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">♡</div>
+      <div style="width:46px;height:46px;background:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none">🔖</div>
+      <div class="btn" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px">💬 Start conversation</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">11 — Profile View</div><div class="desc">Prompt · why-you-match · CTAs</div></div></div>
+
+  <!-- MY PROFILE -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="padding:40px 22px 0">
+      <div class="row-bt" style="margin-bottom:14px"><div style="font-size:21px;font-weight:800;color:var(--navy)">My profile</div><span style="font-size:12px;color:var(--mut2)">✎ Edit</span></div>
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+        <div style="width:66px;height:66px;background:var(--coral);border-radius:20px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden"><svg width="46" height="42" viewBox="0 0 100 100"><circle cx="50" cy="32" r="18" fill="#fff"/><path d="M20 100 Q20 64 50 64 Q80 64 80 100Z" fill="#fff"/></svg></div>
+        <div><div style="font-size:18px;font-weight:800;color:var(--navy)">Alex, 27</div><div style="font-size:11.5px;color:var(--mut2)">📍 Berlin · they/them</div>
+          <div style="margin-top:5px;height:5px;width:150px;background:#EDE7DC;border-radius:3px;overflow:hidden"><div style="height:100%;width:82%;background:linear-gradient(90deg,var(--coral),var(--teal))"></div></div>
+          <div style="font-size:9.5px;color:var(--mut2);margin-top:3px">Profile 82% complete</div>
+        </div>
+      </div>
+      <div class="flbl">Photos · 3/6</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px">
+        <div style="height:54px;border-radius:12px;background:linear-gradient(135deg,#3CBEA8,#6fd3c2)"></div>
+        <div style="height:54px;border-radius:12px;background:linear-gradient(135deg,#E8654A,#f08a72)"></div>
+        <div style="height:54px;border-radius:12px;background:linear-gradient(135deg,#F4A261,#f7b787)"></div>
+        <div style="height:54px;border-radius:12px;border:2px dashed #C9C1B4;display:flex;align-items:center;justify-content:center;color:var(--mut2);font-size:20px">＋</div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--coral);margin-bottom:12px">
+        <div style="font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:7px">💬 Conversation starters</div>
+        <div style="background:var(--cream);border-radius:10px;padding:8px 10px"><div style="font-size:9.5px;font-weight:700;color:var(--teal)">ASK ME ABOUT…</div><div style="font-size:12px;color:var(--navy)">the trip that changed me</div></div>
+      </div>
+      <div style="display:flex;gap:9px">
+        <div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--coral)">8</div><div style="font-size:9px;color:var(--mut2)">INTERESTS</div></div>
+        <div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--teal)">2</div><div style="font-size:9px;color:var(--mut2)">LANGUAGES</div></div>
+        <div class="card" style="flex:1;text-align:center"><div style="font-size:18px;font-weight:800;color:var(--navy)">2</div><div style="font-size:9px;color:var(--mut2)">PROMPTS</div></div>
+      </div>
+    </div>
+    <div class="nav"><div class="navi"><span class="i">🧭</span>Discover</div><div class="navi"><span class="i">💬</span>Chats</div><div class="navi act"><span class="i">👤</span>Profile</div><div class="navi"><span class="i">⚙️</span>Settings</div></div>
+  </div></div></div><div class="lbl"><div class="name">12 — My Profile</div><div class="desc">Photos (6) · prompts · stats</div></div></div>
+
+  <!-- CHAT -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="padding:38px 16px 12px;display:flex;align-items:center;gap:11px;border-bottom:1px solid var(--line)">
+      <span style="font-size:18px;color:var(--navy)">←</span>
+      <div style="width:38px;height:38px;background:var(--coral);border-radius:50%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative"><svg width="26" height="24" viewBox="0 0 100 100"><circle cx="50" cy="32" r="18" fill="#fff"/><path d="M20 100 Q20 64 50 64 Q80 64 80 100Z" fill="#fff"/></svg><span class="ondot" style="border-color:var(--coral)"></span></div>
+      <div style="flex:1"><div style="font-weight:800;font-size:14px;color:var(--navy)">Maya</div><div style="font-size:11px;color:var(--teal);font-weight:600">Typing…</div></div>
+      <span style="font-size:18px">📞</span>
+    </div>
+    <div style="padding:14px 16px;display:flex;flex-direction:column;gap:9px;height:540px;justify-content:flex-end">
+      <div style="align-self:flex-start;background:#fff;border-radius:16px 16px 16px 5px;padding:9px 12px;max-width:78%;font-size:12.5px;color:var(--navy);box-shadow:0 2px 6px rgba(0,0,0,.06)">Hey! I saw you're into AI too — what got you into it? ✨</div>
+      <div style="align-self:flex-end;background:var(--coral);color:#fff;border-radius:16px 16px 5px 16px;padding:9px 12px;max-width:78%;font-size:12.5px">The creative side, mostly. You?<div style="font-size:9px;opacity:.85;text-align:right;margin-top:2px">10:34 ✓✓</div></div>
+      <div style="align-self:flex-start;background:#fff;border-radius:16px 16px 16px 5px;padding:9px 12px;max-width:78%;font-size:12.5px;color:var(--navy);box-shadow:0 2px 6px rgba(0,0,0,.06)">Same! 😄 I'll show you something I made</div>
+      <div style="align-self:flex-end;background:var(--coral);border-radius:14px;padding:6px;max-width:78%"><div style="width:150px;height:82px;border-radius:10px;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:22px">🖼️</div><div style="font-size:9px;color:#fff;opacity:.85;text-align:right;margin-top:3px">10:36 ✓✓</div></div>
+      <div style="align-self:flex-start;background:#fff;border-radius:16px;padding:9px 12px;max-width:60%;display:flex;gap:7px;align-items:center;font-size:12px;color:var(--navy);box-shadow:0 2px 6px rgba(0,0,0,.06)">▶︎ <div style="flex:1;height:4px;border-radius:4px;background:#E0D8CC"></div> 0:08</div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:11px 14px 26px;display:flex;gap:9px;align-items:center">
+      <span style="font-size:18px">🖼️</span>
+      <div style="flex:1;background:var(--cream);border-radius:50px;padding:9px 14px;font-size:12.5px;color:var(--mut2)">Type a message…</div>
+      <div style="width:36px;height:36px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:15px">🎤</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">13 — Chat</div><div class="desc">Media · voice · read receipts · typing</div></div></div>
+
+  <!-- SETTINGS -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="padding:40px 22px 0">
+      <div style="font-size:21px;font-weight:800;color:var(--navy);margin-bottom:16px">Settings</div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:8px">PRIVACY</div>
+      <div class="card" style="padding:0;margin-bottom:16px;overflow:hidden">
+        <div class="row-bt" style="padding:12px 14px;border-bottom:1px solid var(--line)"><div style="font-size:13px;font-weight:600;color:var(--navy)">📍 Discoverable by location</div><div class="toggle off"><i></i></div></div>
+        <div class="row-bt" style="padding:12px 14px;border-bottom:1px solid var(--line)"><div style="font-size:13px;font-weight:600;color:var(--navy)">📏 Show distance</div><div class="toggle off"><i></i></div></div>
+        <div class="row-bt" style="padding:12px 14px;border-bottom:1px solid var(--line)"><div style="font-size:13px;font-weight:600;color:var(--navy)">🎂 Show age</div><div class="toggle on"><i></i></div></div>
+        <div class="row-bt" style="padding:12px 14px"><div style="font-size:13px;font-weight:600;color:var(--navy)">🚫 Blocked users</div><span style="color:var(--mut2)">›</span></div>
+      </div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:8px">MATCHING</div>
+      <div class="card row-bt" style="margin-bottom:16px"><div style="font-size:13px;font-weight:600;color:var(--navy)">🎚️ Match preferences</div><span class="tag" style="padding:3px 9px">🧠 Topic</span></div>
+      <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:8px">ACCOUNT</div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="row-bt" style="padding:12px 14px;border-bottom:1px solid var(--line)"><div style="font-size:13px;font-weight:600;color:var(--navy)">🔔 Notifications</div><div class="toggle on"><i></i></div></div>
+        <div class="row-bt" style="padding:12px 14px;border-bottom:1px solid var(--line)"><div style="font-size:13px;font-weight:600;color:var(--navy)">↪️ Sign out</div><span style="color:var(--mut2)">›</span></div>
+        <div class="row-bt" style="padding:12px 14px"><div style="font-size:13px;font-weight:600;color:var(--coral)">🗑️ Delete account</div><span style="color:var(--coral)">›</span></div>
+      </div>
+    </div>
+    <div class="nav"><div class="navi"><span class="i">🧭</span>Discover</div><div class="navi"><span class="i">💬</span>Chats</div><div class="navi"><span class="i">👤</span>Profile</div><div class="navi act"><span class="i">⚙️</span>Settings</div></div>
+  </div></div></div><div class="lbl"><div class="name">14 — Settings</div><div class="desc">Privacy off-by-default · match prefs</div></div></div>
+
+</div>
+
+<div class="legend">
+  <span><b>Primary CTA</b> View profile / Start conversation</span>
+  <span><b>Secondary</b> Save · Show interest · Not for me</span>
+  <span><b>No swiping</b> — curated grid; you choose who to learn about</span>
+  <span><b>Palette</b> coral #E8654A · teal #3CBEA8 · navy #1B2532 · cream #F5EFE6</span>
+</div>
+
 </body>
 </html>
