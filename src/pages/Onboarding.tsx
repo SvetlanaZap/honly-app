@@ -90,9 +90,17 @@ const FLIRTING = ["Yes, if it's respectful", "Light flirting is fine", "No, plea
 const DEEP_CONVOS = ["Yes — that's why I'm here", "Sometimes, when I'm ready", "I prefer lighter topics", "Depends on the connection"];
 const VISIBILITY = ["👤 Real profile", "🎭 Anonymous"];
 const POLITICS = ["Progressive", "Moderate", "Conservative", "Apolitical", "Prefer not to say"];
+const PROMPT_LIBRARY = [
+  "Ask me about…",
+  "A hill I'll die on…",
+  "The last thing that made me laugh…",
+  "I could talk for hours about…",
+  "An unpopular opinion I hold…",
+  "A show, film or book everyone should try…",
+];
 
 // Matching essentials
-const INTERESTS = ["Music", "Film & TV", "Books", "Art", "Photography", "Gaming", "Technology", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
+const INTERESTS = ["Music", "Films", "TV shows", "Books", "Reels & memes", "Art", "Photography", "Gaming", "Technology", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
 const LANGUAGES = ["English", "Spanish", "French", "German", "Russian", "Ukrainian", "Portuguese", "Italian", "Arabic", "Hindi", "Mandarin", "Japanese", "Korean", "Turkish", "Polish", "Dutch"];
 const INTENT = ["Friendship", "Deep talks", "Light daily chat", "Emotional support", "Language practice", "Playful banter"];
 
@@ -132,6 +140,7 @@ export default function Onboarding() {
   const [discoverable, setDiscoverable] = useState(false);
   const [distanceDisplay, setDistanceDisplay] = useState("Hidden");
   const [matchPreset, setMatchPreset] = useState("");
+  const [promptAnswers, setPromptAnswers] = useState<Record<string, string>>({});
 
   // Step 2
   const [spiritualPath, setSpiritualPath] = useState("");
@@ -194,6 +203,7 @@ export default function Onboarding() {
         values, peace, appreciated, workingOn,
         dayType, social, loveLang, relationship, substances,
         openTopics, avoidTopics, flirting, deepConvos, visibility, politics,
+        prompts: Object.entries(promptAnswers).filter(([, a]) => a.trim()).map(([q, a]) => ({ q, a: a.trim() })),
       };
       localStorage.setItem("honly_profile", JSON.stringify(profile));
       toast.success("Profile created!");
@@ -414,6 +424,20 @@ export default function Onboarding() {
                 <div>
                   <p className="text-sm font-medium mb-2 text-navy">Best conversation starters for me</p>
                   <ChipGroup options={CONVO_STARTERS} selected={convoStarters} onToggle={v => toggle(convoStarters, setConvoStarters, v)} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-1 text-navy">Conversation prompts <span className="text-slate-muted font-normal">· optional</span></p>
+                  <p className="text-xs text-slate-muted mb-3">Give people an easy way to break the ice. Fill in any that feel like you.</p>
+                  <div className="flex flex-col gap-3">
+                    {PROMPT_LIBRARY.map(q => (
+                      <div key={q}>
+                        <label className="block text-xs font-semibold text-teal mb-1">{q}</label>
+                        <input className="honly-input" placeholder="Your answer…" maxLength={120}
+                          value={promptAnswers[q] || ""}
+                          onChange={e => setPromptAnswers(prev => ({ ...prev, [q]: e.target.value }))} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}

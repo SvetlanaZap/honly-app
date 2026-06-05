@@ -13,6 +13,8 @@ type Profile = {
   values: string[]; peace: string[]; appreciated: string[]; workingOn: string[];
   dayType: string; social: string; loveLang: string; relationship: string; substances: string;
   openTopics: string[]; avoidTopics: string[]; flirting: string; deepConvos: string; visibility: string;
+  interests?: string[]; languages?: string[]; intent?: string[]; politics?: string;
+  prompts?: { q: string; a: string }[];
 };
 
 function Chip({ label, tone = "coral" }: { label: string; tone?: "coral" | "teal" | "navy" | "cream" }) {
@@ -314,6 +316,37 @@ export default function MyProfile() {
             </div>
           </div>
         </motion.div>
+
+        {/* CONVERSATION PROMPTS */}
+        {profile?.prompts && profile.prompts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08 }}
+            className="relative rounded-2xl bg-card border-2 border-navy overflow-hidden"
+          >
+            <div className="absolute top-0 left-0 right-0 h-1 bg-coral" />
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-coral border-2 border-navy">
+                  <MessageCircle size={18} className="text-primary-foreground" strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold font-heading text-navy leading-tight">Conversation starters</h3>
+                  <p className="text-xs text-slate-muted mt-0.5">Easy ways to break the ice with me</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                {profile.prompts.map((p, i) => (
+                  <div key={i} className="rounded-xl bg-cream border-l-4 border-teal px-4 py-3">
+                    <p className="text-xs font-semibold text-teal mb-0.5">{p.q}</p>
+                    <p className="text-navy/85 leading-relaxed">{p.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         {/* STATS */}
         {profile && (
