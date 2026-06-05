@@ -1,11 +1,6 @@
 # HOnly — Product Overview (Detailed)
 
 **Humans Only. Vibes Only.**
-
-*Version 2 · Last updated: June 2026*
-
-> This is the expanded edition. It builds on the concise [Product Overview](./PRODUCT_OVERVIEW.md) and incorporates the product direction, origin story, current build state, and roadmap discussed in the June 2026 planning call.
-
 ---
 
 ## 1. Mission
