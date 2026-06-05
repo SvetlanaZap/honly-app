@@ -90,7 +90,25 @@ const FLIRTING = ["Yes, if it's respectful", "Light flirting is fine", "No, plea
 const DEEP_CONVOS = ["Yes — that's why I'm here", "Sometimes, when I'm ready", "I prefer lighter topics", "Depends on the connection"];
 const VISIBILITY = ["👤 Real profile", "🎭 Anonymous"];
 
-const TOTAL_STEPS = 6;
+// Matching essentials
+const INTERESTS = ["Music", "Film & TV", "Books", "Art", "Photography", "Gaming", "Technology", "Science", "Travel", "Food & cooking", "Fitness", "Nature & hiking", "Fashion", "Writing", "Politics", "History", "Philosophy", "Psychology", "Business", "Animals", "Sports", "Dance", "Theatre", "Volunteering"];
+const LANGUAGES = ["English", "Spanish", "French", "German", "Russian", "Ukrainian", "Portuguese", "Italian", "Arabic", "Hindi", "Mandarin", "Japanese", "Korean", "Turkish", "Polish", "Dutch"];
+const INTENT = ["Friendship", "Deep talks", "Light daily chat", "Emotional support", "Language practice", "Playful banter"];
+
+// Location & visibility
+const LOCATION_ACCESS = ["Off", "Approximate (city)", "Precise"];
+const DISTANCE_DISPLAY = ["Hidden", "Nearby / city", "Approx distance"];
+
+// Match presets
+const PRESETS = [
+  { key: "nearby", emoji: "🏙️", label: "Nearby & social", desc: "Interests + proximity" },
+  { key: "deep", emoji: "💬", label: "Deep conversations", desc: "Interests + deep talks" },
+  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "A topic, location off" },
+  { key: "flirt", emoji: "😏", label: "Open to flirt", desc: "Interests + mutual flirt" },
+  { key: "custom", emoji: "🎚️", label: "Custom", desc: "Fine-tune later in Discover" },
+];
+
+const TOTAL_STEPS = 9;
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
@@ -104,6 +122,15 @@ export default function Onboarding() {
   const [showLocation, setShowLocation] = useState("yes");
   const [timezone, setTimezone] = useState("");
   const [bio, setBio] = useState("");
+
+  // Matching essentials (new steps 2–4)
+  const [interests, setInterests] = useState<string[]>([]);
+  const [languages, setLanguages] = useState<string[]>([]);
+  const [intent, setIntent] = useState<string[]>([]);
+  const [locationAccess, setLocationAccess] = useState("Off");
+  const [discoverable, setDiscoverable] = useState(false);
+  const [distanceDisplay, setDistanceDisplay] = useState("Hidden");
+  const [matchPreset, setMatchPreset] = useState("");
 
   // Step 2
   const [spiritualPath, setSpiritualPath] = useState("");
@@ -150,10 +177,16 @@ export default function Onboarding() {
       const n = parseInt(age, 10);
       if (!n || n < 18 || n > 99) { toast.error("Please enter a valid age (18–99)"); return; }
     }
+    if (step === 2) {
+      if (interests.length === 0) { toast.error("Pick at least one interest"); return; }
+      if (languages.length === 0) { toast.error("Pick at least one language"); return; }
+    }
+    if (step === 4 && !matchPreset) { toast.error("Choose a vibe (or Custom)"); return; }
     if (step < TOTAL_STEPS) setStep(step + 1);
     else {
       const profile = {
         name, age, gender, city, showLocation, timezone, bio,
+        interests, languages, intent, locationAccess, discoverable, distanceDisplay, matchPreset,
         spiritualPath, spiritImportance, practices, beliefs, spiritTopics, spiritMeaning,
         connectionType, convoStyle, textFreq, replyStyle, convoStarters,
         values, peace, appreciated, workingOn,
@@ -230,9 +263,100 @@ export default function Onboarding() {
             {step === 2 && (
               <div className="flex flex-col gap-8">
                 <div>
+                  <span className="text-4xl mb-3 block">🎯</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Interests & languages</h2>
+                  <p className="text-slate-muted">This is how we find people you'll actually click with.</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">My interests (pick a few)</p>
+                  <ChipGroup options={INTERESTS} selected={interests} onToggle={v => toggle(interests, setInterests, v)} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Languages I talk in</p>
+                  <ChipGroup options={LANGUAGES} selected={languages} onToggle={v => toggle(languages, setLanguages, v)} color={teal} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Why I'm here (up to 3)</p>
+                  <ChipGroup options={INTENT} selected={intent} onToggle={v => toggle(intent, setIntent, v)} max={3} />
+                </div>
+              </div>
+            )}
+
+            {step === 3 && (
+              <div className="flex flex-col gap-8">
+                <div>
+                  <span className="text-4xl mb-3 block">📍</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Location & visibility</h2>
+                  <p className="text-slate-muted">Two separate choices — everything stays off until you opt in.</p>
+                </div>
+                <div>
+                  <p className="text-sm font-medium mb-2 text-navy">Let the app use your location?</p>
+                  <Single options={LOCATION_ACCESS} value={locationAccess} onChange={setLocationAccess} />
+                </div>
+                {locationAccess !== "Off" && (
+                  <>
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-medium text-navy">Let others find me nearby</p>
+                        <p className="text-xs text-slate-muted">You can browse nearby while staying hidden.</p>
+                      </div>
+                      <button type="button" onClick={() => setDiscoverable(!discoverable)}
+                        className="w-12 h-6 rounded-full relative transition-colors shrink-0 border-2 border-navy"
+                        style={{ backgroundColor: discoverable ? coral : "hsl(var(--cream-dark))" }}>
+                        <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
+                          style={{ left: discoverable ? "calc(100% - 18px)" : "2px" }} />
+                      </button>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium mb-2 text-navy">Show distance on my card</p>
+                      <Single options={DISTANCE_DISPLAY} value={distanceDisplay} onChange={setDistanceDisplay} color={teal} />
+                    </div>
+                  </>
+                )}
+                <div className="rounded-xl bg-cream border-l-4 border-teal px-4 py-3">
+                  <p className="text-sm text-navy/80">🔒 We never show your exact location — only a fuzzy distance, and only if you choose to.</p>
+                </div>
+              </div>
+            )}
+
+            {step === 4 && (
+              <div className="flex flex-col gap-6">
+                <div>
+                  <span className="text-4xl mb-3 block">🎚️</span>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">What matters to you</h2>
+                  <p className="text-slate-muted">Pick a vibe for who we show you. You can fine-tune later in Discover.</p>
+                </div>
+                <div className="grid grid-cols-1 gap-3">
+                  {PRESETS.map(p => {
+                    const active = matchPreset === p.key;
+                    return (
+                      <button key={p.key} type="button" onClick={() => setMatchPreset(p.key)}
+                        className="text-left rounded-2xl border-2 p-4 transition-all"
+                        style={{
+                          borderColor: active ? coral : "hsl(var(--navy))",
+                          backgroundColor: active ? "hsl(var(--coral) / 0.08)" : "hsl(var(--card))",
+                          boxShadow: active ? "3px 3px 0 hsl(var(--navy))" : "none",
+                        }}>
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{p.emoji}</span>
+                          <div>
+                            <p className="font-bold font-heading text-navy">{p.label}</p>
+                            <p className="text-sm text-slate-muted">{p.desc}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {step === 5 && (
+              <div className="flex flex-col gap-8">
+                <div>
                   <span className="text-4xl mb-3 block">✨</span>
-                  <h2 className="text-3xl mb-1 font-heading text-navy">Spirituality</h2>
-                  <p className="text-slate-muted">Not about religion — about how you relate to the deeper parts of life.</p>
+                  <h2 className="text-3xl mb-1 font-heading text-navy">Spirituality <span className="text-slate-muted text-lg font-body">· optional</span></h2>
+                  <p className="text-slate-muted">Not about religion — about how you relate to the deeper parts of life. Skip anything that's not you.</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium mb-2 text-navy">My spiritual path or tradition</p>
@@ -262,7 +386,7 @@ export default function Onboarding() {
               </div>
             )}
 
-            {step === 3 && (
+            {step === 6 && (
               <div className="flex flex-col gap-8">
                 <div>
                   <span className="text-4xl mb-3 block">💬</span>
@@ -292,7 +416,7 @@ export default function Onboarding() {
               </div>
             )}
 
-            {step === 4 && (
+            {step === 7 && (
               <div className="flex flex-col gap-8">
                 <div>
                   <span className="text-4xl mb-3 block">🌿</span>
@@ -318,7 +442,7 @@ export default function Onboarding() {
               </div>
             )}
 
-            {step === 5 && (
+            {step === 8 && (
               <div className="flex flex-col gap-8">
                 <div>
                   <span className="text-4xl mb-3 block">🌙</span>
@@ -348,7 +472,7 @@ export default function Onboarding() {
               </div>
             )}
 
-            {step === 6 && (
+            {step === 9 && (
               <div className="flex flex-col gap-8">
                 <div>
                   <span className="text-4xl mb-3 block">🛡️</span>
