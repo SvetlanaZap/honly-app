@@ -112,7 +112,7 @@ const DISTANCE_DISPLAY = ["Hidden", "Nearby / city", "Approx distance"];
 const PRESETS = [
   { key: "nearby", emoji: "🏙️", label: "Nearby & social", desc: "Interests + proximity" },
   { key: "deep", emoji: "💬", label: "Deep conversations", desc: "Interests + deep talks" },
-  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "A topic, location off" },
+  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "Match on a shared topic — location not used" },
   { key: "flirt", emoji: "😏", label: "Open to flirt", desc: "Interests + mutual flirt" },
   { key: "custom", emoji: "🎚️", label: "Custom", desc: "Fine-tune later in Discover" },
 ];

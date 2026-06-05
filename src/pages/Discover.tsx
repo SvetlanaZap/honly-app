@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Search, MapPin, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { toast } from "sonner";
 
@@ -27,6 +27,14 @@ const PRESET_LABELS: Record<string, string> = {
   topic: "🧠 Topic deep-dive", flirt: "😏 Open to flirt", custom: "🎚️ Custom",
 };
 
+const PRESETS = [
+  { key: "nearby", emoji: "🏙️", label: "Nearby & social", desc: "Shared interests + you're near each other" },
+  { key: "deep", emoji: "💬", label: "Deep conversations", desc: "Shared interests + both want deep talks" },
+  { key: "topic", emoji: "🧠", label: "Topic deep-dive", desc: "Match on a shared topic — location not used" },
+  { key: "flirt", emoji: "😏", label: "Open to flirt", desc: "Shared interests + both open to flirt" },
+  { key: "custom", emoji: "🎚️", label: "Custom", desc: "Everything counts, nothing is required" },
+];
+
 type Reason = { icon: string; text: string; weight: number };
 
 function inter(a: string[] = [], b: string[] = []) {
@@ -35,9 +43,17 @@ function inter(a: string[] = [], b: string[] = []) {
 }
 
 export default function Discover() {
-  const profile = useMemo(() => {
+  const [profile, setProfile] = useState<Record<string, unknown> | null>(() => {
     try { return JSON.parse(localStorage.getItem("honly_profile") || "null"); } catch { return null; }
-  }, []);
+  });
+  const [showRefine, setShowRefine] = useState(false);
+
+  const applyPreset = (key: string) => {
+    const updated = { ...(profile || {}), matchPreset: key };
+    try { localStorage.setItem("honly_profile", JSON.stringify(updated)); } catch { /* quota */ }
+    setProfile(updated);
+    setShowRefine(false);
+  };
 
   const userInterests: string[] = profile?.interests || [];
   const userLanguages: string[] = profile?.languages || [];
@@ -103,10 +119,36 @@ export default function Discover() {
 
         {/* Active matching mode */}
         {profile ? (
-          <div className="flex items-center gap-2 mb-8 flex-wrap text-sm">
-            <span className="text-slate-muted">Matching:</span>
-            <span className="honly-tag font-semibold">{PRESET_LABELS[preset] || preset}</span>
-            <Link to="/onboarding" className="text-coral font-semibold hover:underline">Refine</Link>
+          <div className="mb-8">
+            <div className="flex items-center gap-2 flex-wrap text-sm">
+              <span className="text-slate-muted">Matching:</span>
+              <span className="honly-tag font-semibold">{PRESET_LABELS[preset] || preset}</span>
+              <button onClick={() => setShowRefine(v => !v)} className="text-coral font-semibold hover:underline">Refine</button>
+            </div>
+            {showRefine && (
+              <div className="mt-3 rounded-2xl border-2 border-navy bg-card p-3 max-w-md">
+                <p className="text-xs text-slate-muted px-1 pb-2">Pick a vibe — applies instantly, no need to redo onboarding.</p>
+                <div className="flex flex-col gap-2">
+                  {PRESETS.map(p => {
+                    const active = preset === p.key;
+                    return (
+                      <button key={p.key} onClick={() => applyPreset(p.key)}
+                        className="text-left rounded-xl border-2 p-3 transition-all"
+                        style={{ borderColor: active ? "hsl(var(--coral))" : "hsl(var(--navy))", backgroundColor: active ? "hsl(var(--coral) / 0.08)" : "hsl(var(--card))" }}>
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-xl">{p.emoji}</span>
+                          <div>
+                            <p className="font-bold font-heading text-navy text-sm">{p.label}</p>
+                            <p className="text-xs text-slate-muted">{p.desc}</p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-slate-muted px-1 pt-2">Need bigger changes? <Link to="/onboarding" className="text-coral font-semibold">Edit full profile</Link></p>
+              </div>
+            )}
           </div>
         ) : (
           <div className="mb-8 rounded-2xl bg-cream border-2 border-navy p-4 flex items-center justify-between gap-4 flex-wrap">
