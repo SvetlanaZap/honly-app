@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- HOnly favicon — cream tile · matches the logo's O exactly -->
+  <!-- HOnly favicon — cream tile · larger chat-bubble mark -->
   <rect width="64" height="64" rx="14" fill="#F2EDE6"/>
-  <path d="M18 47 L13 57 L30 45 Z" fill="#3CBEA8" stroke="#1B2532" stroke-width="2.5" stroke-linejoin="round"/>
-  <rect x="13" y="16" width="38" height="29" rx="9" fill="#3CBEA8" stroke="#1B2532" stroke-width="2.5"/>
-  <circle cx="24" cy="30.5" r="3.2" fill="#F2EDE6"/>
-  <circle cx="32" cy="30.5" r="3.2" fill="#F2EDE6"/>
-  <circle cx="40" cy="30.5" r="3.2" fill="#F2EDE6"/>
-  <circle cx="50" cy="16" r="9.5" fill="#FF2D2D" stroke="#1B2532" stroke-width="3"/>
-  <text x="50" y="20.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">1</text>
+  <path d="M17 47 L10 61 L32 45 Z" fill="#3CBEA8" stroke="#1B2532" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="8" y="12" width="44" height="33" rx="10" fill="#3CBEA8" stroke="#1B2532" stroke-width="2.5"/>
+  <circle cx="21" cy="28.5" r="3.8" fill="#F2EDE6"/>
+  <circle cx="30" cy="28.5" r="3.8" fill="#F2EDE6"/>
+  <circle cx="39" cy="28.5" r="3.8" fill="#F2EDE6"/>
+  <circle cx="51" cy="14" r="10.5" fill="#FF2D2D" stroke="#1B2532" stroke-width="3"/>
+  <text x="51" y="18.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">1</text>
 </svg>
