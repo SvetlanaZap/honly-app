@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1800" />
+<title>HOnly — Onboarding Flow v3 (streamlined · mobile design)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --coral:#E8654A;--teal:#3CBEA8;--navy:#1B2532;--cream:#F5EFE6;
+    --muted:#5A6A7E;--mut2:#8A9BAE;--line:#E8E4DF;--green:#3BBF6E;--dark:#1A2332;
+  }
+  body{background:#111827;font-family:'Inter',system-ui,sans-serif;min-height:100vh;padding:40px 30px 80px}
+  .hd{color:#F9FAFB;margin-bottom:10px}
+  .hd h1{font-size:28px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:12px}
+  .hd p{font-size:14px;color:#6B7280;max-width:900px;line-height:1.5}
+  .seclabel{display:flex;align-items:center;gap:12px;margin:46px 0 30px}
+  .seclabel h2{font-size:11px;font-weight:700;color:#9aa3b2;letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+  .seclabel .line{flex:1;height:1px;background:#1F2937}
+  .row{display:flex;flex-wrap:wrap;gap:0;align-items:flex-start}
+  .pw{display:inline-flex;flex-direction:column;align-items:center;gap:14px;margin:0 18px 44px}
+
+  /* phone frame — grows vertically to fit every option */
+  .pf{width:340px;min-height:736px;background:var(--dark);border-radius:42px;position:relative;overflow:hidden;
+      box-shadow:0 0 0 9px #1F2937,0 26px 70px rgba(0,0,0,.8);flex-shrink:0}
+  .ps{width:340px;min-height:736px;overflow:hidden;border-radius:42px;position:relative}
+  .scr{width:340px;min-height:736px;position:relative;overflow:hidden;background:var(--cream);display:flex;flex-direction:column}
+  .scr.dark{background:var(--dark)}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:118px;height:26px;background:#0a0a0a;border-radius:0 0 16px 16px;z-index:50}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:12px 22px 0;font-size:11px;font-weight:700}
+  .lbl{text-align:center;max-width:320px}
+  .lbl .name{color:#F3F4F6;font-size:13.5px;font-weight:700;margin-bottom:4px}
+  .lbl .desc{color:#6B7280;font-size:12px;line-height:1.5}
+
+  /* glow blobs */
+  .blob{position:absolute;border-radius:50%;filter:blur(2px);z-index:0}
+
+  /* buttons */
+  .btn{background:var(--coral);color:#fff;border-radius:50px;padding:14px;text-align:center;font-weight:700;font-size:14.5px;box-shadow:0 8px 20px rgba(232,101,74,.32)}
+  .btn.teal{background:var(--teal);box-shadow:0 8px 20px rgba(60,190,168,.32)}
+  .outline{border:1.5px solid var(--line);border-radius:50px;padding:12px;text-align:center;color:var(--muted);font-weight:600;font-size:14px;background:#fff}
+  .outline.dk{border-color:#3A4A5E;color:#fff;background:transparent}
+  .eyebrow{font-size:10px;font-weight:800;letter-spacing:1.2px}
+  .h2{font-size:26px;font-weight:800;color:var(--navy);line-height:1.15}
+  .sub{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .pill{display:inline-block;background:rgba(60,190,168,.16);border:1px solid rgba(60,190,168,.4);color:#2f9d8a;border-radius:50px;padding:2px 9px;font-size:9.5px;font-weight:800;letter-spacing:.5px;vertical-align:middle}
+
+  /* tags / chips */
+  .tag{background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:7px 12px;font-size:11px;font-weight:500;color:var(--muted);display:inline-flex;gap:5px;align-items:center;line-height:1.25}
+  .tag.on{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:700}
+  .tag.coral{background:var(--coral);border-color:var(--coral);color:#fff;font-weight:700}
+  .tag.teal{background:var(--teal);border-color:var(--teal);color:#fff;font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .card{background:#fff;border-radius:18px;padding:13px;box-shadow:0 3px 14px rgba(0,0,0,.07)}
+  .field{background:#fff;border:2px solid var(--line);border-radius:14px;padding:13px 15px;font-size:14px;color:var(--mut2)}
+  .field.on{border-color:var(--coral);color:var(--navy)}
+  .flbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:6px}
+
+  /* progress header */
+  .pg{display:flex;gap:4px}.pg i{width:13px;height:4px;border-radius:2px;background:var(--line)}.pg i.on{background:var(--coral)}
+  .step{font-size:11px;color:var(--mut2);font-weight:600}
+  .back{width:32px;height:32px;background:#E8E4DF;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--navy)}
+
+  /* toggle */
+  .toggle{width:42px;height:24px;border-radius:50px;position:relative;flex:none}
+  .toggle.on{background:var(--coral)}.toggle.off{background:#D9D2C6}
+  .toggle i{position:absolute;top:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .toggle.on i{right:2px}.toggle.off i{left:2px}
+  .row-bt{display:flex;align-items:center;justify-content:space-between;gap:10px}
+
+  /* preset cards */
+  .preset{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .preset .ic{font-size:22px}
+  .preset .pt{font-weight:700;font-size:13.5px;color:var(--navy)}
+  .preset .pd{font-size:10.5px;color:var(--mut2)}
+  .check{width:20px;height:20px;border-radius:50%;background:var(--coral);color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+
+  .note{background:rgba(60,190,168,.12);border:1px solid rgba(60,190,168,.4);border-radius:12px;padding:10px 12px;font-size:11.5px;color:var(--navy);display:flex;gap:8px;align-items:flex-start}
+  .pad{padding:40px 22px 28px;display:flex;flex-direction:column;flex:1}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:30px;color:#6B7280;font-size:13px}
+  .legend b{color:#cfd6e0}
+</style>
+</head>
+<body>
+
+<!-- Real HOnly logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="honly-light" viewBox="20 34 385 165">
+    <text x="30" y="162" font-family="'Space Grotesk'" font-size="128" font-weight="700" fill="#E8654A" letter-spacing="-3">H</text>
+    <path d="M150 62 H182 A28 28 0 0 1 210 90 V122 A28 28 0 0 1 182 150 H172 L132 190 L150 150 A28 28 0 0 1 122 122 V90 A28 28 0 0 1 150 62 Z" fill="#3CBEA8" stroke="#0f1722" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="146" cy="106" r="8.5" fill="#0f1722"/><circle cx="166" cy="106" r="8.5" fill="#0f1722"/><circle cx="186" cy="106" r="8.5" fill="#0f1722"/>
+    <text x="218" y="162" font-family="'Space Grotesk'" font-size="128" font-weight="700" fill="#FFFFFF" letter-spacing="-3">nly</text>
+    <circle cx="206" cy="66" r="25" fill="#FF2D2D" stroke="#0f1722" stroke-width="5"/>
+    <text x="206" y="78" text-anchor="middle" font-family="'Space Grotesk'" font-size="34" font-weight="700" fill="#FFFFFF">1</text>
+  </symbol>
+</svg>
+
+<div class="hd">
+  <h1><svg width="120" height="51"><use href="#honly-light"/></svg> Onboarding Flow v3 — streamlined</h1>
+  <p><b>Consolidated from 11 screens → 8 steps:</b> Merged Step 1 (Basics) + Step 8 (Lifestyle). Removed Step 4b (Custom matching — deferred to Discover). Trimmed Step 5 (Spirituality). Consolidated "Connection intent" + "Topics" into a unified step. All information preserved, flow more focused.</p>
+</div>
+
+<!-- ============ CREATE ACCOUNT ============ -->
+<div class="seclabel"><h2>🚀 Create Account</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- SIGN UP -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:24px"><div class="back">←</div><div class="pg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="step">Sign up</span></div>
+      <div class="eyebrow" style="color:var(--coral)">CREATE ACCOUNT</div>
+      <h2 class="h2" style="margin:6px 0">Sign up</h2>
+      <p class="sub" style="margin-bottom:22px">18+ only. We'll verify it's really you.</p>
+      <div style="margin-bottom:14px"><div class="flbl">Email</div><div class="field on row-bt"><span style="color:var(--navy)">alex@example.com</span><div style="width:18px;height:18px;background:var(--teal);border-radius:50%;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center">✓</div></div></div>
+      <div style="margin-bottom:14px"><div class="flbl">Password</div><div class="field row-bt"><span style="color:var(--navy);letter-spacing:3px">••••••••</span><span style="font-size:12px;color:var(--mut2)">Show</span></div></div>
+      <div style="margin-bottom:16px"><div class="flbl">Date of birth · must be 18+</div><div class="field">04 / 12 / 1998</div></div>
+      <div class="note" style="margin-bottom:20px">🔒 <span>18+ only · email verified</span></div>
+      <div class="btn">Continue</div>
+      <p style="text-align:center;font-size:11px;color:var(--mut2);margin-top:16px">By continuing you agree to our <span style="color:var(--coral)">Terms</span> &amp; <span style="color:var(--coral)">Privacy</span></p>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">Sign up</div><div class="desc">Email · password · 18+ gate</div></div></div>
+
+</div>
+
+<!-- ============ ONBOARDING ============ -->
+<div class="seclabel"><h2>👋 Onboarding — Steps 1 → 8 (streamlined)</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- STEP 1: ABOUT YOU (merged Basics + Lifestyle) -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="step">1/8</span></div>
+      <div class="eyebrow" style="color:var(--coral)">THE ESSENTIALS</div>
+      <h2 class="h2" style="margin:6px 0">👤 About you</h2>
+      <p class="sub" style="margin-bottom:18px">Name, vibe, and a bit about your life.</p>
+      <div style="margin-bottom:14px"><div class="flbl">Display name</div><div class="field on" style="color:var(--navy)">Alex</div></div>
+      <div style="display:flex;gap:10px;margin-bottom:14px"><div style="flex:1"><div class="flbl">Age</div><div class="field">27</div></div><div style="flex:1"><div class="flbl">Time zone</div><div class="field">UTC+1</div></div></div>
+      <div class="flbl">I am…</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Man</span><span class="tag">Woman</span><span class="tag on">Non-binary</span><span class="tag">Other</span><span class="tag">Prefer not to say</span></div>
+      <div class="flbl">Who you're open to connecting with · optional</div>
+      <p class="sub" style="margin-bottom:7px">No labels — just who you're open to talking to.</p>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Women</span><span class="tag">Men</span><span class="tag teal">Everyone</span><span class="tag">Prefer not to say</span></div>
+      <div style="margin-bottom:14px"><div class="flbl">City / Country</div><div class="field" style="color:var(--navy)">Berlin, Germany</div></div>
+      <div style="margin-bottom:14px"><div class="flbl">Short bio</div><div class="field">What's your vibe?</div></div>
+      <div class="flbl">Daily rhythm</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">☀️ Morning person</span><span class="tag on">🌙 Night owl</span><span class="tag">🌤️ Depends on the day</span></div>
+      <div class="flbl">Socially, I'm…</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Introvert</span><span class="tag">Extrovert</span><span class="tag teal">Ambivert</span></div>
+      <div class="flbl">My love language</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Words of affirmation</span><span class="tag">Quality time</span><span class="tag">Acts of service</span><span class="tag">Physical touch</span><span class="tag">Gifts</span></div>
+      <div class="flbl">Relationship status</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Single &amp; not looking</span><span class="tag teal">Single &amp; open</span><span class="tag">In a relationship</span><span class="tag">It's complicated</span><span class="tag">Prefer not to say</span></div>
+      <div class="flbl">Alcohol / substances</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag on">I don't drink or smoke</span><span class="tag">Occasionally social</span><span class="tag">Regularly</span><span class="tag">Prefer not to say</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">1 · About You</div><div class="desc">Basics (name, gender, city, bio) + Lifestyle (day/social/love lang/status/substances)</div></div></div>
+
+  <!-- STEP 2: INTERESTS & LANGUAGES -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="step">2/8</span></div>
+      <div class="eyebrow" style="color:var(--teal)">YOUR VIBE</div>
+      <h2 class="h2" style="margin:6px 0">🎯 What you're<br>into</h2>
+      <p class="sub" style="margin-bottom:18px">Better conversations start here.</p>
+      <div class="flbl">Interests (pick a few)</div>
+      <div class="tags" style="margin-bottom:16px">
+        <span class="tag on">Music</span><span class="tag on">Films</span><span class="tag">TV shows</span><span class="tag on">Books</span><span class="tag">Reels &amp; memes</span><span class="tag">Art</span><span class="tag">Photography</span><span class="tag">Gaming</span><span class="tag">Technology</span><span class="tag coral">AI</span><span class="tag">Science</span><span class="tag">Travel</span><span class="tag">Food &amp; cooking</span><span class="tag">Fitness</span><span class="tag">Nature &amp; hiking</span><span class="tag">Fashion</span><span class="tag">Writing</span><span class="tag">History</span><span class="tag on">Philosophy</span><span class="tag">Psychology</span><span class="tag">Business</span><span class="tag">Animals</span><span class="tag">Sports</span><span class="tag">Dance</span><span class="tag">Theatre</span><span class="tag">Volunteering</span>
+      </div>
+      <div class="flbl">Languages I talk in</div>
+      <div class="tags" style="margin-bottom:18px">
+        <span class="tag teal">English</span><span class="tag">Spanish</span><span class="tag">French</span><span class="tag teal">German</span><span class="tag">Russian</span><span class="tag">Ukrainian</span><span class="tag">Portuguese</span><span class="tag">Italian</span><span class="tag">Arabic</span><span class="tag">Hindi</span><span class="tag">Mandarin</span><span class="tag">Japanese</span><span class="tag">Korean</span><span class="tag">Turkish</span><span class="tag">Polish</span><span class="tag">Dutch</span>
+      </div>
+      <div class="note" style="margin-bottom:18px">✨ <span><b style="color:var(--teal)">More interests = better matches</b></span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">2 · Interests &amp; Languages</div><div class="desc">27 interests · 16 languages · foundation of matching</div></div></div>
+
+  <!-- STEP 3: LOCATION & VISIBILITY -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div><span class="step">3/8</span></div>
+      <div class="eyebrow" style="color:var(--coral)">PRIVACY FIRST</div>
+      <h2 class="h2" style="margin:6px 0">📍 Location &amp;<br>visibility</h2>
+      <p class="sub" style="margin-bottom:20px">Two separate choices — off until you opt in.</p>
+      <div class="flbl">Use my location?</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Off</span><span class="tag coral">Approximate (city)</span><span class="tag">Precise</span></div>
+      <div class="card row-bt" style="margin-bottom:16px"><div><div style="font-size:13px;font-weight:700;color:var(--navy)">Let others find me nearby</div><div style="font-size:10.5px;color:var(--mut2)">Browse nearby while staying hidden</div></div><div class="toggle off"><i></i></div></div>
+      <div class="flbl">Show distance on my card</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag coral">Hidden</span><span class="tag">Nearby / city</span><span class="tag">Approx distance</span></div>
+      <div class="note" style="margin-bottom:20px">🔒 <span>Discoverable &amp; distance OFF by default — your exact location is never shown.</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">3 · Location &amp; Visibility</div><div class="desc">Two privacy axes · off by default</div></div></div>
+
+  <!-- STEP 4: WHAT MATTERS -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i></div><span class="step">4/8</span></div>
+      <div class="eyebrow" style="color:var(--teal)">MATCHING</div>
+      <h2 class="h2" style="margin:6px 0">🎚️ What matters<br>to you?</h2>
+      <p class="sub" style="margin-bottom:18px">Pick a vibe. Customize later in Discover → Refine.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+        <div class="card preset"><div style="display:flex;gap:11px;align-items:center"><span class="ic">🏙️</span><div><div class="pt">Nearby &amp; social</div><div class="pd">Interests + proximity</div></div></div></div>
+        <div class="card preset" style="border:2px solid var(--coral);box-shadow:0 8px 20px rgba(232,101,74,.18)"><div style="display:flex;gap:11px;align-items:center"><span class="ic">💬</span><div><div class="pt">Deep conversations</div><div class="pd">Interests + deep talks</div></div></div><div class="check">✓</div></div>
+        <div class="card preset"><div style="display:flex;gap:11px;align-items:center"><span class="ic">🧠</span><div><div class="pt">Topic deep-dive</div><div class="pd">People who love the same topic</div></div></div></div>
+        <div class="card preset"><div style="display:flex;gap:11px;align-items:center"><span class="ic">😏</span><div><div class="pt">Open to flirt</div><div class="pd">Interests + mutual flirt</div></div></div></div>
+      </div>
+      <div class="note" style="margin-bottom:20px">🎯 <span>No Custom preset in onboarding — all matching settings live in Discover → Refine.</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">4 · What Matters</div><div class="desc">Match presets · no swiping · Custom deferred to app</div></div></div>
+
+  <!-- STEP 5: SPIRITUALITY (optional, trimmed) -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div><span class="step">5/8</span></div>
+      <div class="eyebrow" style="color:var(--teal)">INNER LIFE</div>
+      <h2 class="h2" style="margin:6px 0">✨ Spirituality <span class="pill">OPTIONAL</span></h2>
+      <p class="sub" style="margin-bottom:18px">Share as little or as much as feels right.</p>
+      <div class="flbl">Path / tradition</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Spiritual but not religious</span><span class="tag">Buddhist</span><span class="tag">Christian</span><span class="tag">Hindu</span><span class="tag">Muslim</span><span class="tag">Jewish</span><span class="tag">Mystical / esoteric</span><span class="tag">Energy work</span><span class="tag">Atheist but curious</span><span class="tag">Agnostic</span><span class="tag">Pagan / nature-based</span><span class="tag">Secular / no label</span><span class="tag">Still exploring</span></div>
+      <div class="flbl">Importance to you</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag">🌱 Low</span><span class="tag teal">🌿 Medium</span><span class="tag">🌳 High</span><span class="tag">🌟 Central</span></div>
+      <p class="sub" style="margin-bottom:14px;color:#999;font-size:10px">Practices, beliefs &amp; deeper topics can be added in your profile later.</p>
+      <div style="display:flex;gap:10px"><div class="outline" style="flex:1">Skip</div><div class="btn" style="flex:1">Continue</div></div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">5 · Spirituality</div><div class="desc">Optional · path + importance only (trimmed from original)</div></div></div>
+
+  <!-- STEP 6: CONVERSATION STYLE -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><span class="step">6/8</span></div>
+      <div class="eyebrow" style="color:var(--coral)">HOW YOU TALK</div>
+      <h2 class="h2" style="margin:6px 0">💬 Conversation<br>style</h2>
+      <p class="sub" style="margin-bottom:18px">Help us match your vibe.</p>
+      <div class="flbl">My style (up to 3)</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Playful &amp; witty</span><span class="tag teal">Thoughtful &amp; reflective</span><span class="tag">Intellectual &amp; analytical</span><span class="tag">Warm &amp; nurturing</span><span class="tag">Direct &amp; honest</span><span class="tag teal">Slow and deep</span><span class="tag">Poetic &amp; expressive</span><span class="tag">Curious &amp; questioning</span></div>
+      <div class="flbl">Texting frequency</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">A lot — I love long conversations</span><span class="tag teal">A few times a day</span><span class="tag">Sometimes, when inspired</span><span class="tag">Only when there's real connection</span></div>
+      <div class="flbl">Reply style</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Short, punchy messages</span><span class="tag on">Long, thoughtful messages</span><span class="tag">Voice-note style (but text)</span><span class="tag">Fast replies — I'm always around</span><span class="tag">Slow, deliberate replies</span></div>
+      <div class="flbl">⭐ Conversation prompts <span class="pill">OPTIONAL</span></div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag">Ask me about…</span><span class="tag">A hill I'll die on…</span><span class="tag">The last thing that made me laugh…</span><span class="tag">I could talk for hours about…</span><span class="tag">An unpopular opinion I hold…</span><span class="tag">A show, film or book everyone should try…</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">6 · Conversation Style</div><div class="desc">Style · texting frequency · reply · optional prompts</div></div></div>
+
+  <!-- STEP 7: INNER WORLD -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div><span class="step">7/8</span></div>
+      <div class="eyebrow" style="color:var(--teal)">WHO YOU ARE</div>
+      <h2 class="h2" style="margin:6px 0">🌿 Inner world</h2>
+      <p class="sub" style="margin-bottom:18px">What drives you and brings you peace.</p>
+      <div class="flbl">Values (up to 5)</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Honesty</span><span class="tag on">Kindness</span><span class="tag">Growth</span><span class="tag">Ambition</span><span class="tag">Loyalty</span><span class="tag">Freedom</span><span class="tag">Faith</span><span class="tag">Mindfulness</span><span class="tag on">Authenticity</span><span class="tag">Compassion</span><span class="tag">Courage</span><span class="tag">Simplicity</span><span class="tag on">Curiosity</span><span class="tag">Service to others</span></div>
+      <div class="flbl">What gives me peace</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Silence</span><span class="tag">Prayer / meditation</span><span class="tag teal">Ocean / water</span><span class="tag teal">Music</span><span class="tag teal">Nature</span><span class="tag">Movement / exercise</span><span class="tag">Deep conversation</span><span class="tag">Solitude</span><span class="tag">Creative work</span><span class="tag">Animals</span><span class="tag">Reading</span><span class="tag">Cooking</span></div>
+      <div class="flbl">People appreciate (up to 3)</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Calm energy</span><span class="tag">Humor</span><span class="tag on">Empathy</span><span class="tag">Curiosity</span><span class="tag">Wisdom</span><span class="tag">Honesty</span><span class="tag">Warmth</span><span class="tag on">Depth</span><span class="tag">Creativity</span><span class="tag">Reliability</span><span class="tag">Playfulness</span></div>
+      <div class="flbl">Working on (up to 3)</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag">Healing old wounds</span><span class="tag teal">Personal growth</span><span class="tag">Career &amp; purpose</span><span class="tag teal">Self-love</span><span class="tag">Discipline</span><span class="tag">Opening up emotionally</span><span class="tag">Finding my path</span><span class="tag">Letting go</span><span class="tag">Building something meaningful</span><span class="tag">Spiritual deepening</span></div>
+      <div class="btn">Continue</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">7 · Inner World</div><div class="desc">Values · peace · appreciated · working on</div></div></div>
+
+  <!-- STEP 8: TOPICS & BOUNDARIES (consolidated) -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div><div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div class="pad">
+      <div class="row-bt" style="margin-bottom:22px"><div class="back">←</div><div class="pg"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div><span class="step">8/8</span></div>
+      <div class="eyebrow" style="color:var(--teal)">SAFETY &amp; BOUNDARIES</div>
+      <h2 class="h2" style="margin:6px 0">🛡️ Topics &amp;<br>boundaries</h2>
+      <p class="sub" style="margin-bottom:18px">What you want to talk about &amp; your limits.</p>
+      <div class="flbl">Connection I want (up to 3)</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Friendship</span><span class="tag on">Deep talks</span><span class="tag">Light daily chat</span><span class="tag">Emotional support</span><span class="tag">Language practice</span><span class="tag">Playful banter</span></div>
+      <div class="flbl">Conversation topics I love</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag teal">Big philosophical questions</span><span class="tag">Everyday life &amp; feelings</span><span class="tag">Emotions &amp; inner world</span><span class="tag teal">Books &amp; ideas</span><span class="tag">Spirituality &amp; beliefs</span><span class="tag">Weird thoughts &amp; dreams</span><span class="tag">Humor &amp; absurdity</span><span class="tag">Creativity &amp; art</span></div>
+      <div class="flbl">Open to discussing</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Mental health</span><span class="tag on">Relationships &amp; love</span><span class="tag">Spirituality</span><span class="tag on">Trauma &amp; healing</span><span class="tag">Death &amp; grief</span><span class="tag">Money &amp; ambition</span><span class="tag">Family dynamics</span><span class="tag">Controversial ideas</span><span class="tag">Psychedelics</span><span class="tag">Religion</span></div>
+      <div class="flbl">Rather not discuss</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag teal">Sex &amp; intimacy details</span><span class="tag">Trauma details</span><span class="tag teal">Religion debates</span><span class="tag">Conspiracy theories</span><span class="tag">Negative gossip</span><span class="tag">Graphic content</span></div>
+      <div class="flbl">Flirting?</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Yes, if respectful</span><span class="tag">Light flirting is fine</span><span class="tag coral">No, keep it platonic</span><span class="tag">Depends on the person</span></div>
+      <div class="flbl">Deep conversations?</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag on">Yes — that's why I'm here</span><span class="tag">Sometimes, when I'm ready</span><span class="tag">I prefer lighter topics</span><span class="tag">Depends on the connection</span></div>
+      <div class="flbl">Political leaning · optional</div>
+      <div class="tags" style="margin-bottom:16px"><span class="tag">Progressive</span><span class="tag">Moderate</span><span class="tag">Conservative</span><span class="tag">Apolitical</span><span class="tag teal">Prefer not to say</span></div>
+      <div class="flbl">Profile visibility</div>
+      <div class="tags" style="margin-bottom:18px"><span class="tag on">👤 Real profile</span><span class="tag">🎭 Anonymous</span></div>
+      <div class="btn">Start exploring →</div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">8 · Topics &amp; Boundaries</div><div class="desc">Consolidated: intent + conversation topics + boundaries + politics + visibility</div></div></div>
+
+</div>
+
+<!-- ============ FINISH ============ -->
+<div class="seclabel"><h2>🎉 Finish</h2><div class="line"></div></div>
+<div class="row">
+
+  <!-- WELCOME CELEBRATION -->
+  <div class="pw"><div class="pf"><div class="ps"><div class="scr">
+    <div class="notch"></div>
+    <div class="blob" style="left:-50px;top:60px;width:200px;height:200px;background:rgba(60,190,168,.16)"></div>
+    <div class="blob" style="right:-50px;top:200px;width:200px;height:200px;background:rgba(232,101,74,.14)"></div>
+    <div class="sb" style="color:var(--navy)"><span>9:41</span><span>📶 🔋</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:0 36px;text-align:center;position:relative;z-index:2">
+      <div style="font-size:74px;margin-bottom:16px">🎉</div>
+      <div class="eyebrow" style="color:var(--teal);margin-bottom:8px">YOU'RE IN!</div>
+      <h2 style="font-size:28px;font-weight:800;color:var(--navy);margin-bottom:10px">Welcome to<br>HOnly, Alex!</h2>
+      <p class="sub" style="margin-bottom:26px">A community of real humans having real conversations.</p>
+      <div class="btn" style="width:100%;margin-bottom:9px">Start discovering people →</div>
+      <div class="outline" style="width:100%;margin-bottom:22px">Complete my profile first</div>
+      <div class="card" style="width:100%;text-align:left">
+        <div style="font-size:10px;font-weight:700;color:var(--mut2);letter-spacing:.8px;margin-bottom:10px">YOUR PROFILE</div>
+        <div style="display:flex;justify-content:space-around">
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--coral)">82%</div><div style="font-size:9.5px;color:var(--mut2)">Complete</div></div>
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--teal)">8</div><div style="font-size:9.5px;color:var(--mut2)">Interests</div></div>
+          <div style="text-align:center"><div style="font-size:19px;font-weight:800;color:var(--navy)">2</div><div style="font-size:9.5px;color:var(--mut2)">Prompts</div></div>
+        </div>
+      </div>
+    </div>
+  </div></div></div><div class="lbl"><div class="name">Welcome 🎉</div><div class="desc">Celebration · lands in curated Discover grid</div></div></div>
+
+</div>
+
+<div class="legend">
+  <span><b>Version 3 reduction:</b> 11 screens → 8 steps (Sign up + 1–8 + Welcome)</span>
+  <span><b>Key consolidations:</b> (1) Basics + Lifestyle merged → About You · (2) Intent moved from Step 2→Step 8 · (3) Topics unified in Step 8 · (4) Spirituality trimmed (path + importance only) · (5) Step 4b (Custom) deferred to Discover → Refine</span>
+  <span><b>Optional / skippable:</b> Spirituality · Politics · Conversation prompts</span>
+  <span><b>Privacy:</b> location off by default</span>
+  <span><b>Palette:</b> coral #E8654A · teal #3CBEA8 · navy #1B2532 · cream #F5EFE6</span>
+</div>
+
+</body>
+</html>
