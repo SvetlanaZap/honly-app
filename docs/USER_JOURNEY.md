@@ -20,14 +20,26 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 - **Does:** → `/onboarding`. ✅
 - **🚧 Planned:** real account (framework + REST API + PostgreSQL), email verification, **18+ age gate**, error states. Alt: **Sign in** (`/signin`).
 
-## 2. Onboarding — `/onboarding`
-Split into **Essentials** (to start) and **Deepen your profile** (optional, finish later) with a completion bar.
+## 2. Onboarding — `/onboarding` (v4: 11 streamlined steps)
 
-**Essentials:** Basics (+ pronouns, gender, who you're open to connecting with) · **Interests** *(new)* · **Languages** *(new)* · **Intent** *(new)* · **Location & visibility** (3 privacy settings, **Off by default / opt-in**) · **What matters to you** (match preset/custom).
-**Deepen (optional):** Conversation · **Conversation prompts** *(new)* · **Voice intro** *(new, optional)* · Inner world · **Spirituality (optional)** · **Politics (optional, simple leaning, "prefer not to say")** · Boundaries & safety (incl. *"never ask me to meet offline"*) · *(future)* Verification.
+**New structure (June 2026):**
+1. **About You** (merged Basics + Lifestyle) — name, @username, age, timezone, gender, open-to, city, bio, daily rhythm, social type, love language, relationship status, substances
+2. **Interests & Languages** — 27 interests, 16 languages (no "Why I'm here" duplication)
+3. **Location & Visibility** — location access, discoverable toggle, distance display (all Off by default)
+4. **What Matters** — 4 presets (Custom deferred to Discover → Refine)
+5. **Photos & Media** *(new)* — up to 6 photos, optional 30-sec video intro
+6. **Spirituality** *(trimmed & optional)* — path + importance only (practices/beliefs deferred to profile)
+7. **Conversation Style** — style (up to 3), texting frequency, reply style, optional conversation prompts
+8. **Inner World** — values, peace, appreciated, working on
+9. **Topics & Boundaries** *(consolidated)* — connection intent, conversation topics, open/avoid discussing, flirting, deep conversations, politics (optional), visibility
+10. **Safety & Community Guidelines** *(new)* — explicit guidelines + block/report tutorial + crisis resources link
+11. **Notifications** *(new)* — push/email preferences (matches, messages, tips, news)
 
-- **Today:** 6 steps saved to browser (`honly_profile`) → `/discover`. ✅
-- **🚧 Planned:** the new structure above; persist to backend; resume/partial save. See matching spec.
+Then → **Profile Preview** (see card before going live) → **Welcome + referral code**
+
+- **Today:** All 11 steps saved to browser (`honly_profile`) → `/discover`. ✅
+- **Features added:** SSO (Google/Apple) at signup, optional phone verification, @username, photo upload, safety acknowledgment, notification preferences, profile preview
+- **🚧 Planned:** persist to backend; resume/partial save; real photo/video upload; phone verification backend integration.
 
 ## 3. Profile — `/profile`
 - **Sees:** hero (avatar, name, age, location/hidden, bio), completion %, stats, sections. ✅ | **Conversation prompt cards** displayed on profile: 🚧 (section placeholder exists; prompt content & functionality not yet built)
