@@ -121,7 +121,10 @@ const VISIBILITY = ["👤 Real profile", "🎭 Anonymous"];
 // Step 11: Notifications (New in v4)
 // No constants needed — toggle switches
 
-const TOTAL_STEPS = 11;
+const DATA_STEPS = 11;        // steps with the progress bar (data entry)
+const PREVIEW_STEP = 12;      // profile preview
+const WELCOME_STEP = 13;      // celebration
+const TOTAL_STEPS = WELCOME_STEP;
 
 export default function Onboarding() {
   const [step, setStep] = useState(1);
@@ -237,8 +240,8 @@ export default function Onboarding() {
     if (step === 4 && !matchPreset) { toast.error("Choose a vibe"); return; }
     if (step === 10 && !safetyAgreed) { toast.error("Please acknowledge the safety guidelines"); return; }
 
-    if (step < TOTAL_STEPS) setStep(step + 1);
-    else {
+    // After the final data-entry step, persist the profile then show preview → welcome
+    if (step === DATA_STEPS) {
       const profile = {
         name, username, age, timezone, gender, openTo, city, bio,
         dayType, social, loveLang, relationship, substances,
@@ -255,9 +258,15 @@ export default function Onboarding() {
         prompts: Object.entries(promptAnswers).filter(([, a]) => a.trim()).map(([q, a]) => ({ q, a: a.trim() })),
       };
       localStorage.setItem("honly_profile", JSON.stringify(profile));
-      toast.success("Profile created! Let's find your people.");
-      navigate("/discover");
+      setStep(PREVIEW_STEP);
+      return;
     }
+
+    if (step < TOTAL_STEPS) { setStep(step + 1); return; }
+
+    // Welcome screen → into the app
+    toast.success("Profile created! Let's find your people.");
+    navigate("/discover");
   };
 
   const teal = "hsl(var(--teal))";
@@ -290,15 +299,17 @@ export default function Onboarding() {
           <img src={logoImg} alt="HOnly" className="h-10 w-auto object-contain" />
         </div>
 
-        {/* Progress Bar */}
-        <div className="flex gap-1.5 mb-10">
-          {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-            <div key={i} className="flex-1 h-1 rounded-full transition-all" style={{ backgroundColor: i < step ? coral : "hsl(var(--cream-dark))" }} />
-          ))}
-        </div>
+        {/* Progress Bar — data-entry steps only */}
+        {step <= DATA_STEPS && (
+          <div className="flex gap-1.5 mb-10">
+            {Array.from({ length: DATA_STEPS }).map((_, i) => (
+              <div key={i} className="flex-1 h-1 rounded-full transition-all" style={{ backgroundColor: i < step ? coral : "hsl(var(--cream-dark))" }} />
+            ))}
+          </div>
+        )}
 
-        {/* Step Header */}
-        {step !== TOTAL_STEPS && (
+        {/* Step Header — data-entry steps only */}
+        {step <= DATA_STEPS && (
           <div className="mb-8">
             <span className="text-5xl block mb-3">{stepInfo.emoji}</span>
             <h2 className="text-3xl font-bold text-navy mb-2 font-heading">{stepInfo.title}</h2>
@@ -389,33 +400,34 @@ export default function Onboarding() {
             )}
 
             {step === 3 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">📍</span><h2 className="text-3xl mb-1 font-heading text-navy">Location & visibility</h2><p className="text-slate-muted">Two separate choices — off until you opt in.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Use my location?</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Use my location?</p>
                   <Single options={LOCATION_ACCESS} value={locationAccess} onChange={setLocationAccess} />
                 </div>
                 {locationAccess !== "Off" && (
                   <>
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-navy">Let others find me nearby</p>
-                        <p className="text-xs text-slate-muted">Browse nearby while staying hidden.</p>
+                    <div className="border-t border-cream-dark pt-6">
+                      <div className="flex items-center justify-between gap-4 p-4 rounded-lg bg-white border border-cream-dark">
+                        <div>
+                          <p className="text-sm font-medium text-navy">Let others find me nearby</p>
+                          <p className="text-xs text-slate-muted">Browse nearby while staying hidden.</p>
+                        </div>
+                        <button type="button" onClick={() => setDiscoverable(!discoverable)}
+                          className="w-12 h-6 rounded-full relative transition-colors shrink-0 border-2 border-navy flex-shrink-0"
+                          style={{ backgroundColor: discoverable ? coral : "hsl(var(--cream-dark))" }}>
+                          <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
+                            style={{ left: discoverable ? "calc(100% - 18px)" : "2px" }} />
+                        </button>
                       </div>
-                      <button type="button" onClick={() => setDiscoverable(!discoverable)}
-                        className="w-12 h-6 rounded-full relative transition-colors shrink-0 border-2 border-navy"
-                        style={{ backgroundColor: discoverable ? coral : "hsl(var(--cream-dark))" }}>
-                        <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
-                          style={{ left: discoverable ? "calc(100% - 18px)" : "2px" }} />
-                      </button>
                     </div>
-                    <div>
-                      <p className="text-sm font-medium mb-2 text-navy">Show distance on my card</p>
+                    <div className="border-t border-cream-dark pt-6 space-y-3">
+                      <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Show distance on my card</p>
                       <Single options={DISTANCE_DISPLAY} value={distanceDisplay} onChange={setDistanceDisplay} color={teal} />
                     </div>
                   </>
                 )}
-                <div className="rounded-xl bg-cream border-l-4 border-teal px-4 py-3">
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3">
                   <p className="text-sm text-navy/80">🔒 Discoverable & distance OFF by default — your exact location is never shown.</p>
                 </div>
               </div>
@@ -423,24 +435,23 @@ export default function Onboarding() {
 
             {step === 4 && (
               <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">🎚️</span><h2 className="text-3xl mb-1 font-heading text-navy">What matters to you?</h2><p className="text-slate-muted">Pick a vibe. Customize later in Discover.</p></div>
                 <div className="grid grid-cols-1 gap-3">
                   {PRESETS.map(p => {
                     const active = matchPreset === p.key;
                     return (
                       <button key={p.key} type="button" onClick={() => setMatchPreset(p.key)}
-                        className="text-left rounded-2xl border-2 p-4 transition-all"
+                        className="text-left rounded-xl border-2 p-4 transition-all"
                         style={{
-                          borderColor: active ? coral : "hsl(var(--navy))",
-                          backgroundColor: active ? "hsl(var(--coral) / 0.08)" : "hsl(var(--card))",
-                          boxShadow: active ? "3px 3px 0 hsl(var(--navy))" : "none",
+                          borderColor: active ? coral : "hsl(var(--cream-dark))",
+                          backgroundColor: active ? "hsl(var(--coral) / 0.06)" : "hsl(var(--card))",
                         }}>
                         <div className="flex items-center gap-3">
-                          <span className="text-2xl">{p.emoji}</span>
+                          <span className="text-3xl">{p.emoji}</span>
                           <div>
-                            <p className="font-bold font-heading text-navy">{p.label}</p>
-                            <p className="text-sm text-slate-muted">{p.desc}</p>
+                            <p className="font-bold text-navy text-sm">{p.label}</p>
+                            <p className="text-xs text-slate-muted">{p.desc}</p>
                           </div>
+                          {active && <div className="ml-auto" style={{ color: coral }}>✓</div>}
                         </div>
                       </button>
                     );
@@ -451,70 +462,69 @@ export default function Onboarding() {
 
             {step === 5 && (
               <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">📸</span><h2 className="text-3xl mb-1 font-heading text-navy">Photos & media</h2><p className="text-slate-muted">You can add up to 6 pictures</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-3 text-navy">Upload photos (optional but recommended)</p>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="space-y-4">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Upload photos</p>
+                  <div className="grid grid-cols-2 gap-3">
                     {[1, 2, 3, 4].map(i => (
-                      <div key={i} className="aspect-square rounded-lg border-2 border-dashed border-navy/30 flex items-center justify-center text-3xl cursor-pointer hover:bg-cream transition-colors">
+                      <div key={i} className="aspect-square rounded-lg border-2 border-dashed border-cream-dark flex items-center justify-center text-3xl cursor-pointer hover:bg-cream transition-colors bg-white">
                         {i <= photoCount ? "📸" : "＋"}
                       </div>
                     ))}
                   </div>
-                  <p className="text-xs text-slate-muted mb-4">Current: {photoCount} of 6</p>
+                  <p className="text-xs text-slate-muted">{photoCount} of 6 photos</p>
                 </div>
-                <div>
-                  <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
-                    <input type="checkbox" checked={hasVideo} onChange={e => setHasVideo(e.target.checked)} />
+                <div className="border-t border-cream-dark pt-6">
+                  <label className="flex items-center gap-3 p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
+                    <input type="checkbox" checked={hasVideo} onChange={e => setHasVideo(e.target.checked)} className="w-5 h-5" />
                     <div>
-                      <p className="text-sm font-medium text-navy">Add a short video intro (optional)</p>
-                      <p className="text-xs text-slate-muted">30-sec intro · huge engagement boost</p>
+                      <p className="text-sm font-medium text-navy">Add a short video intro</p>
+                      <p className="text-xs text-slate-muted">30-sec video · engagement boost</p>
                     </div>
                   </label>
                 </div>
-                <div className="rounded-xl bg-cream border-l-4 border-teal px-4 py-3">
-                  <p className="text-sm text-navy/80">📷 <b>First picture = profile card</b>. Show your face or avatar so matches know who you are.</p>
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3">
+                  <p className="text-sm text-navy/80">📷 <b>First picture = profile card</b>. Show your face or avatar.</p>
                 </div>
               </div>
             )}
 
             {step === 6 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">✨</span><h2 className="text-3xl mb-1 font-heading text-navy">Spirituality <span className="text-slate-muted text-lg font-body">· optional</span></h2><p className="text-slate-muted">Share as little or as much as feels right.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Path / tradition</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Path / tradition</p>
                   <Single options={SPIRITUAL_PATHS} value={spiritualPath} onChange={setSpiritualPath} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Importance to you</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Importance to you</p>
                   <Single options={SPIRIT_IMPORTANCE} value={spiritImportance} onChange={setSpiritImportance} color={teal} />
+                </div>
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3 text-sm text-navy/80">
+                  Practices & deeper topics can be added in your profile later.
                 </div>
               </div>
             )}
 
             {step === 7 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">💬</span><h2 className="text-3xl mb-1 font-heading text-navy">Conversation style</h2><p className="text-slate-muted">Help us match your vibe.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">My style (up to 3)</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">My style (up to 3)</p>
                   <ChipGroup options={CONVO_STYLES} selected={convoStyle} onToggle={v => toggle(convoStyle, setConvoStyle, v)} max={3} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Texting frequency</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Texting frequency</p>
                   <Single options={TEXT_FREQUENCY} value={textFreq} onChange={setTextFreq} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Reply style</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Reply style</p>
                   <Single options={REPLY_STYLE} value={replyStyle} onChange={setReplyStyle} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-1 text-navy">Conversation prompts <span className="text-slate-muted font-normal">· optional</span></p>
-                  <p className="text-xs text-slate-muted mb-3">Give people an easy way to break the ice.</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Conversation prompts · optional</p>
                   <div className="flex flex-col gap-3">
                     {PROMPT_LIBRARY.map(q => (
                       <div key={q}>
-                        <label className="block text-xs font-semibold text-teal mb-1">{q}</label>
-                        <input className="honly-input" placeholder="Your answer…" maxLength={120}
+                        <label className="block text-xs font-semibold text-teal mb-1.5">{q}</label>
+                        <input className="honly-input w-full" placeholder="Your answer…" maxLength={120}
                           value={promptAnswers[q] || ""}
                           onChange={e => setPromptAnswers(prev => ({ ...prev, [q]: e.target.value }))} />
                       </div>
@@ -525,60 +535,58 @@ export default function Onboarding() {
             )}
 
             {step === 8 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">🌿</span><h2 className="text-3xl mb-1 font-heading text-navy">Inner world</h2><p className="text-slate-muted">What drives you and brings you peace.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Values (up to 5)</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Values (up to 5)</p>
                   <ChipGroup options={VALUES} selected={values} onToggle={v => toggle(values, setValues, v)} max={5} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">What gives me peace</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">What gives me peace</p>
                   <ChipGroup options={PEACE} selected={peace} onToggle={v => toggle(peace, setPeace, v)} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">What people appreciate (up to 3)</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">What people appreciate (up to 3)</p>
                   <ChipGroup options={APPRECIATED} selected={appreciated} onToggle={v => toggle(appreciated, setAppreciated, v)} max={3} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Working on (up to 3)</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Working on (up to 3)</p>
                   <ChipGroup options={WORKING_ON} selected={workingOn} onToggle={v => toggle(workingOn, setWorkingOn, v)} max={3} color={teal} />
                 </div>
               </div>
             )}
 
             {step === 9 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">🛡️</span><h2 className="text-3xl mb-1 font-heading text-navy">Topics & boundaries</h2><p className="text-slate-muted">What you want to talk about & your limits.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Connection I want (up to 3)</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Connection I want (up to 3)</p>
                   <ChipGroup options={CONNECTION_INTENT} selected={connectionIntent} onToggle={v => toggle(connectionIntent, setConnectionIntent, v)} max={3} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Conversation topics I love</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Conversation topics I love</p>
                   <ChipGroup options={CONVO_TOPICS} selected={convoTopics} onToggle={v => toggle(convoTopics, setConvoTopics, v)} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Open to discussing</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Open to discussing</p>
                   <ChipGroup options={OPEN_TOPICS} selected={openTopics} onToggle={v => toggle(openTopics, setOpenTopics, v)} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Rather not discuss</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Rather not discuss</p>
                   <ChipGroup options={AVOID_TOPICS} selected={avoidTopics} onToggle={v => toggle(avoidTopics, setAvoidTopics, v)} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Flirting?</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Flirting?</p>
                   <Single options={FLIRTING} value={flirting} onChange={setFlirting} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Deep conversations?</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Deep conversations?</p>
                   <Single options={DEEP_CONVOS} value={deepConvos} onChange={setDeepConvos} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-1 text-navy">Political leaning <span className="text-slate-muted font-normal">· optional</span></p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Political leaning · optional</p>
                   <Single options={POLITICS} value={politics} onChange={setPolitics} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Profile visibility</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Profile visibility</p>
                   <Single options={VISIBILITY} value={visibility} onChange={setVisibility} />
                 </div>
               </div>
@@ -586,79 +594,145 @@ export default function Onboarding() {
 
             {step === 10 && (
               <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">🛡️</span><h2 className="text-3xl mb-1 font-heading text-navy">Community guidelines</h2><p className="text-slate-muted">We keep HOnly safe for real people.</p></div>
-                <div className="rounded-lg border-l-4 border-coral bg-white p-4 mb-2">
-                  <div className="font-bold text-navy mb-2">🚫 Never share personal info</div>
-                  <p className="text-sm text-slate-muted">No phone, address, financial info until you really trust someone.</p>
+                <div className="rounded-lg border-l-4 border-coral bg-white p-4">
+                  <div className="font-bold text-navy mb-2 text-sm">🚫 Never share personal info</div>
+                  <p className="text-xs text-slate-muted leading-relaxed">No phone, address, financial info until you really trust someone.</p>
                 </div>
-                <div className="rounded-lg border-l-4 border-teal bg-white p-4 mb-2">
-                  <div className="font-bold text-navy mb-2">🛑 Block & report instantly</div>
-                  <p className="text-sm text-slate-muted">See someone inappropriate? Tap the menu to block or report.</p>
+                <div className="rounded-lg border-l-4 border-teal bg-white p-4">
+                  <div className="font-bold text-navy mb-2 text-sm">🛑 Block & report instantly</div>
+                  <p className="text-xs text-slate-muted leading-relaxed">See someone inappropriate? Tap the menu to block or report.</p>
                 </div>
-                <div className="rounded-lg border-l-4 border-coral bg-white p-4 mb-4">
-                  <div className="font-bold text-navy mb-2">💭 Struggling with your mental health?</div>
-                  <p className="text-sm text-slate-muted">Text HOME to 741741 · <span className="font-bold text-coral">Crisis Text Line</span> (free, 24/7, confidential)</p>
+                <div className="rounded-lg border-l-4 border-coral bg-white p-4">
+                  <div className="font-bold text-navy mb-2 text-sm">💭 Mental health support</div>
+                  <p className="text-xs text-slate-muted leading-relaxed">Text HOME to 741741 · <span className="font-bold text-coral">Crisis Text Line</span> (free, 24/7, confidential)</p>
                 </div>
-                <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
-                  <input type="checkbox" checked={safetyAgreed} onChange={e => setSafetyAgreed(e.target.checked)} className="w-5 h-5" />
-                  <p className="text-sm text-navy">I understand & agree to keep this space safe and real</p>
+                <label className="flex items-center gap-3 p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
+                  <input type="checkbox" checked={safetyAgreed} onChange={e => setSafetyAgreed(e.target.checked)} className="w-5 h-5 accent-coral" />
+                  <p className="text-sm text-navy font-medium">I understand & agree to keep this space safe and real</p>
                 </label>
               </div>
             )}
 
             {step === 11 && (
-              <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">🔔</span><h2 className="text-3xl mb-1 font-heading text-navy">Notifications</h2><p className="text-slate-muted">Control how we reach you.</p></div>
-                <label className="flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
+              <div className="flex flex-col gap-4">
+                <label className="flex items-center justify-between p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
                   <div>
                     <p className="text-sm font-medium text-navy">New matches</p>
                     <p className="text-xs text-slate-muted">When someone matches your vibe</p>
                   </div>
                   <button type="button" onClick={() => setNotifMatches(!notifMatches)}
-                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy"
+                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy flex-shrink-0"
                     style={{ backgroundColor: notifMatches ? coral : "hsl(var(--cream-dark))" }}>
                     <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
                       style={{ left: notifMatches ? "calc(100% - 18px)" : "2px" }} />
                   </button>
                 </label>
-                <label className="flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
+                <label className="flex items-center justify-between p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
                   <div>
                     <p className="text-sm font-medium text-navy">Messages</p>
                     <p className="text-xs text-slate-muted">New chats & replies</p>
                   </div>
                   <button type="button" onClick={() => setNotifMessages(!notifMessages)}
-                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy"
+                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy flex-shrink-0"
                     style={{ backgroundColor: notifMessages ? coral : "hsl(var(--cream-dark))" }}>
                     <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
                       style={{ left: notifMessages ? "calc(100% - 18px)" : "2px" }} />
                   </button>
                 </label>
-                <label className="flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
+                <label className="flex items-center justify-between p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
                   <div>
                     <p className="text-sm font-medium text-navy">Profile tips</p>
                     <p className="text-xs text-slate-muted">Help completing your profile</p>
                   </div>
                   <button type="button" onClick={() => setNotifTips(!notifTips)}
-                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy"
+                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy flex-shrink-0"
                     style={{ backgroundColor: notifTips ? coral : "hsl(var(--cream-dark))" }}>
                     <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
                       style={{ left: notifTips ? "calc(100% - 18px)" : "2px" }} />
                   </button>
                 </label>
-                <label className="flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-cream transition-colors">
+                <label className="flex items-center justify-between p-4 border border-cream-dark rounded-lg cursor-pointer hover:bg-cream transition-colors bg-white">
                   <div>
                     <p className="text-sm font-medium text-navy">News & events</p>
                     <p className="text-xs text-slate-muted">New features & community events</p>
                   </div>
                   <button type="button" onClick={() => setNotifNews(!notifNews)}
-                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy"
+                    className="w-12 h-6 rounded-full relative transition-colors border-2 border-navy flex-shrink-0"
                     style={{ backgroundColor: notifNews ? coral : "hsl(var(--cream-dark))" }}>
                     <div className="w-4 h-4 rounded-full absolute top-0.5 transition-all bg-card border border-navy"
                       style={{ left: notifNews ? "calc(100% - 18px)" : "2px" }} />
                   </button>
                 </label>
-                <div className="rounded-xl bg-cream border-l-4 border-teal px-4 py-3">
-                  <p className="text-sm text-navy/80">⚙️ You can change these anytime in Settings → Notifications.</p>
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3 text-sm text-navy/80 mt-2">
+                  ⚙️ Change these anytime in Settings → Notifications.
+                </div>
+              </div>
+            )}
+
+            {/* ===== PROFILE PREVIEW ===== */}
+            {step === PREVIEW_STEP && (
+              <div className="flex flex-col gap-6">
+                <div className="text-center">
+                  <span className="text-5xl block mb-3">👀</span>
+                  <h2 className="text-3xl font-bold text-navy mb-2 font-heading">Your profile</h2>
+                  <p className="text-slate-muted text-sm">This is what others see. You can edit anything anytime.</p>
+                </div>
+
+                {/* Profile card preview */}
+                <div className="rounded-2xl overflow-hidden border-2 border-navy bg-white" style={{ boxShadow: "4px 4px 0 hsl(var(--navy))" }}>
+                  <div className="h-28 relative flex items-end justify-center" style={{ background: "linear-gradient(135deg, hsl(var(--coral)), #f08a72)" }}>
+                    <span className="absolute top-2 left-2 bg-white rounded-full px-2.5 py-1 text-xs font-extrabold text-navy">85%</span>
+                    <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 rounded-full border-2 border-white" style={{ backgroundColor: "hsl(var(--green, 142 60% 49%))", background: "#3BBF6E" }} />
+                    <svg width="54" height="48" viewBox="0 0 100 100"><circle cx="50" cy="30" r="19" fill="#fff" opacity=".9"/><path d="M16 100 Q16 62 50 62 Q84 62 84 100Z" fill="#fff" opacity=".9"/></svg>
+                  </div>
+                  <div className="p-4">
+                    <div className="font-bold text-navy">{name || "Your name"}{age ? `, ${age}` : ""}</div>
+                    <div className="text-xs text-slate-muted mb-3">🏙️ {city || "Your city"}{username ? ` · ${username.startsWith("@") ? username : "@" + username}` : ""}</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {interests.slice(0, 3).map(i => (
+                        <span key={i} className="rounded-full px-2.5 py-1 text-xs font-semibold text-navy" style={{ background: "hsl(var(--teal) / 0.13)", border: "1px solid hsl(var(--teal) / 0.45)" }}>{i}</span>
+                      ))}
+                      {interests.length === 0 && <span className="text-xs text-slate-muted">Add interests to stand out</span>}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="rounded-xl border border-cream-dark bg-white p-3 text-center">
+                    <div className="text-lg font-extrabold text-coral">{photoCount}</div>
+                    <div className="text-[10px] text-slate-muted uppercase tracking-wide">Photos</div>
+                  </div>
+                  <div className="rounded-xl border border-cream-dark bg-white p-3 text-center">
+                    <div className="text-lg font-extrabold text-teal">{interests.length}</div>
+                    <div className="text-[10px] text-slate-muted uppercase tracking-wide">Interests</div>
+                  </div>
+                  <div className="rounded-xl border border-cream-dark bg-white p-3 text-center">
+                    <div className="text-lg font-extrabold text-navy">85%</div>
+                    <div className="text-[10px] text-slate-muted uppercase tracking-wide">Complete</div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3 text-sm text-navy/80">
+                  💡 This is what others see when they visit your profile.
+                </div>
+              </div>
+            )}
+
+            {/* ===== WELCOME CELEBRATION ===== */}
+            {step === WELCOME_STEP && (
+              <div className="flex flex-col items-center text-center gap-4 py-6">
+                <div className="text-7xl mb-2">🎉</div>
+                <p className="text-xs font-semibold text-teal uppercase tracking-widest">You're in!</p>
+                <h2 className="text-3xl font-bold text-navy font-heading">Welcome to HOnly{name ? `, ${name}` : ""}!</h2>
+                <p className="text-slate-muted text-sm max-w-xs">A community of real humans having real conversations.</p>
+
+                <div className="w-full mt-4 rounded-xl border-2 border-navy bg-cream p-5">
+                  <p className="text-[11px] font-bold text-slate-muted uppercase tracking-widest mb-2">Your referral code</p>
+                  <div className="font-mono text-lg font-bold text-navy bg-white rounded-lg py-2 px-4 inline-block border border-cream-dark">
+                    {(username ? username.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6) : "HONLY") + "2026"}
+                  </div>
+                  <p className="text-xs text-slate-muted mt-3">Invite a friend — real connections grow the community.</p>
                 </div>
               </div>
             )}
@@ -668,13 +742,14 @@ export default function Onboarding() {
 
         {/* Navigation */}
         <div className="flex justify-between mt-10">
-          {step > 1 ? (
+          {step > 1 && step <= DATA_STEPS ? (
             <button onClick={() => setStep(step - 1)} className="honly-btn-outline flex items-center gap-2 text-sm px-6 py-2.5">
               <ArrowLeft size={14} /> Back
             </button>
           ) : <div />}
           <button onClick={next} className="honly-btn-primary flex items-center gap-2 text-sm px-6 py-2.5">
-            {step === TOTAL_STEPS ? "Start exploring" : "Continue"} <ArrowRight size={14} />
+            {step === PREVIEW_STEP ? "Looks good →" : step === WELCOME_STEP ? "Start discovering people →" : "Continue"}
+            {step < PREVIEW_STEP && <ArrowRight size={14} />}
           </button>
         </div>
       </div>

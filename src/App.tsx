@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Landing from "./pages/Landing";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import VerifyPhone from "./pages/VerifyPhone";
 import Onboarding from "./pages/Onboarding";
 import Discover from "./pages/Discover";
 import ProfileView from "./pages/ProfileView";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/verify-phone" element={<VerifyPhone />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/discover" element={<Discover />} />
           <Route path="/profile" element={<MyProfile />} />

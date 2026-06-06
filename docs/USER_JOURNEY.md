@@ -16,9 +16,14 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 - **Does:** → `/signup`, `/signin`, or `/how-it-works`. ✅
 
 ## 1. Signup — `/signup`
-- **Sees:** name, email, password, date of birth, Terms checkbox, **Create account**. ✅
-- **Does:** → `/onboarding`. ✅
-- **🚧 Planned:** real account (framework + REST API + PostgreSQL), email verification, **18+ age gate**, error states. Alt: **Sign in** (`/signin`).
+- **Sees:** **Social sign-on** (Continue with Google / Continue with Apple) ✅, divider, then name, email, password, date of birth, Terms checkbox, **Create account**. ✅
+- **Does:** → `/verify-phone`. ✅
+- **🚧 Planned:** real account (framework + REST API + PostgreSQL), real OAuth providers, email verification, **18+ age gate**, error states. Alt: **Sign in** (`/signin`).
+
+## 1b. Phone verification — `/verify-phone` *(new)*
+- **Sees:** phone number field, "Send code" → 6-digit code field, "Verify", **Skip for now**. ✅
+- **Does:** → `/onboarding` (whether verified or skipped). ✅
+- **Why:** optional SMS trust signal, matching Yubo/Wizz. 🚧 Planned: real SMS provider integration.
 
 ## 2. Onboarding — `/onboarding` (v4: 11 streamlined steps)
 
@@ -35,9 +40,9 @@ Legend: **✅ Built today** (front-end prototype) · **🚧 Planned** (needs bac
 10. **Safety & Community Guidelines** *(new)* — explicit guidelines + block/report tutorial + crisis resources link
 11. **Notifications** *(new)* — push/email preferences (matches, messages, tips, news)
 
-Then → **Profile Preview** (see card before going live) → **Welcome + referral code**
+Then → **Profile Preview** (step 12 — see your card before going live, with photo/interest/completion stats) → **Welcome celebration** (step 13 — "You're in!" + auto-generated referral code) → `/discover`. ✅
 
-- **Today:** All 11 steps saved to browser (`honly_profile`) → `/discover`. ✅
+- **Today:** All 11 steps saved to browser (`honly_profile`); preview + welcome render in-flow before entering the app. ✅
 - **Features added:** SSO (Google/Apple) at signup, optional phone verification, @username, photo upload, safety acknowledgment, notification preferences, profile preview
 - **🚧 Planned:** persist to backend; resume/partial save; real photo/video upload; phone verification backend integration.
 
@@ -99,7 +104,8 @@ Primary action is **View Profile** — learn more, not judge. CTAs are chosen to
 
 ## Journey at a glance
 ```
-Landing → Signup [🚧 18+] → Onboarding (Essentials + Deepen)
+Landing → Signup [✅ SSO · 🚧 18+] → Phone verify [✅ optional/skip]
+  → Onboarding (11 steps → Preview → Welcome + referral)
   → Profile [✅ 6 photos · ✅ profile shell · 🚧 conversation prompts]
      → Discover [no swiping; 🚧 match score + reasons]
         → View profile → Chat [✅ media/voice/reply/receipts/typing]
