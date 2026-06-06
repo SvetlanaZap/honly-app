@@ -263,96 +263,127 @@ export default function Onboarding() {
   const teal = "hsl(var(--teal))";
   const coral = "hsl(var(--coral))";
 
+  const getStepLabel = () => {
+    switch(step) {
+      case 1: return { emoji: "👤", title: "About you", desc: "Name, vibe, and how to find you." };
+      case 2: return { emoji: "🎯", title: "What you're into", desc: "Better conversations start here." };
+      case 3: return { emoji: "📍", title: "Location & visibility", desc: "Two separate choices — off until you opt in." };
+      case 4: return { emoji: "🎚️", title: "What matters to you?", desc: "Pick a vibe. Customize later in Discover." };
+      case 5: return { emoji: "📸", title: "Photos & media", desc: "You can add up to 6 pictures." };
+      case 6: return { emoji: "✨", title: "Spirituality", desc: "Share as little or as much as feels right." };
+      case 7: return { emoji: "💬", title: "Conversation style", desc: "Help us match your vibe." };
+      case 8: return { emoji: "🌿", title: "Inner world", desc: "What drives you and brings you peace." };
+      case 9: return { emoji: "🛡️", title: "Topics & boundaries", desc: "What you want to talk about & your limits." };
+      case 10: return { emoji: "🛡️", title: "Community guidelines", desc: "We keep HOnly safe for real people." };
+      case 11: return { emoji: "🔔", title: "Notifications", desc: "Control how we reach you." };
+      default: return { emoji: "👋", title: "Welcome", desc: "" };
+    }
+  };
+
+  const stepInfo = getStepLabel();
+
   return (
     <div className="min-h-screen bg-background font-body flex flex-col items-center p-6 py-10">
       <div className="w-full max-w-lg">
         {/* Logo */}
-        <div className="flex items-center justify-center mb-6">
-          <img src={logoImg} alt="HOnly" className="h-11 w-auto object-contain" />
+        <div className="flex items-center justify-center mb-8">
+          <img src={logoImg} alt="HOnly" className="h-10 w-auto object-contain" />
         </div>
 
-        {/* Progress */}
-        <div className="flex gap-2 mb-8">
+        {/* Progress Bar */}
+        <div className="flex gap-1.5 mb-10">
           {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-            <div key={i} className="flex-1 h-1.5 rounded-full transition-all" style={{ backgroundColor: i < step ? coral : "hsl(var(--cream-dark))" }} />
+            <div key={i} className="flex-1 h-1 rounded-full transition-all" style={{ backgroundColor: i < step ? coral : "hsl(var(--cream-dark))" }} />
           ))}
         </div>
+
+        {/* Step Header */}
+        {step !== TOTAL_STEPS && (
+          <div className="mb-8">
+            <span className="text-5xl block mb-3">{stepInfo.emoji}</span>
+            <h2 className="text-3xl font-bold text-navy mb-2 font-heading">{stepInfo.title}</h2>
+            <p className="text-slate-muted text-sm leading-relaxed">{stepInfo.desc}</p>
+          </div>
+        )}
 
         <AnimatePresence mode="wait">
           <motion.div key={step} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.25 }}>
 
             {step === 1 && (
               <div className="flex flex-col gap-6">
-                <div><span className="text-4xl mb-3 block">👤</span><h2 className="text-3xl mb-1 font-heading text-navy">About you</h2><p className="text-slate-muted">Name, vibe, and how to find you.</p></div>
-                <div>
-                  <label className="block text-sm font-medium mb-1.5 text-navy">Display name</label>
-                  <input className="honly-input" placeholder="How should people call you?" value={name} onChange={e => setName(e.target.value)} />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1.5 text-navy">@username · unique & searchable</label>
-                  <input className="honly-input" placeholder="@alex_curious" value={username} onChange={e => setUsername(e.target.value)} />
-                  {username && <p className="text-xs text-teal mt-1">Available</p>}
-                </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1.5 text-navy">Age</label>
-                    <input type="number" min={18} max={99} className="honly-input" placeholder="18–99" value={age} onChange={e => setAge(e.target.value)} />
+                    <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">Display name</label>
+                    <input className="honly-input w-full" placeholder="How should people call you?" value={name} onChange={e => setName(e.target.value)} />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1.5 text-navy">Time zone</label>
-                    <input className="honly-input" placeholder="e.g. UTC+3" value={timezone} onChange={e => setTimezone(e.target.value)} />
+                    <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">@username · unique & searchable</label>
+                    <input className="honly-input w-full" placeholder="@alex_curious" value={username} onChange={e => setUsername(e.target.value)} />
+                    {username && <p className="text-xs text-teal mt-1.5 font-medium">✓ Available</p>}
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">Age</label>
+                      <input type="number" min={18} max={99} className="honly-input w-full" placeholder="18–99" value={age} onChange={e => setAge(e.target.value)} />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">Time zone</label>
+                      <input className="honly-input w-full" placeholder="UTC+1" value={timezone} onChange={e => setTimezone(e.target.value)} />
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2 text-navy">I am…</label>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">I am…</p>
                   <Single options={GENDERS} value={gender} onChange={setGender} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Who you're open to connecting with</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Who you're open to connecting with</p>
                   <Single options={OPEN_TO} value={openTo} onChange={setOpenTo} color={teal} />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1.5 text-navy">City / Country</label>
-                  <input className="honly-input" placeholder='e.g. "Berlin, Germany"' value={city} onChange={e => setCity(e.target.value)} />
+                <div className="border-t border-cream-dark pt-6">
+                  <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">City / Country</label>
+                  <input className="honly-input w-full" placeholder='e.g. "Berlin, Germany"' value={city} onChange={e => setCity(e.target.value)} />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1.5 text-navy">Bio / What brings you here</label>
-                  <textarea maxLength={200} className="honly-input min-h-[100px] resize-none" placeholder="What's your vibe?" value={bio} onChange={e => setBio(e.target.value)} />
-                  <p className="text-xs text-slate-muted mt-1">{bio.length}/200</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <label className="block text-xs font-semibold text-slate-muted mb-2 uppercase tracking-widest">Bio / What brings you here</label>
+                  <textarea maxLength={200} className="honly-input w-full min-h-[100px] resize-none" placeholder="What's your vibe?" value={bio} onChange={e => setBio(e.target.value)} />
+                  <p className="text-xs text-slate-muted mt-1.5">{bio.length}/200</p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Daily rhythm</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Daily rhythm</p>
                   <Single options={DAY_TYPE} value={dayType} onChange={setDayType} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Socially, I'm…</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Socially, I'm…</p>
                   <Single options={SOCIAL} value={social} onChange={setSocial} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">My love language</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">My love language</p>
                   <Single options={LOVE_LANG} value={loveLang} onChange={setLoveLang} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Relationship status</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Relationship status</p>
                   <Single options={RELATIONSHIP} value={relationship} onChange={setRelationship} color={teal} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Alcohol / substances</p>
+                <div className="border-t border-cream-dark pt-6">
+                  <p className="text-xs font-semibold text-slate-muted mb-3 uppercase tracking-widest">Alcohol / substances</p>
                   <Single options={SUBSTANCES} value={substances} onChange={setSubstances} />
                 </div>
               </div>
             )}
 
             {step === 2 && (
-              <div className="flex flex-col gap-8">
-                <div><span className="text-4xl mb-3 block">🎯</span><h2 className="text-3xl mb-1 font-heading text-navy">What you're into</h2><p className="text-slate-muted">Better conversations start here.</p></div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Interests (pick a few)</p>
+              <div className="flex flex-col gap-6">
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Interests (pick a few)</p>
                   <ChipGroup options={INTERESTS} selected={interests} onToggle={v => toggle(interests, setInterests, v)} />
                 </div>
-                <div>
-                  <p className="text-sm font-medium mb-2 text-navy">Languages I talk in</p>
+                <div className="border-t border-cream-dark pt-6 space-y-3">
+                  <p className="text-xs font-semibold text-slate-muted uppercase tracking-widest">Languages I talk in</p>
                   <ChipGroup options={LANGUAGES} selected={languages} onToggle={v => toggle(languages, setLanguages, v)} color={teal} />
+                </div>
+                <div className="rounded-lg bg-cream border-l-4 border-teal px-4 py-3">
+                  <p className="text-sm text-navy/80">✨ More interests = better matches</p>
                 </div>
               </div>
             )}
